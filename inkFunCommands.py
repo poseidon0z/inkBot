@@ -45,7 +45,7 @@ async def iq(context):
         elif personIq >= 40:
             personEmoji = '<:dumbfuck:838730636175998976>'
         
-        iqEmbed = discord.Embed(title=f"""{context.message.mentions[0].name}'s iq:""",description=f"""<@{context.message.mentions[0].id}> has an iq of {str(personIq)} {personEmoji}""",color= 0xabcdef)
+        iqEmbed = discord.Embed(title=f"""{context.message.mentions[0].name}'s iq:""",description=f"""{context.message.mentions[0].mention} has an iq of {str(personIq)} {personEmoji}""",color= 0xabcdef)
         await context.message.channel.send(embed= iqEmbed)
     except IndexError:
         await context.message.channel.send('Oi nub you forgot to mention someone! <a:PI_Angry:838736380674572328>')

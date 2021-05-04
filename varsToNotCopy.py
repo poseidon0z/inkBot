@@ -1,0 +1,3 @@
+token = 'ODM5MDUyNTM5Mzk1NDQwNzEw.YJECkg._ZFMBhlOzRncu73SCBujxV4wFQY'
+alertChannel_id = 838693642209853441
+failChannel_id = 839103543172268092

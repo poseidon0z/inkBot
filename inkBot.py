@@ -5,7 +5,7 @@ import random
 import inkFunCommands
 import time
 import inkServerManageCommands
-import token
+import varsToNotCopy
 
 # Client (my bot)
 client = commands.Bot(command_prefix = ['ink ', 'ink'])
@@ -140,7 +140,6 @@ async def info(context, target : discord.Member):
 #1. hi ink trigger
 #adi ar
 #Scammer Autoban
-#NQN features(WIP)
 @client.event
 async def on_message(message):
     if 'hi ink' == message.content.lower():
@@ -152,15 +151,20 @@ async def on_message(message):
     elif 'adi' in message.content.lower():
         await message.add_reaction('<:hmm:839059852554666024>')
 
-    elif message.channel.id == 838693642209853441:
-        print(message.content)
-        if 'id: ' == message.content.lower()[0:4]:
+    elif message.channel.id == varsToNotCopy.alertChannel_id:
+        if 'id' == message.content.lower()[0:2]:
+            print(message.content)
             userToBan = await client.fetch_user(int(message.content[4:23]))
             await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
             await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
-
+   
+    elif message.channel.id == varsToNotCopy.failChannel_id:
+        if 'id' == message.content.lower()[0:2]:
+            print(message.content)
+            userToBan = await client.fetch_user(int(message.content[4:23]))
+            await message.delete()
 
     await client.process_commands(message)
 
 #Running client on server
-client.run('ODM5MDUyNTM5Mzk1NDQwNzEw.YJECkg._ZFMBhlOzRncu73SCBujxV4wFQY')
+client.run(varsToNotCopy.token)
