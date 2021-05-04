@@ -153,6 +153,7 @@ async def on_message(message):
         await message.add_reaction('<:hmm:839059852554666024>')
 
     elif message.channel.id == 838693642209853441:
+        print(message.content)
         if 'id: ' == message.content.lower()[0:4]:
             userToBan = await client.fetch_user(int(message.content[4:23]))
             await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
