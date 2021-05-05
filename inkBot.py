@@ -156,18 +156,24 @@ async def on_message(message):
     elif 'adi' in message.content.lower():
         await message.add_reaction('<:hmm:839059852554666024>')
 
-    elif message.channel.id == varsToNotCopy.alertChannel_id:
+    elif message.channel.id in varsToNotCopy.alertChannel_id:
         if 'id' == message.content.lower()[0:2]:
-            print(message.content)
-            userToBan = await client.fetch_user(int(message.content[4:23]))
-            await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
-            await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
-   
-    elif message.channel.id == varsToNotCopy.failChannel_id:
+            try:
+                print(message.content)
+                userToBan = await client.fetch_user(int(message.content[4:23]))
+                await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
+                await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
+            except ValueError:
+                await message.channel.send(f"""I couldnt find an id from this message <:lotsofpain:839371861346222112>""")
+
+    elif message.channel.id in varsToNotCopy.failChannel_id:
         if 'id' == message.content.lower()[0:2]:
-            print(message.content)
-            userToBan = await client.fetch_user(int(message.content[4:23]))
-            await message.delete()
+            try:
+                print(message.content)
+                userToBan = await client.fetch_user(int(message.content[4:23]))
+                await message.delete()
+            except ValueError:
+                await message.channel.send(f"""Couldnt find id, probably cause they used an unknown different syntax in the report""")
 
     await client.process_commands(message)
 
