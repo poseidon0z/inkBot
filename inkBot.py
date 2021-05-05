@@ -35,7 +35,7 @@ async def on_disconnect():
 @client.group(name="help",invoke_without_command=True)
 async def help_cmd(context):
     helpEmbed = discord.Embed(Title="inkBot help",description='Say `ink help <command>` for more info about a particular command',colour=0x9933ff)
-    helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`help`,`iq`,`besmooth`,`ping`',inline=False)
+    helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`help`,`iq`,`besmooth`,`ping`,`8ball`',inline=False)
     helpEmbed.add_field(name='Server Utils',value='`whois`,`info`',inline=False)
     helpEmbed.add_field(name='Server Config',value='`autobanScammers`',inline=False)
     helpEmbed.set_footer(text='bot by Adi#1874')
@@ -91,6 +91,13 @@ async def ping(context):
     helpEmbed.add_field(name='Syntax',value='`ink ping`',inline=False)
     await context.message.channel.send(embed=helpEmbed)
 
+@help_cmd.command(name = '8ball')
+async def eightball(context):
+    helpEmbed = discord.Embed(title='8ball command',colour=0x9933ff)
+    helpEmbed.add_field(name='Feature', value='Predict the future <a:winks:839524896270319707>',inline=False)
+    helpEmbed.add_field(name='Syntax',value='ink 8ball <what you want predicted>',inline=False)
+    await context.message.channel.send(embed=helpEmbed)
+
 @help_cmd.command()
 async def whois(context):
     helpEmbed = discord.Embed(title='Whois command',colour=0x9933ff)
@@ -111,6 +118,7 @@ async def autobanScammers(context):
     helpEmbed.add_field(name='Feature', value='Automatically bans members that are reported in the alert channels of various servers',inline=False)
     helpEmbed.add_field(name='Setup',value='You have to dm Adi for this till he learns to set up global vars',inline=False)
     await context.message.channel.send(embed=helpEmbed)
+
 
 
 #command to echo
@@ -155,6 +163,16 @@ async def info(context, target : discord.Member):
 async def ping(content):
     await content.channel.send(f"""Ping is {round(client.latency * 1000)}ms""")
 
+#8ball cmd
+@client.command(name = '8ball')
+async def eightball(cxt, *,toPredict):
+    await inkFunCommands.eightball(cxt, toPredict)
+
+@eightball.error
+async def eightball_error(cxt, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await cxt.channel.send('Give me something to predict <:facepalm:838671083481333781>')
+    
 #triggers which include: 
 #1. hi ink trigger
 #adi ar
@@ -170,7 +188,7 @@ async def on_message(message):
             await message.channel.send('Hi ' + str(message.author.name), allowed_mentions=allowedMentions)
         
     elif 'adi' in message.content.lower():
-        await message.add_reaction('<:hmm:839059852554666024>')
+        await message.add_reaction('<:kiki_happy:839524132286365717>')
 
     elif message.channel.id in varsToNotCopy.alertChannel_id:
         if 'id' == message.content.lower()[0:2]:
