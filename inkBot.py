@@ -158,14 +158,20 @@ async def on_message(message):
 
     elif message.channel.id in varsToNotCopy.alertChannel_id:
         if 'id' == message.content.lower()[0:2]:
-            try:
-                print(message.content)
-                userToBan = await client.fetch_user(int(message.content[4:23]))
+            userToBan = message.content[4:23]
+            if len(userToBan) == 18 and type(userToBan) == str:
+                userToBan = await client.fetch_user(userToBan)
                 await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
                 await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
-            except ValueError:
-                await message.channel.send(f"""I couldnt find an id from this message <:lotsofpain:839371861346222112>""")
-
+            else:
+                userToBan = message.content[3:22]
+                if len(userToBan) == 18 and type(userToBan) == str:
+                    userToBan = await client.fetch_user(userToBan)
+                    await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
+                    await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
+                else:
+                    await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
+   
     elif message.channel.id in varsToNotCopy.failChannel_id:
         if 'id' == message.content.lower()[0:2]:
             try:
