@@ -185,18 +185,18 @@ async def on_message(message):
                 userToBan = int(message.content[4:22])
                 userToBan = str(userToBan)
                 if len(userToBan) == 18:
-                    await message.delete()    
+                    await message.delete()
                 else:
                     userToBan = int(message.content[3:21])
                     userToBan = str(userToBan)
                     if len(userToBan) == 18:
-                        await message.delete
+                        await message.delete()
                     else:
                         await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
             except ValueError:
-                await message.channel.send('I found something... but its not an id....')
+                await message.channel.send('I detected something.... but its not an id....')
             except:
-                await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
+                await message.channel.send('I know this message has an id, but idfk where it is')
 
     await client.process_commands(message)
 
