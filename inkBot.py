@@ -158,28 +158,45 @@ async def on_message(message):
 
     elif message.channel.id in varsToNotCopy.alertChannel_id:
         if 'id' == message.content.lower()[0:2]:
-            userToBan = message.content[4:23]
-            if len(userToBan) == 18 and type(userToBan) == str:
-                userToBan = await client.fetch_user(userToBan)
-                await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
-                await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
-            else:
-                userToBan = message.content[3:22]
-                if len(userToBan) == 18 and type(userToBan) == str:
+            try:
+                userToBan = int(message.content[4:22])
+                userToBan = str(userToBan)
+                if len(userToBan) == 18:
                     userToBan = await client.fetch_user(userToBan)
                     await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
                     await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
                 else:
-                    await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
-   
+                    userToBan = int(message.content[3:21])
+                    userToBan = str(userToBan)
+                    if len(userToBan) == 18:
+                        userToBan = await client.fetch_user(userToBan)
+                        await message.channel.send(f"""Banning user:{userToBan.name}(#{userToBan.discriminator}) with id:{userToBan.id} for scam reported in the message {message.jump_url}""")
+                        await message.guild.ban(user= userToBan,reason= 'Ink autoban for being reported by another server. [Link to alert](' + message.jump_url + ')')
+                    else:
+                        await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
+            except ValueError:
+                await message.channel.send('I detected something.... but its not an id....')
+            except:
+                await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
+    
     elif message.channel.id in varsToNotCopy.failChannel_id:
         if 'id' == message.content.lower()[0:2]:
             try:
-                print(message.content)
-                userToBan = await client.fetch_user(int(message.content[4:23]))
-                await message.delete()
+                userToBan = int(message.content[4:22])
+                userToBan = str(userToBan)
+                if len(userToBan) == 18:
+                    await message.delete()    
+                else:
+                    userToBan = int(message.content[3:21])
+                    userToBan = str(userToBan)
+                    if len(userToBan) == 18:
+                        await message.delete
+                    else:
+                        await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
             except ValueError:
-                await message.channel.send(f"""Couldnt find id, probably cause they used an unknown different syntax in the report""")
+                await message.channel.send('I found something... but its not an id....')
+            except:
+                await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
 
     await client.process_commands(message)
 
