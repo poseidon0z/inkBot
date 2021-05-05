@@ -34,7 +34,7 @@ async def on_disconnect():
 @client.group(name="help",invoke_without_command=True)
 async def help_cmd(context):
     helpEmbed = discord.Embed(Title="inkBot help",description='Say `ink help <command>` for more info about a particular command',colour=0x9933ff)
-    helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`help`,`iq`,`besmooth`',inline=False)
+    helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`help`,`iq`,`besmooth`,`ping`',inline=False)
     helpEmbed.add_field(name='Server Utils',value='`whois`,`info`',inline=False)
     helpEmbed.add_field(name='Server Config',value='`autobanScammers`',inline=False)
     helpEmbed.set_footer(text='bot by Adi#1874')
@@ -84,15 +84,22 @@ async def besmooth(context):
     await context.message.channel.send(embed=helpEmbed)
 
 @help_cmd.command()
+async def ping(context):
+    helpEmbed = discord.Embed(title='Ping command',colour=0x9933ff)
+    helpEmbed.add_field(name='Feature', value='Gives a message telling you the ping you\'re getting at that time',inline=False)
+    helpEmbed.add_field(name='Syntax',value='`ink ping`',inline=False)
+    await context.message.channel.send(embed=helpEmbed)
+
+@help_cmd.command()
 async def whois(context):
-    helpEmbed = discord.Embed(title='Gives info on a mentioned user',colour=0x9933ff)
+    helpEmbed = discord.Embed(title='Whois command',colour=0x9933ff)
     helpEmbed.add_field(name='Feature', value='Gives info on a user regardless of wether they are in the server(Use `ink info` for more detailed info on a user in the server)',inline=False)
     helpEmbed.add_field(name='Syntax',value='`ink whois <user>`',inline=False)
     await context.message.channel.send(embed=helpEmbed)
 
 @help_cmd.command()
 async def info(context):
-    helpEmbed = discord.Embed(title='Gives info on a mentioned user',colour=0x9933ff)
+    helpEmbed = discord.Embed(title='Info command',colour=0x9933ff)
     helpEmbed.add_field(name='Feature', value='Gives detailed info on a user in the server(Use `ink whois` for info on a user regardless of wether they are in the server )',inline=False)
     helpEmbed.add_field(name='Syntax',value='`ink info <user>`',inline=False)
     await context.message.channel.send(embed=helpEmbed)
