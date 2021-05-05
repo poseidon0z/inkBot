@@ -95,7 +95,7 @@ async def ping(context):
 async def eightball(context):
     helpEmbed = discord.Embed(title='8ball command',colour=0x9933ff)
     helpEmbed.add_field(name='Feature', value='Predict the future <a:winks:839524896270319707>',inline=False)
-    helpEmbed.add_field(name='Syntax',value='ink 8ball <what you want predicted>',inline=False)
+    helpEmbed.add_field(name='Syntax',value='`ink 8ball <what you want predicted>`',inline=False)
     await context.message.channel.send(embed=helpEmbed)
 
 @help_cmd.command()
