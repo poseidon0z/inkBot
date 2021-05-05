@@ -6,6 +6,7 @@ import inkFunCommands
 import time
 import inkServerManageCommands
 import varsToNotCopy
+from discord.ext.commands import MemberNotFound
 
 # Client (my bot)
 client = commands.Bot(command_prefix = ['ink ', 'ink'])
@@ -124,8 +125,14 @@ async def describe(context):
 
 #iq command
 @client.command(name = 'iq')
-async def iq(context):
-    await inkFunCommands.iq(context)
+async def iq(context,target : discord.Member):
+    await inkFunCommands.iq(context, target)
+
+
+@iq.error
+async def iq_error(cxt, error):
+    if isinstance(error, MemberNotFound):
+        await cxt.channel.send('Oi tag an actual member <a:PI_Angry:838736380674572328>')
 
 #flirt command
 @client.command(name = 'besmooth')

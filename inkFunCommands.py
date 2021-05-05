@@ -1,6 +1,7 @@
 #importing required stuff
 import random
 import discord
+from discord.ext.commands import MemberNotFound
 
 #base vars for the commands
 describeList = ['big nab','a qt','simp','hot','friendly','an irritating bitch','an ass','a dick','a hoe','dum','tiny','the best','the poggest','sweet','cute','<:bigbrain:838472543705759824>','teeny brain','an alien','a waifu','a dumbass']
@@ -32,26 +33,22 @@ async def say(context,whatToSay):
     await context.message.channel.send(whatToSay,allowed_mentions=allowedMentions)
 
 #iq command code
-async def iq(context):
-    try:
-        if context.message.mentions[0].id == 652756616185380894:
-            personIq = 160
-        else:
-            personIq = random.randint(a= 40, b= 160)
-        
-        if personIq >= 116:
-            personEmoji = '<:bigbrain:838472543705759824>'
-        elif personIq >= 84:
-            personEmoji = ':brain:'
-        elif personIq >= 40:
-            personEmoji = '<:dumbfuck:838730636175998976>'
-        
-        iqEmbed = discord.Embed(title=f"""{context.message.mentions[0].name}'s iq:""",description=f"""{context.message.mentions[0].mention} has an iq of {str(personIq)} {personEmoji}""",color= 0xabcdef)
-        await context.message.channel.send(embed= iqEmbed)
-    except IndexError:
-        await context.message.channel.send('Oi nub you forgot to mention someone! <a:PI_Angry:838736380674572328>')
-    except:
-        await context.message.channel.send('Fuck! something went wrong and idk what ;-;')
+async def iq(context, target : discord.member):
+    if target.id == 652756616185380894:
+        personIq = 160
+    else:
+        personIq = random.randint(a= 40, b= 160)
+    
+    if personIq >= 116:
+        personEmoji = '<:bigbrain:838472543705759824>'
+    elif personIq >= 84:
+        personEmoji = ':brain:'
+    elif personIq >= 40:
+        personEmoji = '<:dumbfuck:838730636175998976>'
+    
+    iqEmbed = discord.Embed(title=f"""{target.name}'s iq:""",description=f"""{target.mention} has an iq of {str(personIq)} {personEmoji}""",color= 0xabcdef)
+    await context.message.channel.send(embed= iqEmbed)
+
 
 #flirt command  
 async def besmooth(context):
