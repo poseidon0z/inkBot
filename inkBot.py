@@ -136,6 +136,11 @@ async def info(context, target : discord.Member):
     print('info command called')
     await inkServerManageCommands.info(context,target)
 
+#ping command
+@client.command(name = 'ping')
+async def ping(content):
+    await content.channel.send(f"""Ping is {round(client.latency * 1000)}ms""")
+
 #triggers which include: 
 #1. hi ink trigger
 #adi ar
