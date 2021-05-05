@@ -57,4 +57,5 @@ async def besmooth(context):
 
 #8ball command
 async def eightball(cxt, toPredict):
-    await cxt.channel.send(f""":crystal_ball:{random.choice(eightBallOptions)}, {cxt.message.author.name}""")
+    allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
+    await cxt.channel.send(f""":crystal_ball:{random.choice(eightBallOptions)}, {cxt.message.author.name}""", allowed_mentions = allowedMentions)
