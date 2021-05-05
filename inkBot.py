@@ -149,9 +149,11 @@ async def ping(content):
 async def on_message(message):
     if 'hi ink' == message.content.lower():
         if str(message.author.nick) != 'None':
-            await message.channel.send('Hi ' + str(message.author.nick))
+            allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
+            await message.channel.send('Hi ' + str(message.author.nick), allowed_mentions=allowedMentions)
         else:
-            await message.channel.send('Hi ' + str(message.author.name))
+            allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
+            await message.channel.send('Hi ' + str(message.author.name), allowed_mentions=allowedMentions)
         
     elif 'adi' in message.content.lower():
         await message.add_reaction('<:hmm:839059852554666024>')
