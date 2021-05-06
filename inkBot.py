@@ -9,7 +9,7 @@ import varsToNotCopy
 from discord.ext.commands import MemberNotFound
 
 # Client (my bot)
-client = commands.Bot(command_prefix = ['ink ', 'ink'])
+client = commands.Bot(command_prefix = ['ink ', 'ink', 'Ink'])
 client.remove_command('help')
 
 
@@ -128,8 +128,13 @@ async def say(context, *, whatToSay):
 
 #gives a description of the person mentioned
 @client.command(name = 'describe')
-async def describe(context):
-    await inkFunCommands.describe(context)
+async def describe(context, target : discord.Member):
+    await inkFunCommands.describe(context,target)
+
+@describe.error
+async def describe_error(cxt, error):
+    if isinstance(error, MemberNotFound):
+        await cxt.channel.send('Oi gimme an actual member to describe <a:PI_Angry:838736380674572328>')
 
 #iq command
 @client.command(name = 'iq')
@@ -140,7 +145,7 @@ async def iq(context,target : discord.Member):
 @iq.error
 async def iq_error(cxt, error):
     if isinstance(error, MemberNotFound):
-        await cxt.channel.send('Oi tag an actual member <a:PI_Angry:838736380674572328>')
+        await cxt.channel.send('Oi gimme an actual member to find iq of <a:PI_Angry:838736380674572328>')
 
 #flirt command
 @client.command(name = 'besmooth')
@@ -172,6 +177,7 @@ async def eightball(cxt, *,toPredict):
 async def eightball_error(cxt, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await cxt.channel.send('Give me something to predict <:facepalm:838671083481333781>')
+
     
 #triggers which include: 
 #1. hi ink trigger
@@ -190,12 +196,18 @@ async def on_message(message):
     elif 'adi' in message.content.lower():
         await message.add_reaction('<:kiki_happy:839524132286365717>')
 
+    elif str(message.content) == f'''<@!{varsToNotCopy.bot_id}>''':
+        await message.channel.send('Hi! My prefix is `ink `, run `ink help` for more details!!')
+
     elif len(message.mentions) > 0:
         for okSomeonesPing in message.mentions:
+            #adi's ar
             if okSomeonesPing.id == 652756616185380894:
                 await message.add_reaction('<:kiki_happy:839524132286365717>')
+            #ceee's ar <3
             elif okSomeonesPing.id == 696754560429064263:
                 await message.add_reaction('<:an_urcute:776896089760333844>')
+            
 
     elif message.channel.id in varsToNotCopy.alertChannel_id:
         if 'id' == message.content.lower()[0:2]:

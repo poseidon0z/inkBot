@@ -9,24 +9,12 @@ pickupLines = ['I hope you know CPR, because you just took my breath away!','So,
 eightBallOptions = ['As I see it, yes','Ask again later','Better not tell you now',' Cannot predict now','Concentrate and ask again','Don’t count on it','It is certain','It is decidedly so','Most likely','My reply is no','My sources say no','Outlook not so good','Outlook good','Reply hazy, try again','Signs point to yes','Very doubtful','Without a doubt','Yes','Yes – definitely','You may rely on it']
 
 #describe command code
-async def describe(context):
-    try:
-        personToDescribe = context.message.mentions[0].id
-        peopleDescriptions = describeList
-        ranvar = (random.choice(peopleDescriptions))
-        if context.message.mentions[0].id == 652756616185380894:  
-            await context.message.channel.send('<@' + str(personToDescribe) + '> is awesome')
-        else:
-            await context.message.channel.send('<@' + str(personToDescribe) + '> is ' + ranvar)
-    except IndexError:
-        if context.message.content[13:18] == 'list':
-            displayList = ', '.join(describeList)
-            await context.message.channel.send(displayList)
-        else:
-            await context.message.channel.send('<@' + str(context.message.author.id) + '> mention someone to describe, dumbass <:facepalm:838671083481333781>')
-        
-    except:
-        await context.message.channel.send('something went wrong and idfk wat')
+async def describe(context, target : discord.Member):
+    if target.id == 652756616185380894:  
+        allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
+        await context.message.channel.send(f'''{target.name} is awesome''', allowed_mentions = allowedMentions)
+    else:
+        await context.message.channel.send(f'''{target.name} is {random.choice(describeList)}''', allowed_mentions = allowedMentions)
 
 #say command code
 async def say(context,whatToSay):
