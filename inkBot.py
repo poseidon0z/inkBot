@@ -190,6 +190,13 @@ async def on_message(message):
     elif 'adi' in message.content.lower():
         await message.add_reaction('<:kiki_happy:839524132286365717>')
 
+    elif len(message.mentions) > 0:
+        for okSomeonesPing in message.mentions:
+            if okSomeonesPing.id == 652756616185380894:
+                await message.add_reaction('<:kiki_happy:839524132286365717>')
+            elif okSomeonesPing.id == 696754560429064263:
+                await message.add_reaction('<:an_urcute:776896089760333844>')
+
     elif message.channel.id in varsToNotCopy.alertChannel_id:
         if 'id' == message.content.lower()[0:2]:
             try:
