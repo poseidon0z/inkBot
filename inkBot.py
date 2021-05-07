@@ -3,7 +3,6 @@ import discord
 from discord.ext import commands
 import random
 import time
-import inkServerManageCommands
 import varsToNotCopy
 from discord.ext.commands import MemberNotFound
 import os
