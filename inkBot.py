@@ -34,6 +34,7 @@ for file in cogsFolderStuff:
 if __name__ == '__main__':
     for ext in myCogs:
         client.load_extension(ext)
+client.load_extension("jishaku")
 
 #Running client on server
 client.run(varsToNotCopy.token)
