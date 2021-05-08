@@ -15,7 +15,7 @@ class inkFunCommands(commands.Cog):
 
     #command to echo
     @commands.command(name = 'say')
-    async def say(self,context,whatToSay):
+    async def say(self,context,*,whatToSay):
         await context.message.channel.send(whatToSay,allowed_mentions=allowedMentions)
 
     #gives a description of the person mentioned

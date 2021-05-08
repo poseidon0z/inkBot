@@ -1,6 +1,9 @@
+#importing required stuff
 import discord
 from discord.ext import commands
 
+
+#cog contents
 class inkHelpCommand(commands.Cog):
     def __init__(self,bot):
         self.bot= bot
@@ -18,7 +21,7 @@ class inkHelpCommand(commands.Cog):
     @help_cmd.command()
     async def say(self,context):
         helpEmbed = discord.Embed(title='Say command',colour=0x9933ff)
-        helpEmbed.add_field(name='Feature', value='Makes the bot repeat something for you',inline=False)
+        helpEmbed.add_field(name='Feature', value='Makes the bot repeat something for you, in the same channel',inline=False)
         helpEmbed.add_field(name='Syntax',value='`ink say <your_text>`',inline=False)
         await context.message.channel.send(embed=helpEmbed)
 
@@ -93,6 +96,6 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.add_field(name='Setup',value='You have to dm Adi for this till he learns to set up global vars',inline=False)
         await context.message.channel.send(embed=helpEmbed)
 
-
+#cog setup
 def setup(bot):
     bot.add_cog(inkHelpCommand(bot))
