@@ -5,7 +5,7 @@ class inkUtilCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     #whois feature
-    @commands.command(name = 'whois')
+    @commands.command(name = 'whois',aliases=['wi'])
     async def whois(self,context,target : discord.User):
         whoIsEmbed = discord.Embed(title=f"""UserInfo for {target.display_name}""",color=0xabcdef)
         whoIsEmbed.add_field(name = "User Id:", value = target.id,inline=False)
@@ -16,7 +16,7 @@ class inkUtilCommands(commands.Cog):
 
 
     #info feature
-    @commands.command(name = 'info')
+    @commands.command(name = 'info', aliases=['i'])
     async def info(self, context,target : discord.Member):
         roleList = [role.mention for role in target.roles if role != context.guild.default_role ]
         roles = ' '.join(roleList)
