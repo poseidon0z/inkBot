@@ -94,7 +94,7 @@ class inkHelpCommand(commands.Cog):
     @help_cmd.command(name='addchannel',aliases=['ac', 'addchan','achan'])
     async def addchannel(self,context):
         helpEmbed = discord.Embed(title='Addchannel command',colour=0x9933ff)
-        helpEmbed.add_field(name='Feature', value='Adds a member to a channel)',inline=False)
+        helpEmbed.add_field(name='Feature', value='Adds a member to a channel',inline=False)
         helpEmbed.add_field(name='Syntax',value='`ink addchannel <channel> <target>`',inline=False)
         helpEmbed.add_field(name='Aliases',value='`ac`,`addchan`,`achan`',inline=False)
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
@@ -103,7 +103,7 @@ class inkHelpCommand(commands.Cog):
     @help_cmd.command(name='removechannel',aliases=['rc', 'removechan','rchan'])
     async def removechannel(self,context):
         helpEmbed = discord.Embed(title='Removechannel command',colour=0x9933ff)
-        helpEmbed.add_field(name='Feature', value='Removes a member from a channel)',inline=False)
+        helpEmbed.add_field(name='Feature', value='Removes a member from a channel',inline=False)
         helpEmbed.add_field(name='Syntax',value='`ink removechannel <channel> <target>`',inline=False)
         helpEmbed.add_field(name='Aliases',value='`rc`,`removechan`,`rchan`',inline=False)
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
