@@ -14,7 +14,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed = discord.Embed(Title="inkBot help",description='Say `ink help <command>` for more info about a particular command',colour=0x9933ff)
         helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`iq`,`besmooth`,`8ball`',inline=False)
         helpEmbed.add_field(name='Utils',value='`whois`,`info`,`help`,`ping`',inline=False)
-        helpEmbed.add_field(name='Server Config',value='`autobanScammers`,`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
+        helpEmbed.add_field(name='Server Config',value='`autobanScammers`,`channelmanagement`,`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
         helpEmbed.set_footer(text='bot by Adi#1874')
         await context.message.channel.send(embed=helpEmbed)
 
@@ -90,6 +90,17 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.add_field(name='Syntax',value='`ink info <user>`',inline=False)
         helpEmbed.add_field(name='Aliases',value='`i`',inline=False)
         await context.message.channel.send(embed=helpEmbed)
+
+    @help_cmd.command(name='ChannelManagement',aliases=['chanmanagement','channelmanagement'])
+    async def info(self, ctx):
+        helpEmbed = discord.Embed(title='Channel Management Commands',colour=0x9933ff)
+        helpEmbed.add_field(name='Commands in this category: ', value='`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
+        helpEmbed.add_field(name='removechannel: ', value='Adds a member to a channel if you have manage channel perms in that channel',inline=False)
+        helpEmbed.add_field(name='removechannel: ', value='Removes a member from a channel if you have manage channel perms in that channel',inline=False)
+        helpEmbed.add_field(name='addchannelmanager',value='Gives a member manage channels perms for the given channel',inline=False)
+        helpEmbed.add_field(name='removechannelmanager',value='Removes the manage channels perms for a member in the given channnel',inline=False)
+        helpEmbed.set_footer(text='run "ink help <command_name>" for more info on a particular command')
+        await ctx.send(embed=helpEmbed)
 
     @help_cmd.command(name='addchannel',aliases=['ac', 'addchan','achan'])
     async def addchannel(self,context):
