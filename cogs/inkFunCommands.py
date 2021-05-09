@@ -30,6 +30,8 @@ class inkFunCommands(commands.Cog):
     async def describe_error(self, cxt, error):
         if isinstance(error, MemberNotFound):
             await cxt.channel.send('Oi gimme an actual member to describe <a:PI_Angry:838736380674572328>')
+        else:
+            pass
 
     #iq command
     @commands.command(name='iq')
@@ -54,6 +56,8 @@ class inkFunCommands(commands.Cog):
     async def iq_error(self,cxt, error):
         if isinstance(error, MemberNotFound):
             await cxt.channel.send('Oi gimme an actual member to find iq of <a:PI_Angry:838736380674572328>')
+        else:
+            pass
 
     #flirt command
     @commands.command(name = 'besmooth')
@@ -69,7 +73,9 @@ class inkFunCommands(commands.Cog):
     async def eightball_error(self,cxt, error):
         if isinstance(error, commands.MissingRequiredArgument):
             await cxt.channel.send('Give me something to predict <:facepalm:838671083481333781>')
-
+        else:
+            pass
+        
 
 def setup(bot):
     bot.add_cog(inkFunCommands(bot))

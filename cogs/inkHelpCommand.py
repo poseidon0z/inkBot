@@ -14,7 +14,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed = discord.Embed(Title="inkBot help",description='Say `ink help <command>` for more info about a particular command',colour=0x9933ff)
         helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`iq`,`besmooth`,`8ball`',inline=False)
         helpEmbed.add_field(name='Utils',value='`whois`,`info`,`help`,`ping`',inline=False)
-        helpEmbed.add_field(name='Server Config',value='`autobanScammers`,`addchannel`,`removechannel`',inline=False)
+        helpEmbed.add_field(name='Server Config',value='`autobanScammers`,`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
         helpEmbed.set_footer(text='bot by Adi#1874')
         await context.message.channel.send(embed=helpEmbed)
 
@@ -94,22 +94,40 @@ class inkHelpCommand(commands.Cog):
     @help_cmd.command(name='addchannel',aliases=['ac', 'addchan','achan'])
     async def addchannel(self,context):
         helpEmbed = discord.Embed(title='Addchannel command',colour=0x9933ff)
-        helpEmbed.add_field(name='Feature', value='Adds a member to a channel',inline=False)
-        helpEmbed.add_field(name='Syntax',value='`ink addchannel <channel> <target>`',inline=False)
+        helpEmbed.add_field(name='Feature', value='Adds a member to the private channel',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink addchannel <target>`',inline=False)
         helpEmbed.add_field(name='Aliases',value='`ac`,`addchan`,`achan`',inline=False)
-        helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
+        helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
         await context.message.channel.send(embed=helpEmbed)
     
     @help_cmd.command(name='removechannel',aliases=['rc', 'removechan','rchan'])
     async def removechannel(self,context):
         helpEmbed = discord.Embed(title='Removechannel command',colour=0x9933ff)
-        helpEmbed.add_field(name='Feature', value='Removes a member from a channel',inline=False)
-        helpEmbed.add_field(name='Syntax',value='`ink removechannel <channel> <target>`',inline=False)
+        helpEmbed.add_field(name='Feature', value='Removes a member from the private channel',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink removechannel <target>`',inline=False)
         helpEmbed.add_field(name='Aliases',value='`rc`,`removechan`,`rchan`',inline=False)
+        helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
+        await context.message.channel.send(embed=helpEmbed)
+    
+    @help_cmd.command(name='addchannelmanager',aliases=['acm','addchanman'])
+    async def removechannel(self,context):
+        helpEmbed = discord.Embed(title='Add channel manager command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Adds a member as the manager of a channel',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink addchannelmanager <channel> <target>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`acm`,`addchanman`',inline=False)
+        helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
+        await context.message.channel.send(embed=helpEmbed)
+    
+    @help_cmd.command(name='removechannelmanager',aliases=['rcm','remchanman'])
+    async def removechannel(self,context):
+        helpEmbed = discord.Embed(title='Remove channel manager command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Removes a member from the position of manager of a channel',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink removechannelmanager <channel> <target>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`rcm`,`remchanman`',inline=False)
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
         await context.message.channel.send(embed=helpEmbed)
 
-    @help_cmd.command(name='autonabScammers',aliases=['autoban'])
+    @help_cmd.command(name='autobanscammers',aliases=['autoban'])
     async def autobanScammers(self,context):
         helpEmbed = discord.Embed(title='Autoban scammers',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Automatically bans members that are reported in the alert channels of various servers',inline=False)
