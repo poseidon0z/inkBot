@@ -46,10 +46,10 @@ class inkServerManageCommands(commands.Cog):
     #channelmanager
     @commands.command(name='addchannelmanager',aliases=['acm','addchanman'])
     @commands.has_guild_permissions(manage_channels=True)
-    async def addchannelmanager(self,ctx,channel : discord.TextChannel,target : discord.Member):
-        await channel.set_permissions(target, manage_channels=True,view_channel=True,send_messsages=True)
+    async def addchannelmanager(self,ctx,channel : discord.TextChannel,target : discord.Member): 
+        await channel.set_permissions(target,manage_channels=True)
         await ctx.channel.send(f'{target.mention} has been made channel manager for {channel.mention}')
-    
+         
 
     @addchannelmanager.error
     async def addchannelmanager_error(self,ctx,error):
@@ -64,7 +64,7 @@ class inkServerManageCommands(commands.Cog):
 
     @commands.command(name='removechannelmanager',aliases=['rcm','remchanman'])
     @commands.has_guild_permissions(manage_channels=True)
-    async def removechannelmanager(self,ctx,channel : discord.TextChannel,target : discord.Member):
+    async def removechannelmanager(self,ctx,channel : discord.TextChannel,target : discord.Member):     
         await channel.set_permissions(target, manage_channels=None)
         await ctx.channel.send(f'{target.mention} has been removed as channel manager for {channel.mention}')
     
