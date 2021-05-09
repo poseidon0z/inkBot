@@ -29,12 +29,14 @@ for file in cogsFolderStuff:
     if file.endswith('.py'):
         fileName = file.split('.')
         myCogs.append(str('cogs.' + fileName[0]))
-
 #loading my cogs
 if __name__ == '__main__':
     for ext in myCogs:
         client.load_extension(ext)
+        
+os.environ['JISHAKU_NO_UNDERSCORE'] = 'true'
 client.load_extension("jishaku")
+
 
 #Running client on server
 client.run(varsToNotCopy.token)

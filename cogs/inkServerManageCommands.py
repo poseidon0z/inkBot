@@ -46,10 +46,6 @@ class inkServerManageCommands(commands.Cog):
         elif isinstance(error, ChannelNotFound):
             await ctx.channel.send(f'Couldnt find the channel you were trying to add to')
 
-def clean_code(content):
-        if content.startwith('```') and content.endswith('```'):
-            return '\n'.join(content.split('\n')[1:][:-3])
-
 #cog setup
 def setup(bot):
     bot.add_cog(inkServerManageCommands(bot))
