@@ -21,7 +21,7 @@ class inkServerManageCommands(commands.Cog):
     @addchannel.error
     async def addchannel_error(self, ctx, error):
         if isinstance(error, MissingRequiredArgument):
-            await ctx.channel.send(f'Missing arguemnts, make sure you follow the syntax:\n```ink addchannel <channel> <member>```')
+            await ctx.channel.send(f'Missing arguemnts, make sure you follow the syntax:\n```ink addchannel <member>```')
         elif isinstance(error, MemberNotFound):
             await ctx.channel.send(f'Couldnt find the member you were trying to add to')
         else:
@@ -37,7 +37,7 @@ class inkServerManageCommands(commands.Cog):
     @removechannel.error
     async def removechannel_error(self, ctx, error):
         if isinstance(error,MissingRequiredArgument):
-            await ctx.channel.send(f'Missing arguemnts, make sure you follow the syntax:\n```ink removechannel <channel> <member>```')
+            await ctx.channel.send(f'Missing arguemnts, make sure you follow the syntax:\n```ink removechannel <member>```')
         elif isinstance(error, MemberNotFound):
             await ctx.channel.send(f'Couldnt find the member you were trying to take perms for')
         else:

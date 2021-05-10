@@ -110,18 +110,18 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.add_field(name='Aliases',value='`ac`,`addchan`,`achan`',inline=False)
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
         await context.message.channel.send(embed=helpEmbed)
-    
+        
     @help_cmd.command(name='removechannel',aliases=['rc', 'removechan','rchan'])
-    async def removechannel(self,context):
+    async def removechannel(self,ctx):
         helpEmbed = discord.Embed(title='Removechannel command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Removes a member from the private channel',inline=False)
         helpEmbed.add_field(name='Syntax',value='`ink removechannel <target>`',inline=False)
         helpEmbed.add_field(name='Aliases',value='`rc`,`removechan`,`rchan`',inline=False)
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
-        await context.message.channel.send(embed=helpEmbed)
+        await ctx.send(embed=helpEmbed)
     
     @help_cmd.command(name='addchannelmanager',aliases=['acm','addchanman'])
-    async def removechannel(self,context):
+    async def addchannelmanager(self,context):
         helpEmbed = discord.Embed(title='Add channel manager command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Adds a member as the manager of a channel',inline=False)
         helpEmbed.add_field(name='Syntax',value='`ink addchannelmanager <channel> <target>`',inline=False)
@@ -130,7 +130,7 @@ class inkHelpCommand(commands.Cog):
         await context.message.channel.send(embed=helpEmbed)
     
     @help_cmd.command(name='removechannelmanager',aliases=['rcm','remchanman'])
-    async def removechannel(self,context):
+    async def removechannelmanager(self,context):
         helpEmbed = discord.Embed(title='Remove channel manager command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Removes a member from the position of manager of a channel',inline=False)
         helpEmbed.add_field(name='Syntax',value='`ink removechannelmanager <channel> <target>`',inline=False)
