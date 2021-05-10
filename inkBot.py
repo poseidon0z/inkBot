@@ -17,26 +17,29 @@ client.remove_command('help')
 async def on_ready():
     print('bot is online')
 
+
 #message sent in bot status when bot goes down
 @client.event
 async def on_disconnect():
     print('bot is now going offline')
 
-#defining my cogs
+
+os.environ['JISHAKU_NO_UNDERSCORE'] = 'true'
+#making a list of all cogs in the cogs folder
 myCogs = []
 cogsFolderStuff = os.listdir('./cogs/')
 for file in cogsFolderStuff:
     if file.endswith('.py'):
         fileName = file.split('.')
         myCogs.append(str('cogs.' + fileName[0]))
-#loading my cogs
+
+
+#loading my cogs as defined in previous step
 if __name__ == '__main__':
     for ext in myCogs:
         client.load_extension(ext)
-        
-os.environ['JISHAKU_NO_UNDERSCORE'] = 'true'
-client.load_extension("jishaku")
 
+client.load_extension('jishaku')
 
 #Running client on server
 client.run(varsToNotCopy.token)
