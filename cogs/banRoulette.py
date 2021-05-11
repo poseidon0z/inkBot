@@ -52,7 +52,7 @@ class banRoulette(commands.Cog):
         if message.guild == dtbr:
             ctx = await self.bot.get_context(message)
             memberRoles = []
-            cantalk = [841314821786173450,841667898162675763,841331662205354025,841312605187866645,841693690246463550]
+            cantalk = [841314821786173450,841667898162675763,841331662205354025,841312605187866645,841693690246463550,838390757449662496]
             banRoyaleChannel = ctx.guild.get_channel(841357068807176203)
             if message.channel == banRoyaleChannel:
                 for role in message.author.roles:
@@ -60,7 +60,8 @@ class banRoulette(commands.Cog):
                 if len(set(cantalk).intersection(memberRoles)) < 1:
                     if ctx.valid == False:
                         await message.delete()
-                
+        await self.bot.process_commands(message)   
+
 #loading the cog
 def setup(bot):
     bot.add_cog(banRoulette(bot))
