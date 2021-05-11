@@ -61,8 +61,6 @@ class banRoulette(commands.Cog):
                 if len(set(cantalk).intersection(memberRoles)) < 1:
                     if ctx.valid == False:
                         await message.delete()
-        await self.bot.process_commands(message)   
-
 #loading the cog
 def setup(bot):
     bot.add_cog(banRoulette(bot))
