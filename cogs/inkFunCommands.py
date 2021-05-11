@@ -17,10 +17,10 @@ class inkFunCommands(commands.Cog):
     #command to echo
     @commands.command(name = 'say')
     async def say(self,context,*,whatToSay):
-        await context.message.channel.send(whatToSay,allowed_mentions=allowedMentions)      #repeating what the member said with no role/everyone mentions
+        await context.message.channel.send(whatToSay,allowed_mentions=allowedMentions)  
 
-    @say.error()
-    async def say_errors(self,ctx,error):
+    @say.error
+    async def say_error(self,ctx,error):
         if isinstance(error, MissingRequiredArgument):
             await cxt.send('Follow the syntax:\n```ink say <content>```')
 
