@@ -55,7 +55,7 @@ class banRoulette(commands.Cog):
             cantalk = [841314821786173450,841667898162675763,841331662205354025,841312605187866645,841693690246463550,838390757449662496]
             banRoyaleTestChannel = ctx.guild.get_channel(841357068807176203)
             banRoyaleChannel = ctx.guild.get_channel(841317703037616168)
-            if message.channel == banRoyaleChannel or message.channel == banRoyaleChannel:
+            if message.channel == banRoyaleChannel or message.channel == banRoyaleTestChannel:
                 for role in message.author.roles:
                     memberRoles.append(role.id)
                 if len(set(cantalk).intersection(memberRoles)) < 1:
