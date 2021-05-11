@@ -10,6 +10,7 @@ class inkHelpCommand(commands.Cog):
 
     #help command
     @commands.group(name="help",invoke_without_command=True)
+    @commands.guild_only()
     async def help_cmd(self,context):
         helpEmbed = discord.Embed(Title="inkBot help",description='Say `ink help <command>` for more info about a particular command',colour=0x9933ff)
         helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`iq`,`besmooth`,`8ball`',inline=False)

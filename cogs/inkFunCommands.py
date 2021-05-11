@@ -16,6 +16,7 @@ class inkFunCommands(commands.Cog):
 
     #command to echo
     @commands.command(name = 'say')
+    @commands.guild_only()
     async def say(self,context,*,whatToSay):
         await context.message.channel.send(whatToSay,allowed_mentions=allowedMentions)  
 
@@ -27,6 +28,7 @@ class inkFunCommands(commands.Cog):
 
     #gives a description of the person mentioned
     @commands.command(name = 'describe')
+    @commands.guild_only()
     async def describe(self, context, target : discord.Member):
         #rigging it for myself
         if target.id == 652756616185380894: 
@@ -45,6 +47,7 @@ class inkFunCommands(commands.Cog):
 
     #iq command
     @commands.command(name='iq')
+    @commands.guild_only()
     async def iq(self, cxt,target : discord.Member):
         #rigging it for myself
         if target.id == 652756616185380894:
@@ -74,11 +77,13 @@ class inkFunCommands(commands.Cog):
 
     #flirt command
     @commands.command(name = 'besmooth')
+    @commands.guild_only()
     async def besmooth(self,context):
         await context.message.channel.send(random.choice(pickupLines))
     
     #8ball cmd
     @commands.command(name = '8ball')
+    @commands.guild_only()
     async def eightball(self,cxt):
         await cxt.channel.send(f""":crystal_ball:{random.choice(eightBallOptions)}, {cxt.message.author.name}""", allowed_mentions = allowedMentions)
 

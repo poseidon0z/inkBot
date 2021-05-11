@@ -9,6 +9,7 @@ class banRoulette(commands.Cog):
         self.bot = bot
 
     @commands.command(name='banrouletteban', aliases=['brb'])
+    @commands.guild_only()
     async def banrouletteban(self,ctx,target : discord.Member):
         if ctx.message.guild.id == 841312145991532565:
             allowedRole = ctx.guild.get_role(841315457806106624)
