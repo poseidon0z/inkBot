@@ -18,7 +18,7 @@ class banRoulette(commands.Cog):
             allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
             if allowedRole in ctx.author.roles:
                 if cantBeBannedRole not in target.roles:
-                    if ctx.channel.id == 841357068807176203:
+                    if ctx.channel.id == 841357068807176203 or ctx.channel.id == 841317703037616168:
                         if alreadyBannedRole not in target.roles:  
                             for role in target.roles:
                                 if role == allowedRole:
