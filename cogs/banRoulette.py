@@ -12,29 +12,24 @@ class banRoulette(commands.Cog):
     async def banrouletteban(self,ctx,target : discord.Member):
         if ctx.message.guild.id == 841312145991532565:
             allowedRole = ctx.guild.get_role(841315457806106624)
-            toBeBannedRole = ctx.guild.get_role(841350470291292220)
             cantBeBannedRole = ctx.guild.get_role(841314821786173450)
             iGotBannedRole = ctx.guild.get_role(841336094771642378)
-            requiredRoles = [allowedRole,toBeBannedRole]
             allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
             if allowedRole in ctx.author.roles:
-                if toBeBannedRole in target.roles:
-                    if cantBeBannedRole not in target.roles:
-                        if ctx.channel.id == 841357068807176203:   
-                            for role in target.roles:
-                                if role in requiredRoles:
-                                    await target.remove_roles(role)
-                            await target.add_roles(iGotBannedRole)
-                            await target.send(f'You got banned in ban roulette by {ctx.author.name}#{ctx.author.discriminator} 2bad4you <a:slowkek:838803911686750209>\nHeres a link to rejoin: https://discord.gg/GyPxKEYf8z')
-                            await ctx.guild.ban(user=target,reason='You got banned in ban roulette 2bad4you',delete_message_days=0)
-                            await ctx.channel.send(f'{ctx.author.mention} banned {target.mention}!')
-                            await ctx.guild.unban(user=target)
-                        else:
-                            await ctx.send('this can only be used in <#841357068807176203>')
+                if cantBeBannedRole not in target.roles:
+                    if ctx.channel.id == 841357068807176203:   
+                        for role in target.roles:
+                            if role == allowedRole:
+                                await target.remove_roles(role)
+                        await target.add_roles(iGotBannedRole)
+                        await target.send(f'You got banned in ban roulette by {ctx.author.name}#{ctx.author.discriminator} 2bad4you <a:slowkek:838803911686750209>\nHeres a link to rejoin: https://discord.gg/GyPxKEYf8z')
+                        await ctx.guild.ban(user=target,reason='You got banned in ban roulette 2bad4you',delete_message_days=0)
+                        await ctx.channel.send(f'{ctx.author.mention} banned {target.mention}!')
+                        await ctx.guild.unban(user=target)
                     else:
-                        await ctx.send('You cant ban Admins BAHAHAH')
+                        await ctx.send('this can only be used in <#841357068807176203>')
                 else:
-                    await ctx.send('this member isnt ready to be banned')
+                    await ctx.send('You cant ban Admins BAHAHAH')
             else:
                 await ctx.send('you cant ban yet, make sure you have the <@&841315457806106624> role',allowed_mentions=allowedMentions)
     
