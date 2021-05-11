@@ -43,7 +43,7 @@ class banRoulette(commands.Cog):
 
     @commands.Cog.listener()
     async def cleanbanchannel(self,ctx):
-        dtbr = self.bot.get_guild(841312145991532565)
+        dtbr = self.bot.get_guild(841314821786173450)
         banRouletteChannel = dtbr.get_channel(841357068807176203)
         if ctx.channel == banRouletteChannel:
             bypassRole = dtbr.get_role(841314821786173450)
