@@ -31,7 +31,7 @@ class banRoulette(commands.Cog):
                         else:
                             await ctx.send('This user\'s already been banned, give them a break <a:waca:786168442649968651>')
                     else:
-                        await ctx.send('this can only be used in <#841357068807176203>')
+                        await ctx.send('this can only be used in <#841317703037616168>')
                 else:
                     await ctx.send('You cant ban Admins BAHAHAH')
             else:

@@ -19,6 +19,12 @@ class inkFunCommands(commands.Cog):
     async def say(self,context,*,whatToSay):
         await context.message.channel.send(whatToSay,allowed_mentions=allowedMentions)      #repeating what the member said with no role/everyone mentions
 
+    @say.error()
+    async def say_errors(self,ctx,error):
+        if isinstance(error, MissingRequiredArgument):
+            await cxt.send('Follow the syntax:\n```ink say <content>```')
+
+
     #gives a description of the person mentioned
     @commands.command(name = 'describe')
     async def describe(self, context, target : discord.Member):
@@ -32,6 +38,8 @@ class inkFunCommands(commands.Cog):
     async def describe_error(self, cxt, error):
         if isinstance(error, MemberNotFound):
             await cxt.channel.send('Oi gimme an actual member to describe <a:PI_Angry:838736380674572328>')
+        elif isinstance(error, MissingRequiredArgument):
+            await cxt.send('Follow the syntax:\n```ink describe <member>```')
         else:
             pass
 
