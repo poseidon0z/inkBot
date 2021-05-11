@@ -40,6 +40,16 @@ class banRoulette(commands.Cog):
         else:
             pass
 
+
+    @commands.Cog.listener()
+    async def cleanbanchannel(self,ctx):
+        dtbr = self.bot.get_guild(841312145991532565)
+        banRouletteChannel = dtbr.get_channel(841357068807176203)
+        if ctx.channel = banRouletteChannel:
+            bypassRole = dtbr.get_role(841314821786173450)
+            if bypassRole not in ctx.author.roles:
+                ctx.message.delete()
+                
 #loading the cog
 def setup(bot):
     bot.add_cog(banRoulette(bot))
