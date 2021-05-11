@@ -52,7 +52,7 @@ class banRoulette(commands.Cog):
         if message.guild == dtbr:
             ctx = await self.bot.get_context(message)
             memberRoles = []
-            cantalk = [841314821786173450,841667898162675763,841331662205354025,841312605187866645]
+            cantalk = [841314821786173450,841667898162675763,841331662205354025,841312605187866645,841693690246463550]
             banRoyaleChannel = ctx.guild.get_channel(841357068807176203)
             if message.channel == banRoyaleChannel:
                 for role in message.author.roles:
