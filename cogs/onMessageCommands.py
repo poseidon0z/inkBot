@@ -13,6 +13,7 @@ class onMessageCommands(commands.Cog):
 
 
     @commands.Cog.listener()
+    @commands.guild_only()
     async def on_message(self,message):
         #hi ink response
         if 'hi ink' == message.content.lower():
