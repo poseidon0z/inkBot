@@ -23,7 +23,7 @@ class inkFunCommands(commands.Cog):
     @say.error
     async def say_error(self,ctx,error):
         if isinstance(error, MissingRequiredArgument):
-            await cxt.send('Follow the syntax:\n```ink say <content>```')
+            await ctx.send('Follow the syntax:\n```ink say <content>```')
 
 
     #gives a description of the person mentioned

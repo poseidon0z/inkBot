@@ -2,6 +2,7 @@
 import discord
 from discord.ext import commands
 from discord.ext.commands import MissingRequiredArgument
+from discord.ext.commands.core import command
 
 #the actual cog
 class banRoulette(commands.Cog):
@@ -43,8 +44,22 @@ class banRoulette(commands.Cog):
         if isinstance(error,MissingRequiredArgument):
             await ctx.channel.send(f'Missing arguemnts, make sure you follow the syntax:\n```ink banrouletteban <member>```')
         else:
-            pass
+            return error
 
+    @commands.Cog.listener()
+    async def on_message(self,message):
+        dtbr = await self.bot.fetch_guild(841312145991532565)
+        if message.guild == dtbr:
+            ctx = await self.bot.get_context(message)
+            memberRoles = []
+            cantalk = [841314821786173450,841667898162675763,841331662205354025,841312605187866645]
+            banRoyaleChannel = ctx.guild.get_channel(841357068807176203)
+            if message.channel == banRoyaleChannel:
+                for role in message.author.roles:
+                    memberRoles.append(role.id)
+                if len(set(cantalk).intersection(memberRoles)) < 1:
+                    if ctx.valid == False:
+                        await message.delete()
                 
 #loading the cog
 def setup(bot):
