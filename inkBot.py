@@ -1,10 +1,7 @@
 #importing the discord package
 import discord
 from discord.ext import commands
-import random
-import time
 import varsToNotCopy
-from discord.ext.commands import MemberNotFound
 import os
 
 # Client (my bot)

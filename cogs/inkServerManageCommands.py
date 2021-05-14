@@ -1,10 +1,10 @@
 #importing all required stuff
 import discord
 from discord.ext import commands
-import varsToNotCopy
 from discord.ext.commands import MissingRequiredArgument
 from discord.ext.commands import MemberNotFound
 from discord.ext.commands import ChannelNotFound
+
 
 #creating the class, which is the cog
 class inkServerManageCommands(commands.Cog):
