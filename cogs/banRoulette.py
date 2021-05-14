@@ -123,18 +123,17 @@ class banRoulette(commands.Cog):
     async def on_message(self,message):
         dtbr = await self.bot.fetch_guild(841312145991532565)
         if message.guild == dtbr:
-            return
-        ctx = await self.bot.get_context(message)
-        memberRoles = []
-        cantalk = [841314821786173450,841667898162675763,841331662205354025,841312605187866645,841693690246463550,838390757449662496,841697013758165014]
-        banRoyaleTestChannel = ctx.guild.get_channel(841357068807176203)
-        banRoyaleChannel = ctx.guild.get_channel(841317703037616168)
-        if message.channel == banRoyaleChannel or message.channel == banRoyaleTestChannel:
-            for role in message.author.roles:
-                memberRoles.append(role.id)
-            if len(set(cantalk).intersection(memberRoles)) < 1:
-                if ctx.valid == False:
-                    await message.delete()
+            ctx = await self.bot.get_context(message)
+            memberRoles = []
+            cantalk = [841314821786173450,841331662205354025,841312605187866645,841693690246463550,841697013758165014]
+            banRoyaleTestChannel = ctx.guild.get_channel(841357068807176203)
+            banRoyaleChannel = ctx.guild.get_channel(841317703037616168)
+            if message.channel == banRoyaleChannel or message.channel == banRoyaleTestChannel:
+                for role in message.author.roles:
+                    memberRoles.append(role.id)
+                if len(set(cantalk).intersection(memberRoles)) < 1:
+                    if ctx.valid == False:
+                        await message.delete()
 
 
 #loading the cog
