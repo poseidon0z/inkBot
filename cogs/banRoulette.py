@@ -86,8 +86,11 @@ class banRoulette(commands.Cog):
         dtbr = await self.bot.fetch_guild(841312145991532565)
         if ctx.guild != dtbr:
             return
-        modRole = ctx.guild.get_role(841523062360113174)
-        if modRole in ctx.author.roles:
+        allowedRoles = [841314821786173450,841523062360113174]
+        memberRoles = []
+        for role in ctx.author.roles:
+                memberRoles.append(role.id)
+        if len(set(allowedRoles).intersection(memberRoles)) >= 1:
             lbRaw = bancollection.find().limit(10).sort("numberOfBans", -1)
             i = 1
             lbEmbed = discord.Embed(title='Dank Trades Ban Royale Leaderboard',colour=0xabcdef)
