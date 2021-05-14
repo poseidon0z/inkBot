@@ -92,7 +92,7 @@ class banRoulette(commands.Cog):
             i = 1
             lbEmbed = discord.Embed(title='Dank Trades Ban Royale Leaderboard',colour=0xabcdef)
             for personData in lbRaw:
-                while personData is not None:
+                if personData is not None:
                     personId = int(personData["_id"])
                     person = await ctx.guild.fetch_member(personId)
                     personName = person.name
