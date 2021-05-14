@@ -92,12 +92,13 @@ class banRoulette(commands.Cog):
             i = 1
             lbEmbed = discord.Embed(title='Dank Trades Ban Royale Leaderboard',colour=0xabcdef)
             for personData in lbRaw:
-                personId = int(personData["_id"])
-                person = await ctx.guild.fetch_member(personId)
-                personName = person.name
-                personBans = personData["numberOfBans"]
-                lbEmbed.add_field(name=f'**#{i}**',value=f'> Member = {personName}\n> ID = {personId}\n> Number of bans = {personBans}',inline=False)
-                i += 1
+                while personData is not None:
+                    personId = int(personData["_id"])
+                    person = await ctx.guild.fetch_member(personId)
+                    personName = person.name
+                    personBans = personData["numberOfBans"]
+                    lbEmbed.add_field(name=f'**#{i}**',value=f'> Member = {personName}\n> ID = {personId}\n> Number of bans = {personBans}',inline=False)
+                    i += 1
             await ctx.send(embed=lbEmbed)
 
     @commands.command(name='mybans')
