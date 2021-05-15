@@ -17,7 +17,7 @@ class onMessageCommands(commands.Cog):
         #hi ink response
         if message.guild != None:
             if 'hi ink' == message.content.lower():
-                if message.guild.id != 838372531336773682:
+                if message.guild.id != 719180744311701505:
                     if str(message.author.nick) != 'None':
                         allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
                         await message.channel.send('Hi ' + str(message.author.nick), allowed_mentions=allowedMentions)
