@@ -104,7 +104,7 @@ class inkHelpCommand(commands.Cog):
         donationEmbed.add_field(name='**check**:', value='Checks how much a member has donated',inline=False)
         donationEmbed.add_field(name='**gmanlb**:', value='Shows a leaderboard of giveaway manager activity',inline=False)
         donationEmbed.add_field(name='**emanlb**:', value='Shows a leaderboard of event manager activity',inline=False)
-        donationEmbed.add_field(name='**lb**:', value='tShows a leaderboard of top donators',inline=False)
+        donationEmbed.add_field(name='**lb**:', value='Shows a leaderboard of top donators',inline=False)
         donationEmbed.add_field(name='**mine**:', value='Checks how much you have donated',inline=False)
         donationEmbed.add_field(name='**eventsheld**:', value='Shows number of events held by an event manager',inline=False)
         donationEmbed.add_field(name='**giveawaysheld**:', value='Shows number of gveaways held by a giveaway manager',inline=False)

@@ -10,7 +10,7 @@ from discord.ext import commands
 allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
 
 def isNotTrades(ctx):
-    return ctx.guild.id != 719180744311701505
+    return ctx.message.guild.id != 719180744311701505
 
 def addToEman(id,db):
     emanCol = db['emanagerStats']

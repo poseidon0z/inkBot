@@ -13,24 +13,21 @@ class onMessageCommands(commands.Cog):
 
 
     @commands.Cog.listener()
-    @commands.check(simplifications.isNotTrades)
     async def on_message(self,message):
         #hi ink response
         if message.guild != None:
             if 'hi ink' == message.content.lower():
-                if str(message.author.nick) != 'None':
-                    allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
-                    await message.channel.send('Hi ' + str(message.author.nick), allowed_mentions=allowedMentions)
-                else:
-                    allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
-                    await message.channel.send('Hi ' + str(message.author.name), allowed_mentions=allowedMentions)
+                if message.guild.id != 838372531336773682:
+                    if str(message.author.nick) != 'None':
+                        allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
+                        await message.channel.send('Hi ' + str(message.author.nick), allowed_mentions=allowedMentions)
+                    else:
+                        allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
+                        await message.channel.send('Hi ' + str(message.author.name), allowed_mentions=allowedMentions)
 
-            #adi ar    
-            if 'adi ' in message.content.lower():
-                await message.add_reaction('<:kiki_happy:839524132286365717>')
 
             if str(message.content) == f'''<@!{varsToNotCopy.bot_id}>''' or str(message.content) == f'''<@{varsToNotCopy.bot_id}>''':
-                await message.channel.send('Hi! My prefix is `ink `, run `ink help` for more details!!')
+                    await message.channel.send('Hi! My prefix is `ink `, run `ink help` for more details!!')
 
             #ping autoreacts
             if len(message.mentions) > 0:
