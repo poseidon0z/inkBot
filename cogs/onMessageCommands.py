@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 import varsToNotCopy
-
+from utils import simplifications
 class onMessageCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -13,6 +13,7 @@ class onMessageCommands(commands.Cog):
 
 
     @commands.Cog.listener()
+    @commands.check(simplifications.isNotTrades)
     async def on_message(self,message):
         #hi ink response
         if message.guild != None:
@@ -25,7 +26,7 @@ class onMessageCommands(commands.Cog):
                     await message.channel.send('Hi ' + str(message.author.name), allowed_mentions=allowedMentions)
 
             #adi ar    
-            if 'adi' in message.content.lower():
+            if 'adi ' in message.content.lower():
                 await message.add_reaction('<:kiki_happy:839524132286365717>')
 
             if str(message.content) == f'''<@!{varsToNotCopy.bot_id}>''' or str(message.content) == f'''<@{varsToNotCopy.bot_id}>''':
@@ -82,7 +83,7 @@ class onMessageCommands(commands.Cog):
                         await message.channel.send('I detected something.... but its not an id....')
                     except:
                         await message.channel.send('Couldnt find ID, ping adi if this happens too often and he\'ll prolly think of a fix <a:MaidThumbsUp:839411010460975165>')
-        else:
+        elif message.author.bot == False:
             print(f'user {message.author.name}#{message.author.discriminator} ID:{message.author.id} tried invoking a dm')
 
 def setup(bot):

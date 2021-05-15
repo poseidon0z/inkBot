@@ -1,5 +1,6 @@
 #importing required stuff
 import discord
+from discord import colour
 from discord.ext import commands
 
 
@@ -9,12 +10,14 @@ class inkHelpCommand(commands.Cog):
         self.bot= bot
 
     #help command
-    @commands.group(name="help",invoke_without_command=True)
+    @commands.group(name="help2",invoke_without_command=True)
     @commands.guild_only()
     async def help_cmd(self,context):
         helpEmbed = discord.Embed(Title="inkBot help",description='Say `ink help <command>` for more info about a particular command',colour=0x9933ff)
+        helpEmbed.set_thumbnail(url=self.bot.user.avatar_url)
         helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`iq`,`besmooth`,`8ball`',inline=False)
         helpEmbed.add_field(name='Utils',value='`whois`,`info`,`help`,`ping`',inline=False)
+        helpEmbed.add_field(name='Donations',value='`donation`',inline=False)
         helpEmbed.add_field(name='Server Config',value='`autobanScammers`,`channelmanagement`,`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
         helpEmbed.set_footer(text='bot by Adi#1874')
         await context.message.channel.send(embed=helpEmbed)
@@ -92,9 +95,102 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.add_field(name='Aliases',value='`i`',inline=False)
         await context.message.channel.send(embed=helpEmbed)
 
-    @help_cmd.command(name='ChannelManagement',aliases=['chanmanagement','channelmanagement'])
-    async def info(self, ctx):
-        helpEmbed = discord.Embed(title='Channel Management Commands',colour=0x9933ff)
+    @help_cmd.group(name='donation', aliases=['d','dono'], invoke_without_command=True)
+    async def donations(self,ctx):
+        donationEmbed = discord.Embed(title='Donations Category',description='Aliases for this command are `d` and `dono`',colour=0x9933ff)
+        donationEmbed.add_field(name='**giveaway:**', value='adds a specifc amount to the person\'s donations(used if gaw donation)',inline=False)
+        donationEmbed.add_field(name='**event**:', value='adds a specifc amount to the person\'s donations(used if event donation)',inline=False)
+        donationEmbed.add_field(name='**special**:', value='adds a specific amount to the person\'s donations (used if the donation was for a special celeb)',inline=False)
+        donationEmbed.add_field(name='**check**:', value='Checks how much a member has donated',inline=False)
+        donationEmbed.add_field(name='**gmanlb**:', value='Shows a leaderboard of giveaway manager activity',inline=False)
+        donationEmbed.add_field(name='**emanlb**:', value='Shows a leaderboard of event manager activity',inline=False)
+        donationEmbed.add_field(name='**lb**:', value='tShows a leaderboard of top donators',inline=False)
+        donationEmbed.add_field(name='**mine**:', value='Checks how much you have donated',inline=False)
+        donationEmbed.add_field(name='**eventsheld**:', value='Shows number of events held by an event manager',inline=False)
+        donationEmbed.add_field(name='**giveawaysheld**:', value='Shows number of gveaways held by a giveaway manager',inline=False)
+        donationEmbed.set_footer(text='use "ink dono <subcommand_name>" for more info on a subcommand')
+        await ctx.send(embed=donationEmbed)
+
+    @donations.command(name='giveaway',aliases=['gaw'])
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Gaw command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Adds a specifc amount to the person\'s donations(used if gaw donation)',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink dono giveaway <member> <amount>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`gaw`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @donations.command(name='event')
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Event command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Adds a specifc amount to the person\'s donations(used if event donation)',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink dono event <member> <amount>`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @donations.command(name='special')
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Special command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Adds a specifc amount to the person\'s donations(used if special celeb donation)',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink dono special <member> <amount>`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @donations.command(name='check')
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Check command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Checks how much a member has donated',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink dono check <member>`',inline=False)
+        await ctx.send(embed=helpEmbed)
+    
+    @donations.command(name='giveawaymanagerleaderboard',aliases=['gmanlb', 'glb'])
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Giveaway manager leaderboard',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Shows a leaderboard of giveaway manager activity',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink dono giveawaymanagerleaderboard <member> <amount>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`gmanlb`,`glb`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @donations.command(name='eventmanagerleaderboard',aliases=['emanlb','elb'])
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Event manager leaderboard',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Shows a leaderboard of event manager activity',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink eventmanagerleaderboard <member> <amount>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`emanlb`,`elb`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @donations.command(name='donationleaderboard',aliases=['donolb','dlb'])
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Donations leaderboard',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Shows a leaderboard of top donators',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink donationleaderboard <member> <amount>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`donolb`,`dlb`',inline=False)
+        await ctx.send(embed=helpEmbed)
+    
+    @donations.command(name='mine')
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Mydono command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Checks how much you have donated',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink dono mine`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @donations.command(name='eventsheld',aliases=['eheld','eh'])
+    async def gaw(self,ctx):
+        helpEmbed = discord.Embed(title='Events held command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Shows number of events held by an event manager',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink eventsheld <member>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`eheld`,`eh`',inline=False)
+        await ctx.send(embed=helpEmbed)
+    
+    @donations.command(name='giveawaysheld',aliases=['gheld','gh'])
+    async def giveawaysheld(self,ctx):
+        helpEmbed = discord.Embed(title='Giveaways held command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Shows number of gveaways held by a giveaway manager',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink giveawayssheld <member>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`gheld`,`gh`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+
+    @help_cmd.group(name='channelmanagement',aliases=['chanmanagement','cm'],invoke_without_command=True)
+    async def channelManagement(self, ctx):
+        helpEmbed = discord.Embed(title='Channel Management Commands',description='Commands in this category are disabled in Dank Trades',colour=0x9933ff)
         helpEmbed.add_field(name='Commands in this category: ', value='`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
         helpEmbed.add_field(name='removechannel: ', value='Adds a member to a channel if you have manage channel perms in that channel',inline=False)
         helpEmbed.add_field(name='removechannel: ', value='Removes a member from a channel if you have manage channel perms in that channel',inline=False)
@@ -103,7 +199,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='run "ink help <command_name>" for more info on a particular command')
         await ctx.send(embed=helpEmbed)
 
-    @help_cmd.command(name='addchannel',aliases=['ac', 'addchan','achan'])
+    @channelManagement.command(name='addchannel',aliases=['ac', 'addchan','achan'])
     async def addchannel(self,context):
         helpEmbed = discord.Embed(title='Addchannel command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Adds a member to the private channel',inline=False)
@@ -112,7 +208,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
         await context.message.channel.send(embed=helpEmbed)
         
-    @help_cmd.command(name='removechannel',aliases=['rc', 'removechan','rchan'])
+    @channelManagement.command(name='removechannel',aliases=['rc', 'removechan','rchan'])
     async def removechannel(self,ctx):
         helpEmbed = discord.Embed(title='Removechannel command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Removes a member from the private channel',inline=False)
@@ -121,7 +217,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
         await ctx.send(embed=helpEmbed)
     
-    @help_cmd.command(name='addchannelmanager',aliases=['acm','addchanman'])
+    @channelManagement.command(name='addchannelmanager',aliases=['acm','addchanman'])
     async def addchannelmanager(self,context):
         helpEmbed = discord.Embed(title='Add channel manager command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Adds a member as the manager of a channel',inline=False)
@@ -130,7 +226,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
         await context.message.channel.send(embed=helpEmbed)
     
-    @help_cmd.command(name='removechannelmanager',aliases=['rcm','remchanman'])
+    @channelManagement.command(name='removechannelmanager',aliases=['rcm','remchanman'])
     async def removechannelmanager(self,context):
         helpEmbed = discord.Embed(title='Remove channel manager command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Removes a member from the position of manager of a channel',inline=False)
@@ -143,7 +239,7 @@ class inkHelpCommand(commands.Cog):
     async def autobanScammers(self,context):
         helpEmbed = discord.Embed(title='Autoban scammers',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Automatically bans members that are reported in the alert channels of various servers',inline=False)
-        helpEmbed.add_field(name='Setup',value='You have to dm Adi for this till he learns to set up global vars',inline=False)
+        helpEmbed.add_field(name='Setup',value='DM  Adi#1874 to add this feature',inline=False)
         helpEmbed.add_field(name='Aliases',value='`autoban`',inline=False)
         await context.message.channel.send(embed=helpEmbed)
 
