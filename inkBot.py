@@ -6,7 +6,7 @@ import secrets
 
 # Client (my bot)
 client = commands.Bot(command_prefix = ['ink ', 'ink', 'Ink ','Ink'])
-
+client.remove_command('help')
 
 
 #message sent in bot status when bot comes on

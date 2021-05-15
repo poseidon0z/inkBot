@@ -2,6 +2,7 @@
 from os import name
 from re import A
 import discord
+from discord.ext.commands import bot
 import pymongo
 import secrets
 from discord.ext import commands
@@ -9,8 +10,7 @@ from discord.ext import commands
 allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
 
 def isNotTrades(ctx):
-    dankTrades = commands.Bot.fetch_guild(719180744311701505)
-    return ctx.guild != dankTrades
+    return ctx.guild.id != 719180744311701505
 
 def addToEman(id,db):
     emanCol = db['emanagerStats']
