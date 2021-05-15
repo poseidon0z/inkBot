@@ -4,11 +4,12 @@ from re import A
 import discord
 import pymongo
 import secrets
+from discord.ext import commands
 
 allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
 
 def isNotTrades(ctx):
-    dankTrades = discord.bot.fetch_guild(719180744311701505)
+    dankTrades = commands.Bot.fetch_guild(719180744311701505)
     return ctx.guild != dankTrades
 
 def addToEman(id,db):
