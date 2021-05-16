@@ -1,9 +1,5 @@
 #importing reqs
-from types import LambdaType
 import discord
-from discord import colour
-from discord import embeds
-from discord import role
 from discord.ext import commands
 from discord.ext.commands.errors import MemberNotFound
 from discord.mentions import AllowedMentions

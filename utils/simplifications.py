@@ -1,6 +1,4 @@
 #imports
-from os import name
-from re import A
 import discord
 from discord.ext.commands import bot
 import pymongo

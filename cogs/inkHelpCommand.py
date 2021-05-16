@@ -1,6 +1,6 @@
 #importing required stuff
+from operator import truediv
 import discord
-from discord import colour
 from discord.ext import commands
 
 
@@ -17,7 +17,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_thumbnail(url=self.bot.user.avatar_url)
         helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`iq`,`besmooth`,`8ball`',inline=False)
         helpEmbed.add_field(name='Utils',value='`whois`,`info`,`help`,`ping`',inline=False)
-        helpEmbed.add_field(name='Donations',value='`donation`',inline=False)
+        helpEmbed.add_field(name='Donations',value='`donation`,`settings`',inline=False)
         helpEmbed.add_field(name='Server Config',value='`autobanScammers`,`channelmanagement`,`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
         helpEmbed.set_footer(text='bot by Adi#1874')
         await context.message.channel.send(embed=helpEmbed)
@@ -185,6 +185,46 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.add_field(name='Feature', value='Shows number of gveaways held by a giveaway manager',inline=False)
         helpEmbed.add_field(name='Syntax',value='`ink giveawayssheld <member>`',inline=False)
         helpEmbed.add_field(name='Aliases',value='`gheld`,`gh`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @help_cmd.group(name='settings',aliases=['set'],invoke_without_commands=True)
+    async def settings(self,ctx):
+        helpEmbed = discord.Embed(title='Settings commands',description='Alias for this command is set',color=0x9988ff)
+        helpEmbed.add_field(title='Permissions required to run commands in the category are: ',value='Administrator or Manage server')
+        helpEmbed.add_field(name='Subcommands',value='`giveawaymanager`,`eventmanager`,`mod`,`admin`')
+        helpEmbed.set_footer(text='Use "ink help settings <subcommand>" for more info on a subcommand')
+        await ctx.send(embed=helpEmbed)
+    
+    @settings.command(name='giveawaymanager', aliases=['gmanrole', 'gr'])
+    async def giveawaymanager(self,ctx):
+        helpEmbed = discord.Embed(title='Giveaway manager command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Sets a role as the giveaway manager role for the server\nMembers with this role have perms to set giveaway donations and special donations for a member and to check any member\'s donations',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink set giveawaymanager <role>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`gmanrole`,`gr`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @settings.command(name='eventmanager', aliases=['emanrole', 'er'])
+    async def eventmanager(self,ctx):
+        helpEmbed = discord.Embed(title='Event manager command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Sets a role as the event manager role for the server\nMembers with this role have perms to set event donations and special donations for a member and to check any member\'s donations',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink set eventmanager <role>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`emanrole`,`er`',inline=False)
+        await ctx.send(embed=helpEmbed)
+    
+    @settings.command(name='moderator', aliases=['mod', 'mr'])
+    async def eventmanager(self,ctx):
+        helpEmbed = discord.Embed(title='Moderator command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Sets a role as the mod role for the server\nMembers with this role have perms to set event donations,giveaway donations and special donations for a memeber and to check any member\'s donations',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink set moderator <role>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`mod`,`mr`',inline=False)
+        await ctx.send(embed=helpEmbed)
+
+    @settings.command(name='administrator', aliases=['admin', 'ar'])
+    async def eventmanager(self,ctx):
+        helpEmbed = discord.Embed(title='Administrator command',colour=0x9933ff)
+        helpEmbed.add_field(name='Feature', value='Sets a role as the admin role for the server\nMembers with this role have perms to set event,giveaway and special donations, check gman and eman lb, check any member\'s donation, check a gman\'s or eman\'s number of donations done and can also clear gman and eman lb',inline=False)
+        helpEmbed.add_field(name='Syntax',value='`ink set administrator <role>`',inline=False)
+        helpEmbed.add_field(name='Aliases',value='`admin`,`ar`',inline=False)
         await ctx.send(embed=helpEmbed)
 
 
