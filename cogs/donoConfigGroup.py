@@ -20,7 +20,7 @@ class donoConfigGroup(commands.Cog):
         setEmbed = discord.Embed(title='inkBot guild specific configs')
     
     @set.command(name='giveawaymanager', aliases=['gmanrole', 'gr'])
-    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_server=True))
+    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def giveawayManagerRole(self,ctx,role : discord.Role):
         db = cluster['donations' + str(ctx.guild.id)]
         settingsCol = db['serverSettings']
@@ -35,7 +35,7 @@ class donoConfigGroup(commands.Cog):
             await ctx.send(f'giveaway manager role has been updated to {role.mention}',allowed_mentions = allowedMentions)
 
     @set.command(name='eventmanager', aliases=['emanrole', 'er'])
-    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_server=True))
+    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def eventManagerRole(self,ctx,role : discord.Role):
         db = cluster['donations' + str(ctx.guild.id)]
         settingsCol = db['serverSettings']
@@ -50,7 +50,7 @@ class donoConfigGroup(commands.Cog):
             await ctx.send(f'event manager role has been updated to {role.mention}',allowed_mentions = allowedMentions)
         
     @set.command(name='moderator', aliases=['mod', 'mr'])
-    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_server=True))
+    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def modRole(self,ctx,role : discord.Role):
         db = cluster['donations' + str(ctx.guild.id)]
         settingsCol = db['serverSettings']
@@ -65,7 +65,7 @@ class donoConfigGroup(commands.Cog):
             await ctx.send(f'Mod role has been updated to {role.mention}',allowed_mentions = allowedMentions)
 
     @set.command(name='administrator', aliases=['admin', 'ar'])
-    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_server=True))
+    @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def adminRole(self,ctx,role : discord.Role):
         db = cluster['donations' + str(ctx.guild.id)]
         settingsCol = db['serverSettings']
