@@ -38,7 +38,8 @@ class eventStuff(commands.Cog):
     Running just the donation command gives you info on all the commands in the group
     '''
     @commands.group(name='donation', aliases=['d','dono'], invoke_without_command=True)
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def donation(self,ctx):
         donationEmbed = discord.Embed(title='inkBot donation commands', description='',colour=0x4040bf)
         donationEmbed.add_field(name='**gaw:**', value='adds a specifc amount to the person\'s donations(used if gaw donation)',inline=False)
@@ -55,7 +56,8 @@ class eventStuff(commands.Cog):
     
     #Used if the donor has donated towards making a gaw
     @donation.command(name='giveaway',aliases=['gaw'])
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def gaw_dono_add(self,ctx,target : discord.Member,amount):
         amount = float(amount)
         db = cluster['donations' + str(ctx.guild.id)]
@@ -88,7 +90,8 @@ class eventStuff(commands.Cog):
 
     #Used if the donor has donated towards an event
     @donation.command(name='event')
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def event_dono_add(self,ctx,target : discord.Member,amount):
         amount = float(amount)
         db = cluster['donations' + str(ctx.guild.id)]
@@ -121,7 +124,8 @@ class eventStuff(commands.Cog):
 
     #Used if the donor has donated towards a special celeb
     @donation.command(name='special')
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def special_dono_add(self,ctx,target : discord.Member,amount):
         amount = float(amount)
         db = cluster['donations' + str(ctx.guild.id)]
@@ -156,7 +160,8 @@ class eventStuff(commands.Cog):
     
     #Used to check the donation by a certain member
     @donation.command(name='check')
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def dono_check(self,ctx,target: discord.Member):
         db = cluster['donations' + str(ctx.guild.id)]
         eman = db['serverSettings'].find_one({"_id" : 'eventManagerRole'})
@@ -181,7 +186,8 @@ class eventStuff(commands.Cog):
 
     #ranks giveaway managers based on activity
     @donation.command(name='giveawaymanagerleaderboard',aliases=['gmanlb', 'glb'])
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def dono_gmanlb(self,ctx):
         db = cluster['donations' + str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
@@ -199,7 +205,8 @@ class eventStuff(commands.Cog):
 
     #ranks event managers based on activity
     @donation.command(name='eventmanagerleaderboard',aliases=['emanlb','elb'])
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def dono_emanlb(self,ctx):
         db = cluster['donations' + str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
@@ -218,7 +225,8 @@ class eventStuff(commands.Cog):
 
     #used to find the top 10 donors
     @donation.command(name='donationleaderboard',aliases=['dlb','donolb'])
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def dono_lb(self,ctx):
         db = cluster['donations' + str(ctx.guild.id)]
         lbEmbed = discord.Embed(title="Dank Trades Top Donators",colour=0x4040bf)
@@ -229,7 +237,8 @@ class eventStuff(commands.Cog):
     
     #find the amound donated by you
     @donation.command(name='mine')
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def mydono(self,ctx):
         target = ctx.author
         db = cluster['donations' + str(ctx.guild.id)]
@@ -237,7 +246,8 @@ class eventStuff(commands.Cog):
 
     #find the number of events held by a certain event manager
     @donation.command(name='eventsheld',aliases=['eh','eheld'])
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def eventsHeld(self,ctx,target : discord.Member):
         db = cluster['donations' + str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
@@ -267,7 +277,8 @@ class eventStuff(commands.Cog):
 
     #find the number of giveaways hosted by a certain gaw manager
     @donation.command(name='giveawaysheld',aliases=['gh', 'gawsheld'])
-    @commands.guild_only()
+    @commands.check(simplifications.isNotbanned)
+    @commands.guild_only()    
     async def giveawaysHeld(self,ctx,target : discord.Member):
         db = cluster['donations' + str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
@@ -297,6 +308,7 @@ class eventStuff(commands.Cog):
 
     #reset weekly lb
     @donation.command(name='resetEventManagers', aliases=['resetemans'])
+    @commands.check(simplifications.isNotbanned)
     @commands.guild_only()
     async def resetEventManagers(self,ctx):
         db = cluster['donations' + str(ctx.guild.id)]
@@ -318,6 +330,7 @@ class eventStuff(commands.Cog):
 
     #reset weekly lb
     @donation.command(name='resetGiveawayManagers', aliases=['resetgmans'])
+    @commands.check(simplifications.isNotbanned)
     @commands.guild_only()
     async def resetGiveawayManagers(self,ctx):
         db = cluster['donations' + str(ctx.guild.id)]

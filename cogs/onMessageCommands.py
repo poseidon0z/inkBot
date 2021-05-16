@@ -13,6 +13,7 @@ class onMessageCommands(commands.Cog):
 
 
     @commands.Cog.listener()
+    @commands.check(simplifications.isNotbanned)
     async def on_message(self,message):
         #hi ink response
         if message.guild != None:

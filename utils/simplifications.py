@@ -10,6 +10,17 @@ allowedMentions = discord.AllowedMentions(everyone=False,roles=False)
 def isNotTrades(ctx):
     return ctx.message.guild.id != 719180744311701505
 
+def isNotbanned(ctx):
+    cluster = pymongo.MongoClient(secrets.cluster)
+    bannedInfo = cluster['banned']['Ids']
+    x = bannedInfo.find()
+    bannedList = []
+    for item in x:
+        if item is not None:
+            bannedMember = item['_id']
+            bannedList.append(bannedMember)
+    return ctx.author.id not in bannedList
+
 def addToEman(id,db):
     emanCol = db['emanagerStats']
     manID = id
