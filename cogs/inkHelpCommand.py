@@ -190,8 +190,8 @@ class inkHelpCommand(commands.Cog):
     @help_cmd.group(name='settings',aliases=['set'],invoke_without_commands=True)
     async def settings(self,ctx):
         helpEmbed = discord.Embed(title='Settings commands',description='Alias for this command is set',color=0x9988ff)
-        helpEmbed.add_field(name='Permissions required to run commands in the category are: ',value='Administrator or Manage server')
-        helpEmbed.add_field(name='Subcommands',value='`giveawaymanager`,`eventmanager`,`mod`,`admin`')
+        helpEmbed.add_field(name='Permissions required to run commands in the category are: ',value='Administrator or Manage server',inline=False)
+        helpEmbed.add_field(name='Subcommands',value='`giveawaymanager`,`eventmanager`,`mod`,`admin`',inline=False)
         helpEmbed.set_footer(text='Use "ink help settings <subcommand>" for more info on a subcommand')
         await ctx.send(embed=helpEmbed)
     
