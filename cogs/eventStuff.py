@@ -307,7 +307,7 @@ class eventStuff(commands.Cog):
             await ctx.message.reply('Couldnt find the member, make sure you\'re following the syntax:\n```ink giveawaysheld <member>```',allowed_mentions = allowedMentions)
 
     #reset weekly lb
-    @donation.command(name='resetEventManagers', aliases=['resetemans'])
+    @donation.command(name='reseteventmanagers', aliases=['resetemans'])
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()
     async def resetEventManagers(self,ctx):
@@ -329,7 +329,7 @@ class eventStuff(commands.Cog):
             await ctx.message.reply("You dont have perms!")
 
     #reset weekly lb
-    @donation.command(name='resetGiveawayManagers', aliases=['resetgmans'])
+    @donation.command(name='resetgiveawaymanagers', aliases=['resetgmans'])
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()
     async def resetGiveawayManagers(self,ctx):
