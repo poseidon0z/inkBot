@@ -1,3 +1,4 @@
+from discord import message
 from discord.ext import commands
 import random
 import discord
@@ -84,13 +85,16 @@ class inkFunCommands(commands.Cog):
     #8ball cmd
     @commands.command(name = '8ball')
     @commands.guild_only()
-    async def eightball(self,cxt):
-        await cxt.channel.send(f""":crystal_ball:{random.choice(eightBallOptions)}, {cxt.message.author.name}""", allowed_mentions = allowedMentions)
+    async def eightball(self,ctx):
+        if 'adi' in message.content:
+            await ctx.send(f'dont ask me stuff about my creator, idk')
+        else:
+            await ctx.channel.send(f""":crystal_ball:{random.choice(eightBallOptions)}, {ctx.author.name}""", allowed_mentions = allowedMentions)
 
     @eightball.error
-    async def eightball_error(self,cxt, error):
+    async def eightball_error(self,ctx, error):
         if isinstance(error, commands.MissingRequiredArgument):
-            await cxt.channel.send('Give me something to predict <:facepalm:838671083481333781>')
+            await ctx.channel.send('Give me something to predict <:facepalm:838671083481333781>')
         else:
             pass
         
