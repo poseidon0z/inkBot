@@ -16,7 +16,7 @@ async def on_ready():
     print('bot is online')
 
 @client.command(name="botban")
-@client.is_owner()
+@commands.is_owner()
 async def botban(ctx,target : discord.User):
     cluster = pymongo.MongoClient(secrets.cluster)
     bannedInfo = cluster['banned']['Ids'] 
@@ -29,7 +29,7 @@ async def botban(ctx,target : discord.User):
         await ctx.send('Looks like this user is already banned')
 
 @client.command(name='botunban')
-@client.is_owner()
+@commands.is_owner()
 async def botban(ctx,target : discord.User):
     cluster = pymongo.MongoClient(secrets.cluster)
     bannedInfo = cluster['banned']['Ids'] 
