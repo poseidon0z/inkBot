@@ -87,7 +87,7 @@ async def upsert(ctx,target,amount,db,type):
             addToEman(ctx.author.id,db)
         elif type == 'special':
             donoCol.insert_one({"_id" : targetID, "donoAmount" : amount, 'gawDono' : 0,"eventDono" : 0, 'speacialEvents' : amount})
-        await ctx.message.reply(f"Donation has been added! tysm {target.mention} for your fist donation to the server!!",allowed_mentions = allowedMentions)
+        await ctx.message.reply(f"Donation has been added! tysm {target.mention} for your first donation to the server!!",allowed_mentions = allowedMentions)
     else:
         if type == 'gaw':
             newamount = status["donoAmount"] + amount
