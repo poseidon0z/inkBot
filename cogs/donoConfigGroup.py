@@ -77,7 +77,7 @@ class donoConfigGroup(commands.Cog):
             await ctx.send(f'Mod role has been added as {role.mention}',allowed_mentions = allowedMentions)
         else:
             settingsCol.update_one(query,{"$set": {'role' : roleID}})
-            await ctx.send(f'Mod role has been updated to {role.mention}',allowed_mentions = allowedMentions)
+            await ctx.send(f'Admin role has been updated to {role.mention}',allowed_mentions = allowedMentions)
 
 
 
