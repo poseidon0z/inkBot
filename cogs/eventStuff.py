@@ -60,7 +60,7 @@ class eventStuff(commands.Cog):
     @commands.guild_only()    
     async def gaw_dono_add(self,ctx,target : discord.Member,amount):
         amount = float(amount)
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         gman = db['serverSettings'].find_one({"_id" : 'giveawayManagerRole'})
         mod = db['serverSettings'].find_one({"_id" : 'modRole'})
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
@@ -94,7 +94,7 @@ class eventStuff(commands.Cog):
     @commands.guild_only()    
     async def event_dono_add(self,ctx,target : discord.Member,amount):
         amount = float(amount)
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         eman = db['serverSettings'].find_one({"_id" : 'eventManagerRole'})
         mod = db['serverSettings'].find_one({"_id" : 'modRole'})
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
@@ -128,7 +128,7 @@ class eventStuff(commands.Cog):
     @commands.guild_only()    
     async def special_dono_add(self,ctx,target : discord.Member,amount):
         amount = float(amount)
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         eman = db['serverSettings'].find_one({"_id" : 'eventManagerRole'})
         mod = db['serverSettings'].find_one({"_id" : 'modRole'})
         gman = db['serverSettings'].find_one({"_id" : 'eventManagerRole'})
@@ -163,7 +163,7 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()    
     async def dono_check(self,ctx,target: discord.Member):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         eman = db['serverSettings'].find_one({"_id" : 'eventManagerRole'})
         mod = db['serverSettings'].find_one({"_id" : 'modRole'})
         gman = db['serverSettings'].find_one({"_id" : 'eventManagerRole'})
@@ -189,7 +189,7 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()    
     async def dono_gmanlb(self,ctx):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
         allowedRoles = []
         if admin is not None:
@@ -208,7 +208,7 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()    
     async def dono_emanlb(self,ctx):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
         allowedRoles = []
         if admin is not None:
@@ -228,7 +228,7 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()    
     async def dono_lb(self,ctx):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         lbEmbed = discord.Embed(title="Dank Trades Top Donators",colour=0x4040bf)
         lbType = 'donations'
         await simplifications.lbmaker(ctx,db,lbEmbed,lbType)
@@ -241,7 +241,7 @@ class eventStuff(commands.Cog):
     @commands.guild_only()    
     async def mydono(self,ctx):
         target = ctx.author
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         await simplifications.check(ctx,target,db)
 
     #find the number of events held by a certain event manager
@@ -249,14 +249,14 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()    
     async def eventsHeld(self,ctx,target : discord.Member):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
         allowedRoles = []
         if admin is not None:
             allowedRoles.append(admin["role"])
         hasrole = simplifications.hasAnyRole(allowedRoles,ctx.author)
         if hasrole is True:
-            emanCol = cluster['donations' + str(ctx.guild.id)]['emanagerStats']
+            emanCol = cluster[str(ctx.guild.id)]['emanagerStats']
             targetID = target.id
             targetDetails = emanCol.find_one({'_id' : targetID})
             if targetDetails is not None:
@@ -280,14 +280,14 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()    
     async def giveawaysHeld(self,ctx,target : discord.Member):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
         allowedRoles = []
         if admin is not None:
             allowedRoles.append(admin["role"])
         hasrole = simplifications.hasAnyRole(allowedRoles,ctx.author)
         if hasrole is True:
-            gmanCol = cluster['donations' + str(ctx.guild.id)]['gmanagerStats']
+            gmanCol = cluster[str(ctx.guild.id)]['gmanagerStats']
             targetID = target.id
             targetDetails = gmanCol.find_one({'_id' : targetID})
             if targetDetails is not None:
@@ -311,7 +311,7 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()
     async def resetEventManagers(self,ctx):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
         allowedRoles = []
         if admin is not None:
@@ -333,7 +333,7 @@ class eventStuff(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()
     async def resetGiveawayManagers(self,ctx):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         admin = db['serverSettings'].find_one({"_id" : 'adminRole'})
         allowedRoles = []
         if admin is not None:

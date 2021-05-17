@@ -22,7 +22,7 @@ class donoConfigGroup(commands.Cog):
     @set.command(name='giveawaymanager', aliases=['gmanrole', 'gr'])
     @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def giveawayManagerRole(self,ctx,role : discord.Role):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         settingsCol = db['serverSettings']
         query = {"_id" : 'giveawayManagerRole'}
         status = settingsCol.find_one(query)
@@ -37,7 +37,7 @@ class donoConfigGroup(commands.Cog):
     @set.command(name='eventmanager', aliases=['emanrole', 'er'])
     @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def eventManagerRole(self,ctx,role : discord.Role):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         settingsCol = db['serverSettings']
         query = {"_id" : 'eventManagerRole'}
         status = settingsCol.find_one(query)
@@ -52,7 +52,7 @@ class donoConfigGroup(commands.Cog):
     @set.command(name='moderator', aliases=['mod', 'mr'])
     @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def modRole(self,ctx,role : discord.Role):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         settingsCol = db['serverSettings']
         query = {"_id" : 'modRole'}
         status = settingsCol.find_one(query)
@@ -67,7 +67,7 @@ class donoConfigGroup(commands.Cog):
     @set.command(name='administrator', aliases=['admin', 'ar'])
     @commands.check_any(commands.is_owner(), commands.has_guild_permissions(administrator=True),commands.has_guild_permissions(manage_guild=True))
     async def adminRole(self,ctx,role : discord.Role):
-        db = cluster['donations' + str(ctx.guild.id)]
+        db = cluster[str(ctx.guild.id)]
         settingsCol = db['serverSettings']
         query = {"_id" : 'adminRole'}
         status = settingsCol.find_one(query)
