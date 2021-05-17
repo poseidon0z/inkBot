@@ -1,5 +1,3 @@
-from discord.ext.commands.core import guild_only
-from utils.simplifications import isNotTrades, isNotbanned
 from discord import message
 from discord.ext import commands
 import random

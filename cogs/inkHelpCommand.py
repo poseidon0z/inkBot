@@ -19,7 +19,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.add_field(name='Fun',value='`say`,`describe`,`hi`,`iq`,`besmooth`,`8ball`',inline=False)
         helpEmbed.add_field(name='Utils',value='`whois`,`info`,`help`,`ping`',inline=False)
         helpEmbed.add_field(name='Donations',value='`donation`,`settings`',inline=False)
-        helpEmbed.add_field(name='Server Config',value='`autobanScammers`,`channelmanagement`,`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
+        helpEmbed.add_field(name='Server Config',value='`autoban`,`channelmanagement`,`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
         helpEmbed.set_footer(text='bot by Adi#1874')
         await context.message.channel.send(embed=helpEmbed)
 
@@ -310,12 +310,11 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
         await context.message.channel.send(embed=helpEmbed)
 
-    @help_cmd.command(name='autobanscammers',aliases=['autoban'])
+    @help_cmd.command(name='autoban')
     async def autobanScammers(self,context):
         helpEmbed = discord.Embed(title='Autoban scammers',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Automatically bans members that are reported in the alert channels of various servers',inline=False)
-        helpEmbed.add_field(name='Setup',value='DM  Adi#1874 to add this feature',inline=False)
-        helpEmbed.add_field(name='Aliases',value='`autoban`',inline=False)
+        helpEmbed.add_field(name='Setup',value='run `ink autoban alertchan <channel>` to set an alert channel and `ink autoban failchan <channel>` to set a fail channnel',inline=False)
         await context.message.channel.send(embed=helpEmbed)
 
 #cog setup

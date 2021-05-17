@@ -21,6 +21,36 @@ def isNotbanned(ctx):
             bannedList.append(bannedMember)
     return ctx.author.id not in bannedList
 
+def isAnAlertChannel(message):
+    cluster = pymongo.MongoClient(secrets.cluster)
+    serverSettingsCol = cluster[str(message.guild.id)]['serverSettings']
+    x = serverSettingsCol.find_one({"_id" : 'alertChan'})
+    if x is not None:
+        alertChannel = x["channel"]
+    else:
+        alertChannel = 'abcd'
+    if message.channel.id == alertChannel:
+        return True
+    else:
+        return False
+
+def isAFailChannel(message):
+    cluster = pymongo.MongoClient(secrets.cluster)
+    serverSettingsCol = cluster[str(message.guild.id)]['serverSettings']
+    x = serverSettingsCol.find_one({"_id" : 'failChan'})
+    if x is not None:
+        failChannel = x["channel"]
+    else:
+        failChannel = 'abcd'
+    if message.channel.id == failChannel:
+        return True
+    else:
+        return False
+
+def isProbablyAnAlert(message):
+    firstTwoLetter = message.content.lower()[0:2]
+    return 'id' == firstTwoLetter
+
 def addToEman(id,db):
     emanCol = db['emanagerStats']
     manID = id
