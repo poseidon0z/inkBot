@@ -1,4 +1,3 @@
-from discord import message
 from discord.ext import commands
 import random
 import discord
@@ -92,7 +91,7 @@ class inkFunCommands(commands.Cog):
     @commands.check(simplifications.isNotbanned)
     @commands.guild_only()    
     async def eightball(self,ctx):
-        if 'adi' in message.content:
+        if 'adi' in ctx.message.content:
             await ctx.send(f'dont ask me stuff about my creator, idk')
         else:
             await ctx.channel.send(f""":crystal_ball:{random.choice(eightBallOptions)}, {ctx.author.name}""", allowed_mentions = allowedMentions)

@@ -18,7 +18,6 @@ async def on_ready():
 
 
 os.environ['JISHAKU_NO_UNDERSCORE'] = 'true'
-
 #making a list of all cogs in the cogs folder
 myCogs = []
 cogsFolderStuff = os.listdir('./cogs/')

@@ -39,6 +39,7 @@ class onMessageCommands(commands.Cog):
                 #ceee's ar <3
                 elif okSomeonesPing.id == 696754560429064263:
                     await message.add_reaction('<:an_urcute:776896089760333844>')
+
                
 def setup(bot):
     bot.add_cog(onMessageCommands(bot))
