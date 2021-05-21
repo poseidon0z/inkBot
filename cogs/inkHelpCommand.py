@@ -263,7 +263,7 @@ class inkHelpCommand(commands.Cog):
         await ctx.send(embed=helpEmbed)
 
 
-    @help_cmd.group(name='channelmanagement',aliases=['chanmanagement','cm'],invoke_without_command=True)
+    @help_cmd.command(name='channelmanagement',aliases=['chanmanagement','cm'])
     async def channelManagement(self, ctx):
         helpEmbed = discord.Embed(title='Channel Management Commands',description='Commands in this category are disabled in Dank Trades',colour=0x9933ff)
         helpEmbed.add_field(name='Commands in this category: ', value='`addchannel`,`removechannel`,`addchannelmanager`,`removechannelmanager`',inline=False)
@@ -274,7 +274,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='run "ink help <command_name>" for more info on a particular command')
         await ctx.send(embed=helpEmbed)
 
-    @channelManagement.command(name='addchannel',aliases=['ac', 'addchan','achan'])
+    @help_cmd.command(name='addchannel',aliases=['ac', 'addchan','achan'])
     async def addchannel(self,context):
         helpEmbed = discord.Embed(title='Addchannel command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Adds a member to the private channel',inline=False)
@@ -283,7 +283,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
         await context.message.channel.send(embed=helpEmbed)
         
-    @channelManagement.command(name='removechannel',aliases=['rc', 'removechan','rchan'])
+    @help_cmd.command(name='removechannel',aliases=['rc', 'removechan','rchan'])
     async def removechannel(self,ctx):
         helpEmbed = discord.Embed(title='Removechannel command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Removes a member from the private channel',inline=False)
@@ -292,7 +292,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions for that channel')
         await ctx.send(embed=helpEmbed)
     
-    @channelManagement.command(name='addchannelmanager',aliases=['acm','addchanman'])
+    @help_cmd.command(name='addchannelmanager',aliases=['acm','addchanman'])
     async def addchannelmanager(self,context):
         helpEmbed = discord.Embed(title='Add channel manager command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Adds a member as the manager of a channel',inline=False)
@@ -301,7 +301,7 @@ class inkHelpCommand(commands.Cog):
         helpEmbed.set_footer(text='Using this command requires you to have manage channels or higher permissions')
         await context.message.channel.send(embed=helpEmbed)
     
-    @channelManagement.command(name='removechannelmanager',aliases=['rcm','remchanman'])
+    @help_cmd.command(name='removechannelmanager',aliases=['rcm','remchanman'])
     async def removechannelmanager(self,context):
         helpEmbed = discord.Embed(title='Remove channel manager command',colour=0x9933ff)
         helpEmbed.add_field(name='Feature', value='Removes a member from the position of manager of a channel',inline=False)
