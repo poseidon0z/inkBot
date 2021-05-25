@@ -52,8 +52,8 @@ checks if the invoker has the admin role if it has been set for a server
 def is_admin():
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
-        admin_role_space = settings_collection.find({"_id" : 'adminRole'})
-        admin_role_id = admin_role_space['role']
+        admin_role_space = settings_collection.find_one({"_id" : 'adminRole'})
+        admin_role_id = admin_role_space["role"]
         if admin_role_id is not None:
             admin_role = ctx.guild.get_role(admin_role_id)
             return admin_role in ctx.author.roles
@@ -68,8 +68,8 @@ checks if the invoker has the mod role if it has been set for a server
 def is_mod():
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
-        mod_role_space = settings_collection.find({"_id" : 'modRole'})
-        mod_role_id = mod_role_space['role']
+        mod_role_space = settings_collection.find_one({"_id" : 'modRole'})
+        mod_role_id = mod_role_space["role"]
         if mod_role_id is not None:
             mod_role = ctx.guild.get_role(mod_role_id)
             return mod_role in ctx.author.roles
@@ -85,8 +85,8 @@ checks if the invoker has the gman role if it has been set for a server
 def is_gman():
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
-        gman_role_space = settings_collection.find({"_id" : 'giveawayManagerRole'})
-        gman_role_id = gman_role_space['role']
+        gman_role_space = settings_collection.find_one({"_id" : 'giveawayManagerRole'})
+        gman_role_id = gman_role_space["role"]
         if gman_role_id is not None:
             gman_role = ctx.guild.get_role(gman_role_id)
             return gman_role in ctx.author.roles
@@ -102,8 +102,8 @@ checks if the invoker has the eman role if it has been set for a server
 def is_eman():
     def is_eman_predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
-        eman_role_space = settings_collection.find({"_id" : 'eventManagerRole'})
-        eman_role_id = eman_role_space['role']
+        eman_role_space = settings_collection.find_one({"_id" : 'eventManagerRole'})
+        eman_role_id = eman_role_space["role"]
         if eman_role_id is not None:
             eman_role = ctx.guild.get_role(eman_role_id)
             return eman_role in ctx.author.roles
