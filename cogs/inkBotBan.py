@@ -41,7 +41,7 @@ class inkBotBan(commands.Cog):
         
     @commands.command(name='botunban')
     @commands.is_owner()
-    async def botban(self,ctx,target : discord.User):
+    async def botunban(self,ctx,target : discord.User):
         banned_info = cluster['banned']['Ids']
         query = {"_id" : target.id}
         already_banned = banned_info.find_one(query)
