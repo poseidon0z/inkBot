@@ -54,7 +54,9 @@ def is_admin():
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         admin_role_id = settings_collection.find({"_id" : 'adminRole'})
         if admin_role_id is not None:
-            author_role_list = [role.mention for role in ctx.author.roles if role != ctx.guild.default_role]
+            author_role_list = [role.id for role in ctx.author.roles if role != ctx.guild.default_role]
+            print(admin_role_id)
+            print(author_role_list)
             return admin_role_id in author_role_list
         else:
             return False
@@ -69,7 +71,7 @@ def is_mod():
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         mod_role_id = settings_collection.find({"_id" : 'modRole'})
         if mod_role_id is not None:
-            author_role_list = [role.mention for role in ctx.author.roles if role != ctx.guild.default_role]
+            author_role_list = [role.id for role in ctx.author.roles if role != ctx.guild.default_role]
             return mod_role_id in author_role_list
         else:
             return False
@@ -85,7 +87,9 @@ def is_gman():
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         gman_role_id = settings_collection.find({"_id" : 'giveawayManagerRole'})
         if gman_role_id is not None:
-            author_role_list = [role.mention for role in ctx.author.roles if role != ctx.guild.default_role]
+            author_role_list = [role.id for role in ctx.author.roles if role != ctx.guild.default_role]
+            print(gman_role_id)
+            print(author_role_list)
             return gman_role_id in author_role_list
         else:
             return False
@@ -101,7 +105,7 @@ def is_eman():
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         eman_role_id = settings_collection.find({"_id" : 'eventManagerRole'})
         if eman_role_id is not None:
-            author_role_list = [role.mention for role in ctx.author.roles if role != ctx.guild.default_role]
+            author_role_list = [role.id for role in ctx.author.roles if role != ctx.guild.default_role]
             return eman_role_id in author_role_list
         else:
             return False
