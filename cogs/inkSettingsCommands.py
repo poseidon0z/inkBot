@@ -71,8 +71,6 @@ class inkSettingsCommands(commands.Cog):
         server_settings = cluster[str(ctx.guild.id)]['serverSettings']
         query = {"_id" : 'giveawayManagerRole'}
         server_settings.update_one(query,{"$set": {'role' : role.id}},upsert=True)
-        await ctx.send(role.id)
-        print(role)
         await ctx.send(f'Giveaway manager role has been set as {role.mention}',allowed_mentions=allowed_mentions)
 
     @giveawaymanager.error
