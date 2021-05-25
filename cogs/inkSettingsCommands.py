@@ -46,7 +46,7 @@ class inkSettingsCommands(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
 
-    @commands.group(name='settings',aliases=['set'])
+    @commands.group(name='settings',aliases=['set'],invoke_without_command=True)
     @is_not_bot_banned()
     @commands.guild_only()
     async def settings(self,ctx):
