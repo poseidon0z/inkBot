@@ -36,7 +36,7 @@ class inkAutoResponses(commands.Cog):
             for ok_someones_ping in message.mentions:
                 #adi's ar
                 if ok_someones_ping.id == 652756616185380894:
-                    await message.add_reaction('<a:angrysmash:847391042352709663>')
+                    await message.add_reaction('<a:keemi:847396428904661044>')
                 #ceee's ar <3
                 elif ok_someones_ping.id == 696754560429064263:
                     await message.add_reaction('<:an_urcute:776896089760333844>')
