@@ -36,7 +36,7 @@ class inkAutoResponses(commands.Cog):
             for ok_someones_ping in message.mentions:
                 #adi's ar
                 if ok_someones_ping.id == 652756616185380894:
-                    await message.add_reaction('<:kiki_happy:839524132286365717>')
+                    await message.add_reaction('<a:angrysmash:847391042352709663>')
                 #ceee's ar <3
                 elif ok_someones_ping.id == 696754560429064263:
                     await message.add_reaction('<:an_urcute:776896089760333844>')
@@ -52,6 +52,9 @@ class inkAutoResponses(commands.Cog):
                 #jorja's ar :)
                 elif ok_someones_ping.id == 727431252541440040:
                     await message.add_reaction('<:stitchlove:846035269119115274>')
+                #maverick's ar ( ^ - ^ )
+                elif ok_someones_ping.id == 707247009035321465:
+                    await message.add_reaction('<a:Raspberry:847390536956510238>')
     
     @commands.Cog.listener("on_message")
     @is_not_bot_banned()
