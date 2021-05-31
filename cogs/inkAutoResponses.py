@@ -55,6 +55,13 @@ class inkAutoResponses(commands.Cog):
                 #maverick's ar ( ^ - ^ )
                 elif ok_someones_ping.id == 707247009035321465:
                     await message.add_reaction('<a:Raspberry:847390536956510238>')
+                #Kaya's ar ( ^ - ^ )
+                elif ok_someones_ping.id == 617332029993910352:
+                    await message.add_reaction('<a:leave:848936937465184287>')
+                #Tom's ar ( ^ - ^ )
+                elif ok_someones_ping.id == 673861958398640140:
+                    await message.add_reaction('<a:pandaclap:848937165035274260>')
+
     
     @commands.Cog.listener("on_message")
     @is_not_bot_banned()
