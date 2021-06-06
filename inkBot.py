@@ -23,9 +23,10 @@ from pathlib import Path
 
 allowed_mentions = discord.AllowedMentions(everyone=False,roles=False)
 
-
+intents = discord.Intents.default()
+intents.members = True
 #defining the bot,removing help command
-client = commands.Bot(command_prefix = ['ink ', 'ink', 'Ink ','Ink'])
+client = commands.Bot(command_prefix = ['ink ', 'ink', 'Ink ','Ink'], intents = intents)
 client.allowed_mentions = allowed_mentions
 client.remove_command('help')
 
