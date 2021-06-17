@@ -6,6 +6,10 @@ WHAT ARE THE FUNCTIONS HERE?
 1. make_iq_embed
 2. get_description
 3. check_dono
+4. is_an_alert_channel
+5. is_a_fail_channel
+6. is_ban_royale_participant
+7. is_ban_royale_channel
 
 IMPORTS:
 1. discord to define vars as discord.something type
@@ -19,6 +23,7 @@ import random
 import pymongo
 from json import load
 from pathlib import Path
+from utils.botwideFunctions import has_role
 
 '''
 Variables used:
@@ -125,4 +130,40 @@ def is_a_fail_channel(message):
     if server_fail_chan_setting is not None:
         return message.channel.id == server_fail_chan_setting['channel']
     else:
+        return False
+    
+'''
+The 'is_ban_royale_participant' command
+Checks if the member calling rhe command has the participant role for the ban royale event
+'''
+def is_ban_royale_participant(ctx):
+    server_settings = cluster[str(ctx.guild.id)]['eventSettings']
+    try:
+        br_participant_role = server_settings.find_one({'_id' : 'brBannedRole'})['role']
+        return has_role(br_participant_role,ctx.author)
+    except:
+        return False
+
+'''
+The 'is_ban_royale_channel' command
+Checks if the command is called in the ban royale channel
+'''
+def is_ban_royale_channel(ctx):
+    server_settings = cluster[str(ctx.guild.id)]['eventSettings']
+    try: 
+        br_channel = server_settings.find_one({'_id' : 'brChannel'})
+        return ctx.channel.id == br_channel
+    except:
+        return False
+
+'''
+The 'is_message_mania_channel' command
+Checks if the command is called in the message mania channel
+'''
+def is_message_mania_channel(ctx):
+    server_settings = cluster[str(ctx.guild.id)]['eventSettings']
+    try:
+        mm_channel = server_settings.find_one({'_id' : 'mmChannel'})
+        return ctx.channel.id == mm_channel
+    except:
         return False

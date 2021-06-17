@@ -8,7 +8,7 @@ WHAT ARE THE FUNCTIONS HERE?
 3. is_mod
 4. is_gman
 5. is_eman
-
+6. has_role
 
 IMPORTS:
 1. pymongo to connect and do stuff with my database
@@ -53,8 +53,8 @@ def is_admin():
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         admin_role_space = settings_collection.find_one({"_id" : 'adminRole'})
-        admin_role_id = admin_role_space["role"]
-        if admin_role_id is not None:
+        if admin_role_space is not None:
+            admin_role_id = admin_role_space["role"]
             admin_role = ctx.guild.get_role(admin_role_id)
             return admin_role in ctx.author.roles
         else:
@@ -69,8 +69,8 @@ def is_mod():
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         mod_role_space = settings_collection.find_one({"_id" : 'modRole'})
-        mod_role_id = mod_role_space["role"]
-        if mod_role_id is not None:
+        if mod_role_space is not None:
+            mod_role_id = mod_role_space["role"]
             mod_role = ctx.guild.get_role(mod_role_id)
             return mod_role in ctx.author.roles
         else:
@@ -86,8 +86,8 @@ def is_gman():
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         gman_role_space = settings_collection.find_one({"_id" : 'giveawayManagerRole'})
-        gman_role_id = gman_role_space["role"]
-        if gman_role_id is not None:
+        if gman_role_space is not None:
+            gman_role_id = gman_role_space["role"]
             gman_role = ctx.guild.get_role(gman_role_id)
             return gman_role in ctx.author.roles
         else:
@@ -103,10 +103,41 @@ def is_eman():
     def is_eman_predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         eman_role_space = settings_collection.find_one({"_id" : 'eventManagerRole'})
-        eman_role_id = eman_role_space["role"]
-        if eman_role_id is not None:
+        if eman_role_space is not None:
+            eman_role_id = eman_role_space["role"]
             eman_role = ctx.guild.get_role(eman_role_id)
             return eman_role in ctx.author.roles
         else:
             return False
     return commands.check(is_eman_predicate)
+
+
+'''
+is_manager
+checks if the author has manager role to set event vars
+'''
+def is_manager():
+    def is_manager_predicate(ctx):
+        settings_collection = cluster[str(ctx.guild.id)]['eventSettings']
+        manager_role_space = settings_collection.find_one({"_id" : "managerRole"})
+        if manager_role_space is not None:
+            manager_role_id = manager_role_space['role']
+            manager_role = ctx.guild.get_role(manager_role_id)
+            return manager_role in ctx.author.roles
+        else:
+            return False
+    return commands.check(is_manager_predicate)
+
+'''
+has_role
+Checks if a member has a role as supplied by id
+'''
+def has_role(check_role_id,target):
+    targetRoles = target.roles
+    roleList = []
+    for role in targetRoles:
+        roleList.append(role.id)
+    if check_role_id in roleList:
+        return True
+    else:
+        return False
