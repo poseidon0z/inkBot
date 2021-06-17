@@ -43,12 +43,10 @@ class banRoulette(commands.Cog):
         settings_col = settings_db['eventSettings']
         play_role = settings_col.find_one({'_id' : 'brParticipantRole'})['role']
         staff_role = settings_col.find_one({'_id' : 'brStaffRole'})['role']
-        banned_role = settings_col.find_one({'_id' : 'brBannedRole'})['role']
+        banned_role = ctx.guild.get_role(settings_col.find_one({'_id' : 'brBannedRole'})['role'])
         bancount = settings_db['banCount']
         if has_role(staff_role,target) == False:
-            print('called staff pass')
             if has_role(banned_role, target) == False:
-                print('called banned pass')
                 for role in target.roles:
                     if role.id == play_role:
                         await target.remove_roles(role)
