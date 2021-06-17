@@ -25,12 +25,12 @@ allowed_mentions = discord.AllowedMentions(everyone=False,roles=False)
 
 intents = discord.Intents.default()
 intents.members = True
-#defining the bot,removing help command
-client = commands.Bot(command_prefix = ['ink ', 'ink', 'Ink ','Ink'], intents = intents)
+#defining the bot,removing help command, disabling everyone and role mentions
+client = commands.Bot(command_prefix = ['ink ', 'ink', 'Ink ','Ink'], intents = intents,status=discord.Status.do_not_disturb,activity=discord.Game(name="ink help"))
 client.allowed_mentions = allowed_mentions
 client.remove_command('help')
 
-
+#
 #Loading message
 @client.event
 async def on_ready():
