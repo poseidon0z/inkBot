@@ -68,7 +68,7 @@ class banRoulette(commands.Cog):
                 time6 = timer()
                 print(f'db fetch took {time2-time1}s, role remove {time3-time2}s, send message {time4-time3}, find author {time5-time4}, edit db {time6-time5}')
                 role = ctx.guild.get_role(play_role)
-                target.add_roles(role)
+                await target.add_roles(role)
             else:
                 await ctx.reply(f'Don\'t try banning someone who can\'t participate <a:slowkek:838803911686750209>')
         else:
