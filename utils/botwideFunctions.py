@@ -9,6 +9,7 @@ WHAT ARE THE FUNCTIONS HERE?
 4. is_gman
 5. is_eman
 6. has_role
+7. does_exist
 
 IMPORTS:
 1. pymongo to connect and do stuff with my database
@@ -141,3 +142,14 @@ def has_role(check_role_id,target):
         return True
     else:
         return False
+    
+'''
+The 'does_exist' function
+Checks if an entry exists in the db
+'''
+def does_exist(query,db):
+    check = db.find_one(query)
+    if check == None:
+        return False
+    else:
+        return True

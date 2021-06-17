@@ -18,12 +18,13 @@ IMPORTS:
 4. load to load my json files
 5. path to show the path to my json file
 '''
+from re import L
 import discord
 import random
 import pymongo
 from json import load
 from pathlib import Path
-from utils.botwideFunctions import has_role
+from utils.botwideFunctions import does_exist, has_role
 
 '''
 Variables used:
@@ -167,3 +168,5 @@ def is_message_mania_channel(ctx):
         return ctx.channel.id == mm_channel
     except:
         return False
+    
+

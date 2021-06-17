@@ -19,6 +19,7 @@ This is a cog containing all of the event commands for inkbot
     (3)manager
 '''
 
+from utils.commandShortenings import does_exist
 import discord
 from discord.ext import commands
 from discord.ext.commands.core import has_guild_permissions, is_owner
@@ -65,6 +66,7 @@ class eventSettings(commands.Cog):
         brset_embed.add_field(name='banned_role',value='Set a role that is given to members who are banned',inline=False)
         brset_embed.add_field(name='participant_role',value='Role required to run the ban command',inline=False)
         brset_embed.add_field(name='staff_role',value='Members with this role cannot be affected by the ban command',inline=False)
+        brset_embed.add_field(name='check',value='Checks if all the required variables have been set',inline=False)
         # brset_embed.add_field(name='trueban',value='If enabled, the ban command actually bans the member from the server on running it, if disabled then members are given a "banned" role instead (Trueban is set to disabled by default)',inline=False)
         await ctx.send(embed=brset_embed)
 
@@ -111,9 +113,9 @@ class eventSettings(commands.Cog):
             print(error)
         
     @ban_royale_settings.command(name='participant_role',aliases=['playrole'])
+    @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
     @is_not_bot_banned()
     @commands.guild_only()
-    @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
     async def br_participant_role(self,ctx,role : discord.Role):
         server_settings = cluster[str(ctx.guild.id)]['eventSettings']
         query = {'_id' : 'brParticipantRole'}
@@ -152,7 +154,24 @@ class eventSettings(commands.Cog):
         else:
             print(error)
 
-
+    @ban_royale_settings.command(name='check')
+    @commands.guild_only()
+    @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
+    @is_not_bot_banned()
+    async def br_check(self,ctx):
+        server_settings = cluster[str(ctx.guild.id)]['eventSettings']
+        stuff_to_check = ['Channel','BannedRole','ParticipantRole','StaffRole']
+        br_set_embed = discord.Embed(title='Ban Royale Settings',colour=embed_colour)
+        for thing in stuff_to_check:
+            query = {'_id' : 'br' + thing}
+            check_result = does_exist(query,server_settings)
+            if check_result == True:
+                emote = '<a:check:845936436297728030>'
+            else:
+                emote = '<:cancel:845945583835283487>'
+            br_set_embed.add_field(name='\u200b',value=f'{emote} {thing}',inline=False)
+        await ctx.send(embed=br_set_embed)
+            
 
     @event_settings.group(name='message_mania',aliases=['mmcommands', 'mm'],invoke_without_command=True)
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
@@ -164,6 +183,7 @@ class eventSettings(commands.Cog):
         mmset_embed.add_field(name='participant_role',value='Role required to participate in the event',inline=False)
         mmset_embed.add_field(name='staff_role',value='Members with this role cannot be affected by message mania commands',inline=False)
         mmset_embed.add_field(name='mute_role',value='role given to muted members',inline=False)
+        mmset_embed.add_field(name='check',value='Checks if all the required variables have been set',inline=False)
         await ctx.send(embed=mmset_embed)
 
 
@@ -247,6 +267,25 @@ class eventSettings(commands.Cog):
         else:
             print(error)
 
+    @message_mania_settings.command(name='check')
+    @commands.guild_only()
+    @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
+    @is_not_bot_banned()
+    async def mm_check(self,ctx):
+        server_settings = cluster[str(ctx.guild.id)]['eventSettings']
+        stuff_to_check = ['Channel', 'ParticipantRole' , 'StaffRole', 'MuteRole']
+        mm_set_embed = discord.Embed(title='Message Mania Settings',colour=embed_colour)
+        for thing in stuff_to_check:
+            query = {'_id' : 'mm' + thing}
+            check_result = does_exist(query,server_settings)
+            if check_result == True:
+                emote = '<a:check:845936436297728030>'
+            else:
+                emote = '<:cancel:845945583835283487>'
+            mm_set_embed.add_field(name='\u200b',value=f'{emote} {thing}',inline=False)
+        await ctx.send(embed=mm_set_embed)
+
+
     @event_settings.command(name='manager')
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner())
     @is_not_bot_banned()
@@ -265,6 +304,7 @@ class eventSettings(commands.Cog):
             await ctx.send(f'```ink eset manager <role>\n\nRole is not specified```')
         else:
             print(error)
+
 
 def setup(bot):
     bot.add_cog(eventSettings(bot))

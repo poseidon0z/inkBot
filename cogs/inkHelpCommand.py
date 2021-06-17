@@ -433,6 +433,7 @@ class inkHelpCommand(commands.Cog):
         help_embed.add_field(name='banned_role',value='Set a role that is given to members who are banned',inline=False)
         help_embed.add_field(name='participant_role',value='Role required to run the ban command',inline=False)
         help_embed.add_field(name='staff_role',value='Members with this role cannot be affected by the ban command',inline=False)
+        help_embed.add_field(name='check',value='Gives an embed to check if all reqired variables have been set',inline=False)
         await ctx.send(embed=help_embed)
     
     @ban_royale_help_command.command(name='channel',aliases=['chan'])
@@ -459,16 +460,24 @@ class inkHelpCommand(commands.Cog):
     async def ban_royale_participant_role_help_cmd(self,ctx):
         help_embed = discord.Embed(title='participant_role',decription='Role required to run commands for the event',colour=emb_colour)
         help_embed.add_field(name='**Syntax**:',value='`ink eset br participant_role <role>`',inline=False)
-        help_embed.add_field(name='**Aliases**:',value='``',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`playrole`',inline=False)
         await ctx.send(embed=help_embed)
     
     @ban_royale_help_command.command(name='staff_role',aliases=['staffrole'])
     @is_not_bot_banned()
     @commands.guild_only()
     async def ban_royale_staff_role_help_cmd(self,ctx):
-        help_embed = discord.Embed(title='staff_role',decription='',colour=emb_colour)
-        help_embed.add_field(name='**Syntax**:',value='`ink eset br `',inline=False)
-        help_embed.add_field(name='**Aliases**:',value='`Members with this role are immune to the ban command`',inline=False)
+        help_embed = discord.Embed(title='staff_role',decription='Members with this role are immune to the ban command',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset br staff_role`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`staffrole`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_command.command(name='check')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_check_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='check',decription='Gives an embed to check if all reqired variables have been set',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset br check`',inline=False)
         await ctx.send(embed=help_embed)
     
     @event_settings_help_cmd.group(name='message_mania',aliases=['mmcommands', 'mm'],invoke_without_command=True)
@@ -480,6 +489,7 @@ class inkHelpCommand(commands.Cog):
         help_embed.add_field(name='participant_role',value='Role required to participate in the event',inline=False)
         help_embed.add_field(name='staff_role',value='Members with this role cannot be affected by message mania commands',inline=False)
         help_embed.add_field(name='mute_role',value='role given to muted members',inline=False)
+        help_embed.add_field(name='check',value='Gives an embed to check if all reqired variables have been set',inline=False)
         await ctx.send(embed=help_embed)
     
     @message_mania_help_command.command(name='channel',aliases=['chan'])
@@ -516,6 +526,14 @@ class inkHelpCommand(commands.Cog):
         help_embed = discord.Embed(title='mute_role',decription='Role given to muted members',colour=emb_colour)
         help_embed.add_field(name='**Syntax**:',value='`ink eset mm mute_role <role>`',inline=False)
         help_embed.add_field(name='**Aliases**:',value='`muterole`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_command.command(name='check')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_check_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='check',decription='Gives an embed to check if all reqired variables have been set',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset mm check`',inline=False)
         await ctx.send(embed=help_embed)
 
     @event_settings_help_cmd.command(name='manager')
