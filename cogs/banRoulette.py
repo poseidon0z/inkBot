@@ -70,7 +70,7 @@ class banRoulette(commands.Cog):
                     bancount.update_one(myquery,{"$set":{"numberOfBans": newBanNumber}})
                 time6 = timer()
                 print(f'db fetch took {time2 - time1}s, remove role took {time3-time2}s, add role took {time4-time3}s, find author took {time5-time4}s, lb adding took {time6-time5}s')
-                staff_role = ctx.guild.get_role(play_role)
+                play_role = ctx.guild.get_role(play_role)
                 await target.add_roles(play_role)
                 await target.remove_roles(banned_role)
             else:
