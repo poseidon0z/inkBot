@@ -151,7 +151,7 @@ Checks if the command is called in the ban royale channel
 def is_ban_royale_channel(ctx):
     server_settings = cluster[str(ctx.guild.id)]['eventSettings']
     try: 
-        br_channel = server_settings.find_one({'_id' : 'brChannel'})
+        br_channel = server_settings.find_one({'_id' : 'brChannel'})['channel']
         return ctx.channel.id == br_channel
     except:
         return False
