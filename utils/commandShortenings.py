@@ -140,8 +140,7 @@ Checks if the member calling rhe command has the participant role for the ban ro
 def is_ban_royale_participant(ctx):
     server_settings = cluster[str(ctx.guild.id)]['eventSettings']
     try:
-        br_participant_role = server_settings.find_one({'_id' : 'brBannedRole'})['role']
-        print(br_participant_role)
+        br_participant_role = server_settings.find_one({'_id' : 'brParticipantRole'})['role']
         return has_role(br_participant_role,ctx.author)
     except:
         return False
