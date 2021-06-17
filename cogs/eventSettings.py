@@ -51,8 +51,8 @@ class eventSettings(commands.Cog):
     @commands.guild_only()
     async def event_settings(self,ctx):
         eset_embed = discord.Embed(title='Event Settings',description='All commands in this section require manage server permissions or the manager role (Manager role can be set with `ink eset manager_role`)\nOther vars are set using `ink eset <ban_royale/message_mania> <command>`',colour=embed_colour)
-        eset_embed.add_field(name='Ban Royale Settings',value='`channel` , `banned_role` , `participant_role` , `staff_role`',inline=False)
-        eset_embed.add_field(name='Message Mania Settings', value='`channel` , `participant_role` , `staff_role` , `mute_role`', inline=False)
+        eset_embed.add_field(name='Ban Royale Settings',value='`channel` , `banned_role` , `participant_role` , `staff_role` , `check`',inline=False)
+        eset_embed.add_field(name='Message Mania Settings', value='`channel` , `participant_role` , `staff_role` , `mute_role` , `check`', inline=False)
         eset_embed.add_field(name='manager', value='Adds a role as manager role, giving them access to change settings under ban royale commands or message mania commands', inline=False)
         await ctx.send(embed=eset_embed)
 

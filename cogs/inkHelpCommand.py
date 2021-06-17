@@ -419,8 +419,8 @@ class inkHelpCommand(commands.Cog):
     @commands.guild_only()
     async def event_settings_help_cmd(self,ctx):
         help_embed = discord.Embed(title='**Event settings commands**',description='All commands in this section require manage server permissions or the manager role (Manager role can be set with `ink eset manager_role`)\nOther vars are set using `ink eset <ban_royale/message_mania> <command>`\nAliases for `event_settings` are: `eset` and `es`',colour=emb_colour)
-        help_embed.add_field(name='ban_royale',value='**Subcommands**: `channel` , `banned_role` , `participant_role` , `staff_role`',inline=False)
-        help_embed.add_field(name='message_mania', value='**Subcommands**: `channel` , `participant_role` , `staff_role` , `mute_role`', inline=False)
+        help_embed.add_field(name='ban_royale',value='**Subcommands**: `channel` , `banned_role` , `participant_role` , `staff_role` , `check`',inline=False)
+        help_embed.add_field(name='message_mania', value='**Subcommands**: `channel` , `participant_role` , `staff_role` , `mute_role` , `check`', inline=False)
         help_embed.add_field(name='manager', value='Adds a role as manager role, giving members with the role access to change ban royale and message mania settings', inline=False)
         await ctx.send(embed=help_embed)
     

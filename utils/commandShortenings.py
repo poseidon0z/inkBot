@@ -141,6 +141,7 @@ def is_ban_royale_participant(ctx):
     server_settings = cluster[str(ctx.guild.id)]['eventSettings']
     try:
         br_participant_role = server_settings.find_one({'_id' : 'brBannedRole'})['role']
+        print(br_participant_role)
         return has_role(br_participant_role,ctx.author)
     except:
         return False
@@ -164,7 +165,7 @@ Checks if the command is called in the message mania channel
 def is_message_mania_channel(ctx):
     server_settings = cluster[str(ctx.guild.id)]['eventSettings']
     try:
-        mm_channel = server_settings.find_one({'_id' : 'mmChannel'})
+        mm_channel = server_settings.find_one({'_id' : 'mmChannel'})['channel']
         return ctx.channel.id == mm_channel
     except:
         return False
