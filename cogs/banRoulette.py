@@ -77,7 +77,7 @@ class banRoulette(commands.Cog):
         else:
             print(error)
     
-    @commands.command('banlb')
+    @commands.command(name='banlb')
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
     @commands.check(is_ban_royale_channel)
@@ -103,7 +103,7 @@ class banRoulette(commands.Cog):
         else:
             print(error)
 
-    @commands.command('clearbanlb')
+    @commands.command(name='clearbanlb')
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
     @commands.check(is_ban_royale_channel)
