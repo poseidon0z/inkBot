@@ -141,7 +141,6 @@ def is_ban_royale_participant(ctx):
     server_settings = cluster[str(ctx.guild.id)]['eventSettings']
     try:
         br_participant_role = server_settings.find_one({'_id' : 'brParticipantRole'})['role']
-        print(br_participant_role)
         return has_role(br_participant_role,ctx.author)
     except:
         return False
@@ -154,7 +153,6 @@ def is_ban_royale_channel(ctx):
     server_settings = cluster[str(ctx.guild.id)]['eventSettings']
     try: 
         br_channel = server_settings.find_one({'_id' : 'brChannel'})['channel']
-        print(br_channel)
         return ctx.channel.id == br_channel
     except:
         return False
