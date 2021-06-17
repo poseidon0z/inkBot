@@ -18,6 +18,8 @@ from json import load
 import pymongo
 from pathlib import Path
 
+from timeit import default_timer as timer
+
 with Path("utils/secrets.json").open() as f:
     config = load(f)
 
@@ -39,21 +41,26 @@ class banRoulette(commands.Cog):
     @commands.check(is_ban_royale_channel)
     @commands.check(is_ban_royale_participant)
     async def brb(self, ctx, target : discord.Member):
+        time1 = timer()
         settings_db = cluster[str(ctx.guild.id)]
         settings_col = settings_db['eventSettings']
         play_role = settings_col.find_one({'_id' : 'brParticipantRole'})['role']
         staff_role = settings_col.find_one({'_id' : 'brStaffRole'})['role']
         banned_role = ctx.guild.get_role(settings_col.find_one({'_id' : 'brBannedRole'})['role'])
         bancount = settings_db['banCount']
+        time2 = timer()
         if has_role(staff_role,target) == False:
             if has_role(banned_role, target) == False:
                 for role in target.roles:
                     if role.id == play_role:
                         await target.remove_roles(role)
+                time3 = timer()
                 await target.add_roles(banned_role)
+                time4 = timer()
                 await ctx.channel.send(f'{ctx.author.mention} banned {target.mention}!')
                 authorID = ctx.author.id
                 status = bancount.find_one({'_id' : authorID})
+                time5 = timer()
                 if status is None:
                     person = {'_id' : authorID , "numberOfBans": 1}
                     bancount.insert_one(person)
@@ -61,6 +68,11 @@ class banRoulette(commands.Cog):
                     myquery = {'_id' : authorID}
                     newBanNumber = status['numberOfBans'] + 1
                     bancount.update_one(myquery,{"$set":{"numberOfBans": newBanNumber}})
+                time6 = timer()
+                print(f'db fetch took {time2 - time1}s, remove role took {time3-time2}s, add role took {time4-time3}s, find author took {time5-time4}s, lb adding took {time6-time5}s')
+                staff_role = ctx.guild.get_role(staff_role)
+                await target.add_roles(staff_role)
+                await ctx.remove_roles(banned_role)
             else:
                 await ctx.reply('This user\'s already been banned, give them a break!')
         else:
@@ -89,7 +101,7 @@ class banRoulette(commands.Cog):
         for personData in lbRaw:
             if personData is not None:
                 personId = int(personData["_id"])
-                person = await ctx.guild.fetch_member(personId)
+                person = await self.bot.fetch_user(personId)
                 personName = person.name
                 personBans = personData["numberOfBans"]
                 lbEmbed.add_field(name=f'**#{i}**',value=f'> Member = {personName}\n> ID = {personId}\n> Number of bans = {personBans}',inline=False)
