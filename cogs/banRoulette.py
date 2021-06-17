@@ -72,7 +72,7 @@ class banRoulette(commands.Cog):
                 print(f'db fetch took {time2 - time1}s, remove role took {time3-time2}s, add role took {time4-time3}s, find author took {time5-time4}s, lb adding took {time6-time5}s')
                 staff_role = ctx.guild.get_role(staff_role)
                 await target.add_roles(staff_role)
-                await ctx.remove_roles(banned_role)
+                await target.remove_roles(banned_role)
             else:
                 await ctx.reply('This user\'s already been banned, give them a break!')
         else:
