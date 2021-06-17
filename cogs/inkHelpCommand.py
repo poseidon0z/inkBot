@@ -54,6 +54,7 @@ class inkHelpCommand(commands.Cog):
         help_embed.add_field(name='**Util Commands**:',value='`ping` , `whois` , `info` , `botinfo` , `rules` , `invite`',inline=False)
         help_embed.add_field(name='**Donation Management**:',value='`donation` , `settings`')
         help_embed.add_field(name='**Channel Management**:',value='`addchannel` , `removechannel` , `addchannelmanager` , `removechannelmanager`',inline=False)
+        help_embed.add_field(name='**Event Commands**:',value='`ban_royale` , `message_mania` , `event_settings`')
         await ctx.send(embed=help_embed)
 
     @help_cmd.command(name='say')
@@ -411,6 +412,198 @@ class inkHelpCommand(commands.Cog):
         help_embed = discord.Embed(title='**Remove channel manager command**',description='Removes a member from channel manager',colour=emb_colour)
         help_embed.add_field(name='**Syntax**:',value='`ink rcm <channel> <member>`',inline=False)
         help_embed.add_field(name='**Aliases**:',value='`rcm`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @help_cmd.group(name='event_settings',aliases=['eset','es'],invoke_without_command=True)
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def event_settings_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='**Event settings commands**',description='All commands in this section require manage server permissions or the manager role (Manager role can be set with `ink eset manager_role`)\nOther vars are set using `ink eset <ban_royale/message_mania> <command>\nAliases for `event_settings` are: `eset` and `es`',colour=emb_colour)
+        help_embed.add_field(name='ban_royale',value='**Subcommands**: `channel` , `banned_role` , `participant_role` , `staff_role`',inline=False)
+        help_embed.add_field(name='message_mania', value='**Subcommands**: `channel` , `participant_role` , `staff_role` , `mute_role`', inline=False)
+        help_embed.add_field(name='manager', value='Adds a role as manager role, giving members with the role access to change ban royale and message mania settings', inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @event_settings_help_cmd.group(name='ban_royale',aliases=['brcommands', 'br'],invoke_without_command=True)
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_help_command(self,ctx):
+        help_embed = discord.Embed(title='Ban Royale settings',description='Roles you need to set before being able to conduct a ban royale event',colour=emb_colour)
+        help_embed.add_field(name='channel',value='Set a channel to play the ban royale event in',inline=False)
+        help_embed.add_field(name='banned_role',value='Set a role that is given to members who are banned',inline=False)
+        help_embed.add_field(name='participant_role',value='Role required to run the ban command',inline=False)
+        help_embed.add_field(name='staff_role',value='Members with this role cannot be affected by the ban command',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_command.command(name='channel',aliases=['chan'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_channel_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='channel',decription='Sets a channel that the ban royale event is to be held in!',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset br channel <channel>`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`chan`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_command.command(name='banned_role',aliases=['banrole'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_banned_role_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='banned_role',decription='Set a role that is given to members who are banned',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset br banned_role <role>`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`banrole`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_command.command(name='participant_role',aliases=['playrole'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_participant_role_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='participant_role',decription='Role required to run commands for the event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset br participant_role <role>`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='``',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_command.command(name='staff_role',aliases=['staffrole'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_staff_role_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='staff_role',decription='',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset br `',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`Members with this role are immune to the ban command`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @event_settings_help_cmd.group(name='message_mania',aliases=['mmcommands', 'mm'],invoke_without_command=True)
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_help_command(self,ctx):
+        help_embed = discord.Embed(title='Message Mania settings',description='Roles you need to set before being able to conduct a message mania event',colour=emb_colour)
+        help_embed.add_field(name='channel',value='Set a channel to play the event in',inline=False)
+        help_embed.add_field(name='participant_role',value='Role required to participate in the event',inline=False)
+        help_embed.add_field(name='staff_role',value='Members with this role cannot be affected by message mania commands',inline=False)
+        help_embed.add_field(name='mute_role',value='role given to muted members',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_command.command(name='channel',aliases=['chan'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_channel_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='channel',decription='Set a channel to play the event in',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset mm channel <channel>`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`channel`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_command.command(name='participant_role',aliases=['playrole'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_participant_role_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='participant_role',decription='Role required to participate in the event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset mm participant_role <role>`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`playrole`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_command.command(name='staff_role',aliases=['staffrole'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_staff_role_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='staff_role',decription='Members with this role cannot be affected by message mania commands',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset mm staff_role <role>`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`staffrole`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_command.command(name='mute_role',aliases=['muterole'])
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_mute_role_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='mute_role',decription='Role given to muted members',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset mm mute_role <role>`',inline=False)
+        help_embed.add_field(name='**Aliases**:',value='`muterole`',inline=False)
+        await ctx.send(embed=help_embed)
+
+    @event_settings_help_cmd.command(name='manager')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def event_settings_manager_cmd(self,ctx):
+        help_embed = discord.Embed(title='Manager command',description='Adds a role as manager role, giving members with the role access to change ban royale and message mania settings',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink eset manager <role>`',inline=False)
+        await ctx.send(embed=help_embed)
+
+    @help_cmd.group(name='ban_royale',aliases=['banroyale'],invoke_without_command=True)
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='**Ban royale commands**',description='Commands that you can use for ban royale, make sure to set all the vars required in `ink eset ban_royale` before starting a ban royale event\nRun `ink help <command>` for more info on a command in this category',colour=emb_colour)
+        help_embed.add_field(name='**brb**:',value='Bans a member mentioned',inline=False)
+        help_embed.add_field(name='**banlb**:',value='Shows the leaderboard for most bans',inline=False)
+        help_embed.add_field(name='**clearbanlb**',value='Clear the ban leaderboard',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_cmd.command(name='brb')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_brb_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='**brb command**',description='Bans a member mentioned during the ban royale event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink brb <target>`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_cmd.command(name='banlb')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_banlb_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='**banlb command**',description='Shows the leaderboard for most bans after the ban royale event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink banlb`',inline=False)
+        help_embed.add_field(name='**Requirements**',value='Administrator perms or manager role')
+        await ctx.send(embed=help_embed)
+    
+    @ban_royale_help_cmd.command(name='clearbanlb')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def ban_royale_clearbanlb_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='**clearbanlb command**',description='Clear the ban leaderboard for ban royale event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink clearbanlb`',inline=False)
+        help_embed.add_field(name='**Requirements**',value='Administrator perms or manager role')
+        await ctx.send(embed=help_embed)
+
+    @help_cmd.group(name='message_mania',aliases=['mm'],invoke_without_command=True)
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_help_cmd(self,ctx):
+        help_embed = discord.Embed(title='**Message mania commands**',description='Commands that you can use for message mania, make sure to set all the vars required in `ink eset message_mania` before starting a ban royale event\nRun `ink help <command>` for more info on a command in this category',colour=emb_colour)
+        help_embed.add_field(name='**mute**:',value='Mutes a member mentioned',inline=False)
+        help_embed.add_field(name='**kick**:',value='Kicks a member mentioned',inline=False)
+        help_embed.add_field(name='**purge**',value='purge 10 messages',inline=False)
+        help_embed.add_field(name='**messagelb**:',value='Shows the leaderboard for most messages by a member in the channel',inline=False)
+        await ctx.send(embed=help_embed)
+
+    @message_mania_help_cmd.command(name='mute')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_mute_command(self,ctx):
+        help_embed = discord.Embed(title='**Mute command**',description='Mutes a member mentioned during message mania event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink mute <target>`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_cmd.command(name='kick')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_kick_command(self,ctx):
+        help_embed = discord.Embed(title='**Kick command**',description='Kicks a member mentioned during the message mania event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink kick <target>`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_cmd.command(name='purge')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_purge_command(self,ctx):
+        help_embed = discord.Embed(title='**purge command**',description='Deletes the last 10 messages sent in the channel during the message mania event',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink purge`',inline=False)
+        await ctx.send(embed=help_embed)
+    
+    @message_mania_help_cmd.command(name='messagelb')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def message_mania_messagelb_command(self,ctx):
+        help_embed = discord.Embed(title='**messagelb command**',description='Shows the leaderboard for most messages by a member in the channel',colour=emb_colour)
+        help_embed.add_field(name='**Syntax**:',value='`ink messagelb`',inline=False)
+        help_embed.add_field(name='**Requirements**',value='Administrator perms or manager role')
         await ctx.send(embed=help_embed)
 
 #defining setup
