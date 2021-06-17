@@ -42,7 +42,7 @@ class banRoulette(commands.Cog):
         settings_db = cluster[str(ctx.guild.id)]
         settings_col = settings_db['eventSettings']
         play_role = settings_col.find_one({'_id' : 'brParticipantRole'})['role']
-        staff_role = settings_col.find_one({'_id' : 'brstaffrole'})['role']
+        staff_role = settings_col.find_one({'_id' : 'brStaffRole'})['role']
         banned_role = settings_col.find_one({'_id' : 'brBannedRole'})['role']
         bancount = settings_db['banCount']
         if has_role(staff_role,target) == False:
