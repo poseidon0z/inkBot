@@ -7,7 +7,7 @@ WHAT ARE THE COMMANDS HERE?
 2. banlb
 3. clearlb
 '''
-
+import traceback
 from discord.ext.commands.core import has_guild_permissions, is_owner
 from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MemberNotFound, MissingRequiredArgument
 from utils.botwideFunctions import has_role, is_manager
@@ -46,7 +46,9 @@ class banRoulette(commands.Cog):
         banned_role = settings_col.find_one({'_id' : 'brBannedRole'})['role']
         bancount = settings_db['banCount']
         if has_role(staff_role,target) == False:
+            print('called staff pass')
             if has_role(banned_role, target) == False:
+                print('called banned pass')
                 for role in target.roles:
                     if role.id == play_role:
                         await target.remove_roles(role)
@@ -75,7 +77,7 @@ class banRoulette(commands.Cog):
         if isinstance(error,MissingRequiredArgument):
             await ctx.reply('Make sure to use the correct format and provide all required args: ```ink brb <target>```')
         else:
-            print(error)
+            traceback.print_exc()
     
     @commands.command(name='banlb')
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
