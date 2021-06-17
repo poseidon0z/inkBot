@@ -82,7 +82,7 @@ class banRoulette(commands.Cog):
     @commands.guild_only()
     @commands.check(is_ban_royale_channel)
     async def banlb(self,ctx):
-        bancollection = cluster[str(ctx.guild.id)]['bancount']
+        bancollection = cluster[str(ctx.guild.id)]['banCount']
         lbRaw = bancollection.find().limit(10).sort("numberOfBans", -1)
         i = 1
         lbEmbed = discord.Embed(title='Dank Trades Ban Royale Leaderboard',colour=0xabcdef)
@@ -108,7 +108,7 @@ class banRoulette(commands.Cog):
     @commands.guild_only()
     @commands.check(is_ban_royale_channel)
     async def clearlb(self,ctx):
-        bancollection = cluster[str(ctx.guild.id)]['bancount']
+        bancollection = cluster[str(ctx.guild.id)]['banCount']
         print(f'{ctx.author} cleared the leaderboard!')
         bancollection.drop()
         await ctx.send('Leaderboard has been cleared')
