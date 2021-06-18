@@ -25,12 +25,12 @@ allowed_mentions = discord.AllowedMentions(everyone=False,roles=False)
 
 intents = discord.Intents.default()
 intents.members = True
-#defining the bot,removing help command, disabling everyone and role mentions
+#defining the bot,removing help command, disabling everyone and role mentions, adding status
 client = commands.Bot(command_prefix = ['ink ', 'ink', 'Ink ','Ink'], intents = intents,status=discord.Status.do_not_disturb,activity=discord.Game(name="ink help"))
 client.allowed_mentions = allowed_mentions
 client.remove_command('help')
 
-#
+
 #Loading message
 @client.event
 async def on_ready():
@@ -38,7 +38,7 @@ async def on_ready():
 
 #removing need for underscores in using jsk
 os.environ['JISHAKU_NO_UNDERSCORE'] = 'true'
-
+os.environ['JISHAKU_NO_DM_TRACEBACK'] = 'True'
 
 #making a list of all cogs in the cogs folder
 myCogs = []
