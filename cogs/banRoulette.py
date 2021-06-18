@@ -40,24 +40,19 @@ class banRoulette(commands.Cog):
     @commands.check(is_ban_royale_channel)
     @commands.check(is_ban_royale_participant)
     async def brb(self, ctx, target : discord.Member):
-        time1 = timer()
         settings_db = cluster[str(ctx.guild.id)]
         settings_col = settings_db['eventSettings']
         play_role = settings_col.find_one({'_id' : 'brParticipantRole'})['role']
         staff_role = settings_col.find_one({'_id' : 'brStaffRole'})['role']
         bancount = settings_db['banCount']
-        time2 = timer()
         if has_role(staff_role,target) == False:
             if has_role(play_role,target) == True:
                 for role in target.roles:
                     if role.id == play_role:
                         await target.remove_roles(role)
-                        time3 = timer()
                 await ctx.channel.send(f'{ctx.author.mention} banned {target.mention}!')
-                time4 = timer()
                 authorID = ctx.author.id
                 status = bancount.find_one({'_id' : authorID})
-                time5 = timer()
                 if status is None:
                     person = {'_id' : authorID , "numberOfBans": 1}
                     bancount.insert_one(person)
@@ -65,8 +60,6 @@ class banRoulette(commands.Cog):
                     myquery = {'_id' : authorID}
                     newBanNumber = status['numberOfBans'] + 1
                     bancount.update_one(myquery,{"$set":{"numberOfBans": newBanNumber}})
-                time6 = timer()
-                print(f'db fetch took {time2-time1}s, role remove {time3-time2}s, send message {time4-time3}, find author {time5-time4}, edit db {time6-time5}')
             else:
                 await ctx.reply(f'Don\'t try banning someone who can\'t participate <a:slowkek:838803911686750209>')
         else:
