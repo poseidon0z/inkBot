@@ -56,8 +56,11 @@ class inkFunCommands(commands.Cog):
         if channel is None:
             await ctx.send(watToSay,allowed_mentions = allowed_mentions)
         if channel is not None:
-            await channel.send(watToSay,allowed_mentions = allowed_mentions)
-            await ctx.send(f'Message has been sent in {channel.mention}',delete_after=5)
+            if channel.permissions_for(ctx.author).send_messages == True: 
+                await channel.send(watToSay,allowed_mentions = allowed_mentions)
+                await ctx.send(f'Message has been sent in {channel.mention}',delete_after=5)
+            else:
+                await ctx.reply(f'Don\'t try making me say stuff in channels where you don\'t have perms <:lolnub:842673428695744522>')
         
     @say.error
     async def say_error(self,ctx,error):
