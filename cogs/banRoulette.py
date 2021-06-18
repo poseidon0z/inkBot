@@ -47,9 +47,8 @@ class banRoulette(commands.Cog):
         bancount = settings_db['banCount']
         if has_role(staff_role,target) == False:
             if has_role(play_role,target) == True:
-                for role in target.roles:
-                    if role.id == play_role:
-                        await target.remove_roles(role)
+                role = ctx.guild.get_role(play_role)
+                await target.remove_roles(role)
                 await ctx.channel.send(f'{ctx.author.mention} banned {target.mention}!')
                 authorID = ctx.author.id
                 status = bancount.find_one({'_id' : authorID})
