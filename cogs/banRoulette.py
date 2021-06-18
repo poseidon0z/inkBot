@@ -10,7 +10,7 @@ WHAT ARE THE COMMANDS HERE?
 import traceback
 from discord.ext.commands.core import has_guild_permissions, is_owner
 from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MemberNotFound, MissingRequiredArgument
-from utils.botwideFunctions import has_role, is_manager
+from utils.botwideFunctions import has_role, is_manager, is_not_bot_banned
 from utils.commandShortenings import is_ban_royale_channel, is_ban_royale_participant
 import discord
 from discord.ext import commands
@@ -39,6 +39,7 @@ class banRoulette(commands.Cog):
     @commands.guild_only()
     @commands.check(is_ban_royale_channel)
     @commands.check(is_ban_royale_participant)
+    @is_not_bot_banned()
     async def brb(self, ctx, target : discord.Member):
         settings_db = cluster[str(ctx.guild.id)]
         settings_col = settings_db['eventSettings']
@@ -79,6 +80,7 @@ class banRoulette(commands.Cog):
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
     @commands.check(is_ban_royale_channel)
+    @is_not_bot_banned()
     async def banlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
         lbRaw = bancollection.find().limit(10).sort("numberOfBans", -1)
@@ -105,6 +107,7 @@ class banRoulette(commands.Cog):
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
     @commands.check(is_ban_royale_channel)
+    @is_not_bot_banned()
     async def clearlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
         print(f'{ctx.author} cleared the leaderboard!')
