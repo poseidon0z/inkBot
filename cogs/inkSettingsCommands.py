@@ -10,16 +10,6 @@ This file consists of settings commands for inkBot
     (4) Admin
     (5) alertchannel
     (6) failchannel
-
-
-IMPORTS:
-1. discord - ................ cause discord
-2. commands from discord.ext - what the cog runs on
-3. load to load my json
-4. path to define the path to my json
-5. pymongo to interact with the db
-6. is_not_bot_banned to stop bot banned members from using bot commands
-7. error handlers
 '''
 import discord
 from discord.ext import commands

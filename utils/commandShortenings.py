@@ -18,7 +18,6 @@ IMPORTS:
 4. load to load my json files
 5. path to show the path to my json file
 '''
-from re import L
 import discord
 import random
 import pymongo

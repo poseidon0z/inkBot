@@ -419,7 +419,7 @@ class inkHelpCommand(commands.Cog):
     @commands.guild_only()
     async def event_settings_help_cmd(self,ctx):
         help_embed = discord.Embed(title='**Event settings commands**',description='All commands in this section require manage server permissions or the manager role (Manager role can be set with `ink eset manager_role`)\nOther vars are set using `ink eset <ban_royale/message_mania> <command>`\nAliases for `event_settings` are: `eset` and `es`',colour=emb_colour)
-        help_embed.add_field(name='ban_royale',value='**Subcommands**: `channel` , `banned_role` , `participant_role` , `staff_role` , `check`',inline=False)
+        help_embed.add_field(name='ban_royale',value='**Subcommands**: `channel` , `participant_role` , `staff_role` , `check`',inline=False)
         help_embed.add_field(name='message_mania', value='**Subcommands**: `channel` , `participant_role` , `staff_role` , `mute_role` , `check`', inline=False)
         help_embed.add_field(name='manager', value='Adds a role as manager role, giving members with the role access to change ban royale and message mania settings', inline=False)
         await ctx.send(embed=help_embed)
@@ -430,7 +430,6 @@ class inkHelpCommand(commands.Cog):
     async def ban_royale_help_command(self,ctx):
         help_embed = discord.Embed(title='Ban Royale settings',description='Roles you need to set before being able to conduct a ban royale event',colour=emb_colour)
         help_embed.add_field(name='channel',value='Set a channel to play the ban royale event in',inline=False)
-        help_embed.add_field(name='banned_role',value='Set a role that is given to members who are banned',inline=False)
         help_embed.add_field(name='participant_role',value='Role required to run the ban command',inline=False)
         help_embed.add_field(name='staff_role',value='Members with this role cannot be affected by the ban command',inline=False)
         help_embed.add_field(name='check',value='Gives an embed to check if all reqired variables have been set',inline=False)
@@ -444,16 +443,7 @@ class inkHelpCommand(commands.Cog):
         help_embed.add_field(name='**Syntax**:',value='`ink eset br channel <channel>`',inline=False)
         help_embed.add_field(name='**Aliases**:',value='`chan`',inline=False)
         await ctx.send(embed=help_embed)
-    
-    @ban_royale_help_command.command(name='banned_role',aliases=['banrole'])
-    @is_not_bot_banned()
-    @commands.guild_only()
-    async def ban_royale_banned_role_help_cmd(self,ctx):
-        help_embed = discord.Embed(title='banned_role',decription='Set a role that is given to members who are banned',colour=emb_colour)
-        help_embed.add_field(name='**Syntax**:',value='`ink eset br banned_role <role>`',inline=False)
-        help_embed.add_field(name='**Aliases**:',value='`banrole`',inline=False)
-        await ctx.send(embed=help_embed)
-    
+        
     @ban_royale_help_command.command(name='participant_role',aliases=['playrole'])
     @is_not_bot_banned()
     @commands.guild_only()

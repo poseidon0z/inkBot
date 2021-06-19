@@ -6,7 +6,6 @@ This is a cog containing all of the event commands for inkbot
 (a)eventsettings
     (1)ban_royale
         > channel
-        > banned_role
         > participant_role
         > staff_role
     
@@ -51,7 +50,7 @@ class eventSettings(commands.Cog):
     @commands.guild_only()
     async def event_settings(self,ctx):
         eset_embed = discord.Embed(title='Event Settings',description='All commands in this section require manage server permissions or the manager role (Manager role can be set with `ink eset manager_role`)\nOther vars are set using `ink eset <ban_royale/message_mania> <command>`',colour=embed_colour)
-        eset_embed.add_field(name='Ban Royale Settings',value='`channel` , `banned_role` , `participant_role` , `staff_role` , `check`',inline=False)
+        eset_embed.add_field(name='Ban Royale Settings',value='`channel` , `participant_role` , `staff_role` , `check`',inline=False)
         eset_embed.add_field(name='Message Mania Settings', value='`channel` , `participant_role` , `staff_role` , `mute_role` , `check`', inline=False)
         eset_embed.add_field(name='manager', value='Adds a role as manager role, giving them access to change settings under ban royale commands or message mania commands', inline=False)
         await ctx.send(embed=eset_embed)
@@ -63,7 +62,6 @@ class eventSettings(commands.Cog):
     async def ban_royale_settings(self,ctx):
         brset_embed = discord.Embed(title='Ban Royale settings',description='Roles you need to set before being able to conduct a ban royale event',colour=embed_colour)
         brset_embed.add_field(name='channel',value='Set a channel to play the ban royale event in',inline=False)
-        brset_embed.add_field(name='banned_role',value='Set a role that is given to members who are banned',inline=False)
         brset_embed.add_field(name='participant_role',value='Role required to run the ban command',inline=False)
         brset_embed.add_field(name='staff_role',value='Members with this role cannot be affected by the ban command',inline=False)
         brset_embed.add_field(name='check',value='Checks if all the required variables have been set',inline=False)
@@ -91,27 +89,6 @@ class eventSettings(commands.Cog):
         else:
             print(error)
 
-    @ban_royale_settings.command(name='banned_role',aliases=['banrole'])
-    @is_not_bot_banned()
-    @commands.guild_only()
-    @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
-    async def br_banned_role(self,ctx,role : discord.Role):
-        server_settings = cluster[str(ctx.guild.id)]['eventSettings']
-        query = {'_id' : 'brBannedRole'}
-        server_settings.update_one(query,{"$set" : {"role" : role.id}},upsert=True)
-        await ctx.send(f'Banned role has been set as {role.mention}')
-
-    @br_banned_role.error
-    async def br_banned_role_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset br banrole <role>\n\nrole is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>')
-        else:
-            print(error)
-        
     @ban_royale_settings.command(name='participant_role',aliases=['playrole'])
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
     @is_not_bot_banned()
@@ -168,7 +145,7 @@ class eventSettings(commands.Cog):
             if check_result == True:
                 emote = '<a:check:845936436297728030>'
             else:
-                emote = '<:cancel:845945583835283487>'
+                emote = '<a:cross:855663028552990740>'
             br_set_embed.add_field(name='\u200b',value=f'{emote} {thing}',inline=False)
         await ctx.send(embed=br_set_embed)
             
@@ -281,7 +258,7 @@ class eventSettings(commands.Cog):
             if check_result == True:
                 emote = '<a:check:845936436297728030>'
             else:
-                emote = '<:cancel:845945583835283487>'
+                emote = '<a:cross:855663028552990740>'
             mm_set_embed.add_field(name='\u200b',value=f'{emote} {thing}',inline=False)
         await ctx.send(embed=mm_set_embed)
 

@@ -479,11 +479,11 @@ class inkDonationCommands(commands.Cog):
     @is_not_bot_banned()
     @commands.check_any(is_owner(),is_admin())
     async def clear_eman_lb(self,ctx):
-        confirmation_message  = await ctx.send(f'This will clear the event manager leaderboard for {ctx.guild.name}! are you sure you wanna do this? React with <a:check:845936436297728030> to confirm or <:cancel:845945583835283487> to cancel!',allowed_mentions=allowed_mentions)
+        confirmation_message  = await ctx.send(f'This will clear the event manager leaderboard for {ctx.guild.name}! are you sure you wanna do this? React with <a:check:845936436297728030> to confirm or <a:cross:855663028552990740> to cancel!',allowed_mentions=allowed_mentions)
         await confirmation_message.add_reaction('<a:check:845936436297728030>')
-        await confirmation_message.add_reaction('<:cancel:845945583835283487>')
+        await confirmation_message.add_reaction('<a:cross:855663028552990740>')
         def check(reaction, user):
-            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<:cancel:845945583835283487>']
+            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
         except asyncio.TimeoutError:
@@ -495,7 +495,7 @@ class inkDonationCommands(commands.Cog):
                 eman_collection = db['emanagerStats']
                 eman_collection.drop()
                 await ctx.send('Cleared!')
-            if str(reaction.emoji) == '<:cancel:845945583835283487>':
+            if str(reaction.emoji) == '<a:cross:855663028552990740>':
                 await ctx.send('Cancelling....')
 
     @clear_eman_lb.error
@@ -513,11 +513,11 @@ class inkDonationCommands(commands.Cog):
     @is_not_bot_banned()
     @commands.check_any(is_owner(),is_admin())
     async def clear_gman_lb(self,ctx):
-        confirmation_message  = await ctx.send(f'This will clear the giveawway manager leaderboard for {ctx.guild.name}! are you sure you wanna do this? React with <a:check:845936436297728030> to confirm or <:cancel:845945583835283487> to cancel!!',allowed_mentions=allowed_mentions)
+        confirmation_message  = await ctx.send(f'This will clear the giveawway manager leaderboard for {ctx.guild.name}! are you sure you wanna do this? React with <a:check:845936436297728030> to confirm or <a:cross:855663028552990740> to cancel!!',allowed_mentions=allowed_mentions)
         await confirmation_message.add_reaction('<a:check:845936436297728030>')
-        await confirmation_message.add_reaction('<:cancel:845945583835283487>')
+        await confirmation_message.add_reaction('<a:cross:855663028552990740>')
         def check(reaction, user):
-            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<:cancel:845945583835283487>']
+            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
         except asyncio.TimeoutError:
@@ -529,7 +529,7 @@ class inkDonationCommands(commands.Cog):
                 gman_collection = db['gmanagerStats']
                 gman_collection.drop()
                 await ctx.send('Cleared!')
-            if str(reaction.emoji) == '<:cancel:845945583835283487>':
+            if str(reaction.emoji) == '<a:cross:855663028552990740>':
                 await ctx.send('Cancelling....')
 
     @clear_gman_lb.error
