@@ -71,8 +71,6 @@ class banRoulette(commands.Cog):
     async def brb_error(self,ctx,error):
         if isinstance(error, CheckFailure):
             await ctx.reply('You don\'t have the roles required to run this command or are using it in the wrong channel')
-        if isinstance(error,MemberNotFound):
-            await ctx.reply('Pls provide a valid member to ban')
         if isinstance(error,MissingRequiredArgument):
             await ctx.reply('Make sure to use the correct format and provide all required args: ```ink brb <target>```')
         else:

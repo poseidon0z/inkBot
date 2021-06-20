@@ -58,12 +58,6 @@ class messageMania(commands.Cog):
         else:
             await ctx.send(f'Only people with the <@&{participant_role}> role can use this command!',delete_after=3)
 
-    @mute.error
-    async def mute_error(self,ctx,error):
-        if isinstance(error,MemberNotFound):
-            await ctx.send(f'Oi {ctx.author.mention}! Gimme a user to mute!',delete_after=3)
-        if isinstance(error,CommandOnCooldown):
-            await ctx.send(f'{ctx.author.mention}! You\'re on cooldown from using the Mute command for {error.retry_after:.2f} more seconds!',delete_after=3)
 
     @commands.command(name='purge')
     @commands.check(is_message_mania_channel)
@@ -78,10 +72,6 @@ class messageMania(commands.Cog):
         else:
             await ctx.send(f'Only people with the <@&{participantRole}> role can use this command!',delete_after=3)
 
-    @purge.error
-    async def purge_error(self,ctx,error):
-        if isinstance(error,CommandOnCooldown):
-            await ctx.send(f'{ctx.author.mention}! You\'re on cooldown from using the Purge command for {error.retry_after:.2f} more seconds!',delete_after=3)
     
 
     @commands.command(name='kick')
@@ -105,12 +95,6 @@ class messageMania(commands.Cog):
         else:
             await ctx.send(f'Only people with the <@&{participantRole}> role can use this command!',delete_after=3)
       
-    @kick.error
-    async def kick_error(self,ctx,error):
-        if isinstance(error,MemberNotFound):
-            await ctx.send(f'Oi {ctx.author.mention}! Gimme a user to kick!',delete_after=3)
-        if isinstance(error,CommandOnCooldown):
-            await ctx.send(f'{ctx.author.mention}! You\'re on cooldown from using the Kick command for {error.retry_after:.2f} more seconds!',delete_after=3)
 
     @commands.command(name='messagelb')
     @commands.check_any(commands.has_guild_permissions(administrator=True),is_owner(),is_manager())

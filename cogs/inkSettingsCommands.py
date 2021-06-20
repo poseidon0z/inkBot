@@ -69,8 +69,6 @@ class inkSettingsCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink settings giveawaymanager <role>\n\n{error.param} is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         else:
             print(error)
 
@@ -94,8 +92,6 @@ class inkSettingsCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink settings eventmanager <role>\n\n{error.param} is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         else:
             print(error)
 
@@ -119,8 +115,6 @@ class inkSettingsCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink settings moderator <role>\n\n{error.param} is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         else:
             print(error)
 
@@ -144,8 +138,6 @@ class inkSettingsCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink settings administrator <role>\n\n{error.param} is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         else:
             print(error)
     
@@ -170,8 +162,6 @@ class inkSettingsCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink settings alertchannel <channel>\n\n{error.param} is not specified```')
-        elif isinstance(error,ChannelNotFound):
-            await ctx.send(f'Couldn\'t find the channel "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         else:
             print(error)
     
@@ -195,8 +185,6 @@ class inkSettingsCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink settings failchannel <channel>\n\n{error.param} is not specified```')
-        elif isinstance(error,ChannelNotFound):
-            await ctx.send(f'Couldn\'t find the channel "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         else:
             print(error)
 

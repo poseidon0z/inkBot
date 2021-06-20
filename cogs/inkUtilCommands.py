@@ -107,8 +107,6 @@ class inkUtilCommands(commands.Cog):
     async def info_error(self,ctx,error):
         if isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink info <user>\n\n{error.param} is a required argument that is missing!```')
-        if isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the user {error.argument} on in the guild! <a:nya_sadguitarmusic:845576181167554581> Make sure you provided the correct id',allowed_mentions=allowed_mentions)
         else:
             print(error)
 

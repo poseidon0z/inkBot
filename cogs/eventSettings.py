@@ -84,8 +84,6 @@ class eventSettings(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink eset br channel <channel>\n\nchannel is not specified```')
-        elif isinstance(error,ChannelNotFound):
-            await ctx.send(f'Couldn\'t find the channel "{error.argument}" <:lotsofpain:839371861346222112>')
         else:
             print(error)
 
@@ -105,8 +103,6 @@ class eventSettings(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink eset br participant_role <role>\n\nrole is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>')
         else:
             print(error)
         
@@ -126,8 +122,6 @@ class eventSettings(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink eset br staff_role <role>\n\nrole is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>')
         else:
             print(error)
 
@@ -180,8 +174,6 @@ class eventSettings(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink eset mm channel <channel>\n\nchannel is not specified```')
-        elif isinstance(error,ChannelNotFound):
-            await ctx.send(f'Couldn\'t find the channel "{error.argument}" <:lotsofpain:839371861346222112>')
         else:
             print(error)
         
@@ -201,8 +193,6 @@ class eventSettings(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink eset mm playrole <role>\n\nrole is not specified```')
-        elif isinstance(error,RoleNotFound):
-            await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>')
         else:
             print(error)
         

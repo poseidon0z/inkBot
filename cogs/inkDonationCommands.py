@@ -112,8 +112,6 @@ class inkDonationCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink donation giveaway <member> <amount>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,BadArgument):
             await ctx.send(f'Couldn\'t find a amount from the given argument')
         else:
@@ -148,8 +146,6 @@ class inkDonationCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink donation event <member> <amount>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,BadArgument):
             await ctx.send(f'Couldn\'t find a amount from the given argument')
         else:
@@ -180,8 +176,6 @@ class inkDonationCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink donation special <member> <amount>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,BadArgument):
             await ctx.send(f'Couldn\'t find a amount from the given argument')
         else:
@@ -209,8 +203,6 @@ class inkDonationCommands(commands.Cog):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink donation check <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         else:
             print(error)
     '''
@@ -250,8 +242,6 @@ class inkDonationCommands(commands.Cog):
     async def check_eman_error(self,ctx,error):
         if isinstance(error,CheckAnyFailure):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink donation checkeman <member>\n\n{error.param} is not specified```',allowed_mentions=allowed_mentions)
         else:
@@ -280,8 +270,6 @@ class inkDonationCommands(commands.Cog):
     async def check_gman_error(self,ctx,error):
         if isinstance(error,CheckAnyFailure):
             await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink donation checkgman <member>\n\n{error.param} is not specified```',allowed_mentions=allowed_mentions)
         else:

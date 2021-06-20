@@ -47,8 +47,6 @@ class inkChannelManagementCommands(commands.Cog):
     async def add_channel_error(self,ctx,error):
         if isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink addchannel <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,BotMissingPermissions):
             await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
         else:
@@ -70,8 +68,6 @@ class inkChannelManagementCommands(commands.Cog):
     async def remove_channel_error(self,ctx,error):
         if isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink removechannel <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,BotMissingPermissions):
             await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
         else:
@@ -94,10 +90,6 @@ class inkChannelManagementCommands(commands.Cog):
     async def add_channel_manager_error(self,ctx,error):
         if isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink addchannelmanager <channel> <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
-        elif isinstance(error,ChannelNotFound):
-            await ctx.send(f'Couldn\'t find the channel"{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,BotMissingPermissions):
             await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
         else:
@@ -119,10 +111,6 @@ class inkChannelManagementCommands(commands.Cog):
     async def remove_channel_manager_error(self,ctx,error):
         if isinstance(error,MissingRequiredArgument):
             await ctx.send(f'```ink removechannelmanager <channel> <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,MemberNotFound):
-            await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
-        elif isinstance(error,ChannelNotFound):
-            await ctx.send(f'Couldn\'t find the channel"{error.argument}" <:lotsofpain:839371861346222112>',allowed_mentions=allowed_mentions)
         elif isinstance(error,BotMissingPermissions):
             await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
         else:
