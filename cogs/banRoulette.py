@@ -109,6 +109,9 @@ class banRoulette(commands.Cog):
     @is_not_bot_banned()
     async def clearlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
+        confirmation_message = await ctx.send(f'Are you sure you want to clear the ban lb for {ctx.guild.name}')
+        await confirmation_message.add_reaction('<a:check:845936436297728030>')
+        await confirmation_message.add_reaction('<a:cross:855663028552990740>')
         def check(reaction, user):
             return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
         try:
