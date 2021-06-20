@@ -7,6 +7,7 @@ WHAT ARE THE COMMANDS HERE?
 2. banlb
 3. clearlb
 '''
+import asyncio
 import traceback
 from discord.ext.commands.core import has_guild_permissions, is_owner
 from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MemberNotFound, MissingRequiredArgument
@@ -79,13 +80,12 @@ class banRoulette(commands.Cog):
     @commands.command(name='banlb')
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
-    @commands.check(is_ban_royale_channel)
     @is_not_bot_banned()
     async def banlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
         lbRaw = bancollection.find().limit(10).sort("numberOfBans", -1)
         i = 1
-        lbEmbed = discord.Embed(title='Dank Trades Ban Royale Leaderboard',colour=0xabcdef)
+        lbEmbed = discord.Embed(title=f'{ctx.guild.name} Leaderboard',colour=0xabcdef)
         for personData in lbRaw:
             if personData is not None:
                 personId = int(personData["_id"])
@@ -106,13 +106,23 @@ class banRoulette(commands.Cog):
     @commands.command(name='clearbanlb')
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
-    @commands.check(is_ban_royale_channel)
     @is_not_bot_banned()
     async def clearlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
-        print(f'{ctx.author} cleared the leaderboard!')
-        bancollection.drop()
-        await ctx.send('Leaderboard has been cleared')
+        def check(reaction, user):
+            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
+        try:
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
+        except asyncio.TimeoutError:
+            await ctx.send('Cancelling....')
+        else:
+            if str(reaction.emoji) == '<a:check:845936436297728030>':
+                await ctx.send('Clearing stats...')
+                bancollection.drop()
+                print(f'{ctx.author} cleared the leaderboard!')
+                await ctx.send('Leaderboard has been cleared')
+            if str(reaction.emoji) == '<a:cross:855663028552990740>':
+                await ctx.send('Cancelling....')
     
     @clearlb.error
     async def clearlb_error(self,ctx,error):
