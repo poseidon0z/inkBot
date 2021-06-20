@@ -9,6 +9,7 @@ WHAT ARE THE COMMANDS HERE?
 '''
 import asyncio
 import traceback
+from typing import AsyncIterable
 from discord.ext.commands.core import has_guild_permissions, is_owner
 from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MemberNotFound, MissingRequiredArgument
 from utils.botwideFunctions import has_role, is_manager, is_not_bot_banned
@@ -126,6 +127,8 @@ class banRoulette(commands.Cog):
                 await ctx.send('Leaderboard has been cleared')
             if str(reaction.emoji) == '<a:cross:855663028552990740>':
                 await ctx.send('Cancelling....')
+                asyncio.sleep(1)
+                await ctx.send('Cancelled!')
     
     @clearlb.error
     async def clearlb_error(self,ctx,error):
