@@ -66,7 +66,7 @@ class inkAutoResponses(commands.Cog):
     @commands.Cog.listener("on_message")
     @is_not_bot_banned()
     async def ink_mention_response(self,message):
-        if str(message.content) == f'''<@!{self.bot.user.id}>''' or str(message.content) == f'''<@{self.bot.user.id}>''':
+        if str(message.content) == f'''<@!{self.bot.user.id}>''' or str(message.content) == f'''<@{self.bot.user.id}>''' and message.author.bot == False:
             await message.channel.send('Hi! My prefix is `ink `, run `ink help` for more details!!',delete_after=5)
 
 def setup(bot):

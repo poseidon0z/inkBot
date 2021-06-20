@@ -27,7 +27,7 @@ class inkEasterEggs(commands.Cog):
     async def greet(self,message):
         #hi ink response
         if 'hi ink' == message.content.lower():
-            if message.guild.id != 719180744311701505:
+            if message.author.bot == False:
                 if str(message.author.nick) != 'None':
                     allowedMentions = discord.AllowedMentions(everyone=False,roles=False,users=False)
                     await message.channel.send('Hi ' + str(message.author.nick), allowed_mentions=allowedMentions)
