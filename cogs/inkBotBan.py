@@ -50,6 +50,18 @@ class inkBotBan(commands.Cog):
             await ctx.send(f'User {target.mention}`({target.id})` has been successfully bot unbanned',allowed_mentions=allowed_mentions)
         else:
             await ctx.send(f'This user is not bot banned!')
+        
+    @commands.command(name='checkforban',aliases=['cfb'])
+    @commands.is_owner()
+    async def checkforban(self,ctx,target : discord.User):
+        banned_info = cluster['banned']['Ids']
+        query = {"_id" : target.id}
+        already_banned = banned_info.find_one(query)
+        if already_banned is not None:
+            banned_info.delete_one(query)
+            await ctx.send(f'User {target.mention}`({target.id})` is bot banned',allowed_mentions=allowed_mentions)
+        else:
+            await ctx.send(f'User {target.mention}`({target.id})` is not bot banned')
 
 def setup(bot):
     bot.add_cog(inkBotBan(bot))
