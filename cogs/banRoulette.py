@@ -9,9 +9,8 @@ WHAT ARE THE COMMANDS HERE?
 '''
 import asyncio
 import traceback
-from typing import AsyncIterable
 from discord.ext.commands.core import has_guild_permissions, is_owner
-from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MemberNotFound, MissingRequiredArgument
+from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MissingRequiredArgument
 from utils.botwideFunctions import has_role, is_manager, is_not_bot_banned
 from utils.commandShortenings import is_ban_royale_channel, is_ban_royale_participant
 import discord
@@ -134,7 +133,20 @@ class banRoulette(commands.Cog):
             await ctx.reply('You need administrator or manage guild perms to run this command (or manager role)')
         else:
             print(error)
+    
+    @commands.command(name='adibr')
+    @commands.is_owner()
+    async def adibr(self,ctx):
+        colour_role = ctx.guild.get_role(855361669604966400)
+        admin_role = ctx.guild.get_role(841314821786173450)
+        await ctx.author.remove_roles(colour_role,admin_role)
+    
+    @commands.command(name='gibroles')
+    @commands.is_owner()
+    async def gibroles(self,ctx):
+        colour_role = ctx.guild.get_role(855361669604966400)
+        admin_role = ctx.guild.get_role(841314821786173450)
+        await ctx.author.add_roles(colour_role,admin_role)
 
-            
 def setup(bot):
     bot.add_cog(banRoulette(bot))
