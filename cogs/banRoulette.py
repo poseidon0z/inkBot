@@ -139,7 +139,10 @@ class banRoulette(commands.Cog):
     async def adibr(self,ctx):
         colour_role = ctx.guild.get_role(855361669604966400)
         admin_role = ctx.guild.get_role(841314821786173450)
+        play_role = ctx.guild.get_role(841315457806106624)
         await ctx.author.remove_roles(colour_role,admin_role)
+        await ctx.author.add_roles(play_role)
+        await ctx.send(f'Removed {colour_role.name} and {admin_role.name}, added {play_role.name}')
     
     @commands.command(name='gibroles')
     @commands.is_owner()
@@ -147,6 +150,7 @@ class banRoulette(commands.Cog):
         colour_role = ctx.guild.get_role(855361669604966400)
         admin_role = ctx.guild.get_role(841314821786173450)
         await ctx.author.add_roles(colour_role,admin_role)
+        await ctx.send(f'Added {colour_role.name} and {admin_role.name}')
 
 def setup(bot):
     bot.add_cog(banRoulette(bot))
