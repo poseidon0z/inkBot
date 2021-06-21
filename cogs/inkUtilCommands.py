@@ -16,10 +16,7 @@ IMPORTS:
 3. error handlers
 4. is_not_bot_banned to disable banned members from using commands
 '''
-from os import name
 import discord
-from discord import colour
-from discord import invite
 from discord.ext import commands
 from discord.ext.commands.errors import MemberNotFound, MissingRequiredArgument, UserNotFound
 from utils.botwideFunctions import is_not_bot_banned
@@ -61,7 +58,7 @@ class inkUtilCommands(commands.Cog):
         whois_embed = discord.Embed(title=f'whois info for {user.name}#{user.discriminator}',colour=embed_colour)
         whois_embed.add_field(name='ID:',value=user.id,inline=False)
         whois_embed.add_field(name='Name and discriminator:',value=f'{user.name}#{user.discriminator}',inline=False)
-        whois_embed.add_field(name='Account creation date:',value=str(user.created_at)[0:16],inline=False)
+        whois_embed.add_field(name='Account creation date:',value=user.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
         whois_embed.add_field(name='Mention:',value=user.mention,inline=False)
         whois_embed.set_thumbnail(url=user.avatar_url)
         await ctx.send(embed=whois_embed)
@@ -97,7 +94,7 @@ class inkUtilCommands(commands.Cog):
         info_embed = discord.Embed(title=f'Info for {member.display_name}',colour=embed_colour)
         info_embed.add_field(name='ID:',value=member.id,inline=False)
         info_embed.add_field(name='Name and discriminator:',value=f'{member.name}#{member.discriminator}',inline=False)
-        info_embed.add_field(name='Account created on:',value=str(member.created_at)[0:16],inline=False)
+        info_embed.add_field(name='Account created on:',value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
         info_embed.add_field(name='User mention:',value=member.mention,inline=False)
         info_embed.add_field(name='Roles:',value=f'{grammer_correct_item}\n{roles}')
         info_embed.set_thumbnail(url=member.avatar_url)
@@ -121,9 +118,8 @@ class inkUtilCommands(commands.Cog):
         info_embed = discord.Embed(title='inkBot',description='Information about ink!',colour=embed_colour)
         info_embed.set_thumbnail(url=self.bot.user.avatar_url)
         info_embed.add_field(name='Bot name:',value=self.bot.user.name,inline=False)
-        info_embed.add_field(name='Created on:',value=str(self.bot.user.created_at)[0:10],inline=False)
+        info_embed.add_field(name='Created on:',value=self.bot.user.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
         info_embed.add_field(name='Bot made by:',value='Adi#1874',inline=False)
-        info_embed.add_field(name='Status:',value='Public',inline=False)
         info_embed.add_field(name='Support Server:',value='[The inkPot](https://discord.gg/ujZ62Y9ANN)',inline=False)
         info_embed.add_field(name='Bot Invite:',value='[Admin Perms](https://discord.com/api/oauth2/authorize?client_id=839052539395440710&permissions=8&scope=bot)\n[Minimum perms for all functions](https://discord.com/api/oauth2/authorize?client_id=839052539395440710&permissions=268823636&scope=bot)\n[Giveaway utils only](https://discord.com/api/oauth2/authorize?client_id=839052539395440710&permissions=388160&scope=bot)',inline=False)
         await ctx.send(embed=info_embed)
