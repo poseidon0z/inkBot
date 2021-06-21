@@ -9,7 +9,7 @@ import discord
 import traceback
 import sys
 from discord.ext import commands
-from discord.ext.commands.errors import ChannelNotFound, CommandOnCooldown, RoleNotFound
+from discord.ext.commands.errors import ChannelNotFound, CommandOnCooldown, NotOwner, RoleNotFound
 
 '''
 VARIABLES:
@@ -55,6 +55,9 @@ class commandErrorHandler(commands.Cog):
             except:
                 await ctx.send(f'{ctx.author.mention}! You\'re on cooldown from using the {ctx.command} command for {error.retry_after:.2f} more seconds!')
         
+        if isinstance(error,NotOwner):
+            print(f'{ctx.author.id} tried running a owner only command: {ctx.command}')
+
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file=sys.stderr)
