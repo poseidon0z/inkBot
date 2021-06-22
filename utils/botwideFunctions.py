@@ -1,4 +1,4 @@
-'''
+"""
 WHAT IS THIS FILE?
 This is the file where i dump all my custom functions which have bot wide implications!!
 
@@ -16,26 +16,27 @@ IMPORTS:
 2. load to load the collect the cluster name
 3. pathlib to define a path to secrets.json
 4. commands to help define checks
-'''
+"""
 import pymongo
 from json import load
 from pathlib import Path
 from discord.ext import commands
 
-'''
+"""
 Variables i use:
 1. cluster - my bot's mongodb cluster 
-'''
+"""
 with Path("utils/secrets.json").open() as f:
     config = load(f)
 cluster = config["cluster"]
 cluster = pymongo.MongoClient(cluster)
 
-'''
-is_not_bot_banned function:
-Checking if a user has been bot banned or not
-'''
+
 def is_not_bot_banned():
+    """
+    is_not_bot_banned function:
+    Checking if a user has been bot banned or not
+    """
     def predicate(ctx):
         bans_collection = cluster['banned']['Ids']
         everything_in_bans = bans_collection.find()
@@ -46,11 +47,12 @@ def is_not_bot_banned():
         return ctx.author.id not in bannedList
     return commands.check(predicate)
 
-'''
-is_admin function:
-checks if the invoker has the admin role if it has been set for a server
-'''
+
 def is_admin():
+    """
+    is_admin function:
+    checks if the invoker has the admin role if it has been set for a server
+    """
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         admin_role_space = settings_collection.find_one({"_id" : 'adminRole'})
@@ -62,11 +64,12 @@ def is_admin():
             return False
     return commands.check(predicate)
 
-'''
-is_mod function:
-checks if the invoker has the mod role if it has been set for a server
-'''
+
 def is_mod():
+    """
+    is_mod function:
+    checks if the invoker has the mod role if it has been set for a server
+    """
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         mod_role_space = settings_collection.find_one({"_id" : 'modRole'})
@@ -79,11 +82,12 @@ def is_mod():
     return commands.check(predicate)
 
 
-'''
-is_gman function:
-checks if the invoker has the gman role if it has been set for a server
-'''
+
 def is_gman():
+    """
+    is_gman function:
+    checks if the invoker has the gman role if it has been set for a server
+    """
     def predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         gman_role_space = settings_collection.find_one({"_id" : 'giveawayManagerRole'})
@@ -96,11 +100,12 @@ def is_gman():
     return commands.check(predicate)
 
 
-'''
-is_eman function:
-checks if the invoker has the eman role if it has been set for a server
-'''
+
 def is_eman():
+    """
+    is_eman function:
+    checks if the invoker has the eman role if it has been set for a server
+    """
     def is_eman_predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['serverSettings']
         eman_role_space = settings_collection.find_one({"_id" : 'eventManagerRole'})
@@ -113,11 +118,12 @@ def is_eman():
     return commands.check(is_eman_predicate)
 
 
-'''
-is_manager
-checks if the author has manager role to set event vars
-'''
+
 def is_manager():
+    """
+    is_manager
+    checks if the author has manager role to set event vars
+    """
     def is_manager_predicate(ctx):
         settings_collection = cluster[str(ctx.guild.id)]['eventSettings']
         manager_role_space = settings_collection.find_one({"_id" : "managerRole"})
@@ -129,25 +135,24 @@ def is_manager():
             return False
     return commands.check(is_manager_predicate)
 
-'''
-has_role
-Checks if a member has a role as supplied by id
-'''
+
 def has_role(check_role_id,target):
-    targetRoles = target.roles
-    roleList = []
-    for role in targetRoles:
-        roleList.append(role.id)
+    """
+    has_role
+    Checks if a member has a role as supplied by id
+    """
+    roleList = [role.id for role in target.roles]
     if check_role_id in roleList:
         return True
     else:
         return False
     
-'''
-The 'does_exist' function
-Checks if an entry exists in the db
-'''
+
 def does_exist(query,db):
+    """
+    The 'does_exist' function
+    Checks if an entry exists in the db
+    """
     check = db.find_one(query)
     if check == None:
         return False

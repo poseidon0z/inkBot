@@ -18,7 +18,7 @@ This is a cog containing all of the event commands for inkbot
     (3)manager
 '''
 
-from utils.commandShortenings import does_exist
+from utils.botwideFunctions import does_exist
 import discord
 from discord.ext import commands
 from discord.ext.commands.core import has_guild_permissions, is_owner
