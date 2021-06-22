@@ -99,11 +99,9 @@ class messageMania(commands.Cog):
                 person = ctx.guild.get_member(sorted_tuples[-i][0])
             except:
                 person = self.bot.fetch_user(sorted_tuples[-i][0])
-            if person.bot != True:
-                message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
-                i += 1
-            else:
-                pass
+            message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
+            i += 1
+        await ctx.send(embed=message_lb_embed)
 
 
 def setup(bot):
