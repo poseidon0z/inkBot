@@ -10,6 +10,7 @@ WHAT ARE THE FUNCTIONS HERE?
 5. is_a_fail_channel
 6. is_ban_royale_participant
 7. is_ban_royale_channel
+8. is_message_mania_participant_in_channel
 
 IMPORTS:
 1. discord to define vars as discord.something type
@@ -23,7 +24,7 @@ import random
 import pymongo
 from json import load
 from pathlib import Path
-from utils.botwideFunctions import does_exist, has_role
+from utils.botwideFunctions import has_role
 
 '''
 Variables used:
@@ -157,15 +158,17 @@ def is_ban_royale_channel(ctx):
         return False
 
 '''
-The 'is_message_mania_channel' command
+The 'is_message_mania_participant_in_channel' command
 Checks if the command is called in the message mania channel
 '''
-def is_message_mania_channel(ctx):
+def is_message_mania_participant_in_channel(ctx):
     server_settings = cluster[str(ctx.guild.id)]['eventSettings']
     try:
         mm_channel = server_settings.find_one({'_id' : 'mmChannel'})['channel']
-        return ctx.channel.id == mm_channel
     except:
         return False
-    
-
+    try:
+        participantRole = server_settings.find_one({"_id" : 'mmParticipantRole'})["role"]
+    except:
+        return False
+    return has_role(participantRole,ctx.author) and mm_channel == ctx.channel.id

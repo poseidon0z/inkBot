@@ -14,7 +14,7 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from discord.ext.commands.core import is_owner
 from json import load
-from utils.commandShortenings import is_message_mania_channel
+from utils.commandShortenings import is_message_mania_participant_in_channel
 from utils.botwideFunctions import has_role, is_manager
 import asyncio
 from pathlib import Path
@@ -39,57 +39,41 @@ class messageMania(commands.Cog):
     @commands.command(name='mute')
     @commands.guild_only()
     @commands.cooldown(1,120,BucketType.user)
-    @commands.check(is_message_mania_channel)
+    @commands.check(is_message_mania_participant_in_channel)
     async def mute(self,ctx,target : discord.Member):
         data = cluster[str(ctx.guild.id)]['eventSettings']
-        participant_role = data.find_one({'_id' : 'mmParticipantRole'})['role']
         mute_role = data.find_one({'_id' : 'mmMuteRole'})['role']
         staff_role = data.find_one({'_id' : 'mmStaffRole'})['role']
-        if has_role(participant_role,ctx.author) is True:
-            if has_role(staff_role,target) is False:
-                muterole = ctx.guild.get_role(mute_role)
-                await target.add_roles(muterole)
-                await ctx.send(f'{target.name} has been muted by {ctx.author.name}',delete_after=3)
-                await asyncio.sleep(15)
-                await target.remove_roles(muterole)
-            else:
-                await ctx.reply(f'{ctx.author.mention} this user cannot be muted by you <:hahahaha:844944845234634762>',delete_after=3)
+        if has_role(staff_role,target) is False:
+            muterole = ctx.guild.get_role(mute_role)
+            await target.add_roles(muterole)
+            await ctx.send(f'{target.name} has been muted by {ctx.author.name}',delete_after=3)
+            await asyncio.sleep(15)
+            await target.remove_roles(muterole)
         else:
-            await ctx.send(f'Only people with the <@&{participant_role}> role can use this command!',delete_after=3)
-
+            await ctx.reply(f'{ctx.author.mention} this user cannot be muted by you <:hahahaha:844944845234634762>',delete_after=3)
 
     @commands.command(name='purge')
     @commands.guild_only()
     @commands.cooldown(1,120,BucketType.user)
-    @commands.check(is_message_mania_channel)
+    @commands.check(is_message_mania_participant_in_channel)
     async def purge(self,ctx):
         data = cluster[str(ctx.guild.id)]['eventSettings']
-        participantRole = data.find_one({"_id" : 'mmParticipantRole'})["role"]
-        if has_role(participantRole,ctx.author) is True:
-            await ctx.channel.purge(limit=10)
-            await ctx.send(f'{ctx.author.name} has purged 10 messages!',delete_after=3)
-        else:
-            await ctx.send(f'Only people with the <@&{participantRole}> role can use this command!',delete_after=3)
-
-    
+        await ctx.channel.purge(limit=10)
+        await ctx.send(f'{ctx.author.name} has purged 10 messages!',delete_after=3)
 
     @commands.command(name='kick')
     @commands.guild_only()
     @commands.cooldown(1,120,BucketType.user)
-    @commands.check(is_message_mania_channel)
+    @commands.check(is_message_mania_participant_in_channel)
     async def kick(self,ctx,target : discord.Member):
         data = cluster[str(ctx.guild.id)]['eventSettings']
-        participantRole = data.find_one({"_id" : 'mmParticipantRole'})["role"]
         bypassRole = data.find_one({"_id" : 'mmStaffRole'})["role"]
-        if has_role(participantRole,ctx.author) is True:
-            if has_role(bypassRole,target) is False:
-                await ctx.guild.kick(target)
-                await ctx.send(f'{ctx.author.name} kicked {target.name}!',delete_after=3)
-            else:
-                await ctx.send(f'{ctx.author.mention} this user cannot be kicked by you <:hahahaha:844944845234634762>',delete_after=3)
+        if has_role(bypassRole,target) is False:
+            await ctx.guild.kick(target)
+            await ctx.send(f'{ctx.author.name} kicked {target.name}!',delete_after=3)
         else:
-            await ctx.send(f'Only people with the <@&{participantRole}> role can use this command!',delete_after=3)
-      
+            await ctx.send(f'{ctx.author.mention} this user cannot be kicked by you <:hahahaha:844944845234634762>',delete_after=3)
 
     @commands.command(name='messagelb')
     @commands.guild_only()
@@ -112,7 +96,7 @@ class messageMania(commands.Cog):
         number_of_peeps = len(sorted_tuples)
         if number_of_peeps > 10:
             while i <= 10:
-                person = ctx.guild.get_member(sorted_tuples[-i][0])
+                person = self.bot.fetch_member(sorted_tuples[-i][0])
                 if person.bot != True:
                     message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                     i += 1
@@ -120,7 +104,7 @@ class messageMania(commands.Cog):
                     pass
         else:
             while i <= number_of_peeps:
-                person = ctx.guild.get_member(sorted_tuples[-i][0])
+                person = self.bot.fetch_member(sorted_tuples[-i][0])
                 if person.bot != True:
                     message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                     i += 1
