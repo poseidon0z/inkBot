@@ -94,23 +94,16 @@ class messageMania(commands.Cog):
         await ctx.send(f'Gathered data for messages from {len(sorted_tuples)} members')
         i = 1
         number_of_peeps = len(sorted_tuples)
-        if number_of_peeps > 10:
-            while i <= 10:
-                person = self.bot.fetch_member(sorted_tuples[-i][0])
-                if person.bot != True:
-                    message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
-                    i += 1
-                else:
-                    pass
-        else:
-            while i <= number_of_peeps:
-                person = self.bot.fetch_member(sorted_tuples[-i][0])
-                if person.bot != True:
-                    message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
-                    i += 1
-                else:
-                    number_of_peeps -= 1
-        await ctx.send(embed=message_lb_embed)
+        while i <= 10 and i <= number_of_peeps:
+            try:
+                person = ctx.guild.get_member(sorted_tuples[-i][0])
+            except:
+                person = self.bot.fetch_user(sorted_tuples[-i][0])
+            if person.bot != True:
+                message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
+                i += 1
+            else:
+                pass
 
 
 def setup(bot):
