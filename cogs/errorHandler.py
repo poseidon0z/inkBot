@@ -31,31 +31,31 @@ class commandErrorHandler(commands.Cog):
         if isinstance(error,commands.CommandNotFound):
             print(f'{ctx.author.id} tried using a command: {ctx.command}')
         
-        if isinstance(error,commands.MemberNotFound):
+        elif isinstance(error,commands.MemberNotFound):
             try:
                 await ctx.reply(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>')
             except:
                 await ctx.send(f'Couldn\'t find the member "{error.argument}" <:lotsofpain:839371861346222112>')
 
-        if isinstance(error,ChannelNotFound):
+        elif isinstance(error,ChannelNotFound):
             try:
                 await ctx.reply(f'Couldn\'t find the channel "{error.argument}" <:lotsofpain:839371861346222112>')
             except:
                 await ctx.send(f'Couldn\'t find the channel "{error.argument}" <:lotsofpain:839371861346222112>')
 
-        if isinstance(error,RoleNotFound):
+        elif isinstance(error,RoleNotFound):
             try:
                 await ctx.reply(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>')
             except:
                 await ctx.send(f'Couldn\'t find the role "{error.argument}" <:lotsofpain:839371861346222112>')
 
-        if isinstance(error,CommandOnCooldown):
+        elif isinstance(error,CommandOnCooldown):
             try:
                 await ctx.reply(f'You\'re on cooldown from using the {ctx.command} command for {error.retry_after:.2f} more seconds!')
             except:
                 await ctx.send(f'{ctx.author.mention}! You\'re on cooldown from using the {ctx.command} command for {error.retry_after:.2f} more seconds!')
         
-        if isinstance(error,NotOwner):
+        elif isinstance(error,NotOwner):
             print(f'{ctx.author.id} tried running a owner only command: {ctx.command}')
 
         else:
