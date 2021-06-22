@@ -574,7 +574,7 @@ class inkHelpCommand(commands.Cog):
     @is_not_bot_banned()
     @commands.guild_only()
     async def message_mania_help_cmd(self,ctx):
-        help_embed = discord.Embed(title='**Message mania commands**',description='Commands that you can use for message mania, make sure to set all the vars required in `ink eset message_mania` before starting a ban royale event\nRun `ink help <command>` for more info on a command in this category',colour=emb_colour)
+        help_embed = discord.Embed(title='**Message mania commands**',description='Commands that you can use for message mania, make sure to set all the vars required in `ink eset message_mania` before starting a message mania event\nRun `ink help <command>` for more info on a command in this category',colour=emb_colour)
         help_embed.add_field(name='**mute**:',value='Mutes a member mentioned',inline=False)
         help_embed.add_field(name='**kick**:',value='Kicks a member mentioned',inline=False)
         help_embed.add_field(name='**purge**',value='purge 10 messages',inline=False)
