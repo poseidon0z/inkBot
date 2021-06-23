@@ -107,15 +107,19 @@ class inkDonationCommands(commands.Cog):
             await ctx.send(f'Donation for {target.name} has been updated!',allowed_mentions = allowed_mentions)
     
     @giveaway.error
-    async def giveaway_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink donation giveaway <member> <amount>\n\n{error.param} is not specified```')
-        elif isinstance(error,BadArgument):
-            await ctx.send(f'Couldn\'t find a amount from the given argument')
-        else:
-            print(error)
+    async def giveaway_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink donation giveaway <member> <amount>\n\n{error.param} is not specified```')
+            elif isinstance(error,BadArgument):
+                await ctx.send(f'Couldn\'t find a amount from the given argument')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
     
     '''
     The 'event' command
@@ -141,15 +145,19 @@ class inkDonationCommands(commands.Cog):
     
 
     @event.error
-    async def event_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink donation event <member> <amount>\n\n{error.param} is not specified```')
-        elif isinstance(error,BadArgument):
-            await ctx.send(f'Couldn\'t find a amount from the given argument')
-        else:
-            print(error)
+    async def event_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink donation event <member> <amount>\n\n{error.param} is not specified```')
+            elif isinstance(error,BadArgument):
+                await ctx.send(f'Couldn\'t find a amount from the given argument')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'special' command
@@ -171,15 +179,19 @@ class inkDonationCommands(commands.Cog):
             await ctx.send(f'Donation for {target.name} has been updated!',allowed_mentions = allowed_mentions)
 
     @special.error
-    async def special_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink donation special <member> <amount>\n\n{error.param} is not specified```')
-        elif isinstance(error,BadArgument):
-            await ctx.send(f'Couldn\'t find a amount from the given argument')
-        else:
-            print(error)
+    async def special_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink donation special <member> <amount>\n\n{error.param} is not specified```')
+            elif isinstance(error,BadArgument):
+                await ctx.send(f'Couldn\'t find a amount from the given argument')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
     
     '''
     The 'check' command
@@ -198,13 +210,18 @@ class inkDonationCommands(commands.Cog):
             await ctx.send('Coundnt find any logged donations for this member ;-;',allowed_mentions = allowed_mentions)
 
     @check.error
-    async def check_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink donation check <member>\n\n{error.param} is not specified```')
-        else:
-            print(error)
+    async def check_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink donation check <member>\n\n{error.param} is not specified```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
+        
     '''
     The 'mine' command
     Used to check own donation
@@ -239,13 +256,18 @@ class inkDonationCommands(commands.Cog):
             await ctx.message.reply('Couldnt find any events held by this member ;-;')
     
     @check_eman.error
-    async def check_eman_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink donation checkeman <member>\n\n{error.param} is not specified```',allowed_mentions=allowed_mentions)
-        else:
-            print(error)
+    async def check_eman_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink donation checkeman <member>\n\n{error.param} is not specified```',allowed_mentions=allowed_mentions)
+            else:
+                return False
+        elif rerun == False:
+            pass
+
+
 
     
     '''
@@ -267,13 +289,17 @@ class inkDonationCommands(commands.Cog):
             await ctx.message.reply('Couldnt find any giveaways held by this member ;-;')
     
     @check_gman.error
-    async def check_gman_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink donation checkgman <member>\n\n{error.param} is not specified```',allowed_mentions=allowed_mentions)
-        else:
-            print(error)
+    async def check_gman_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink donation checkgman <member>\n\n{error.param} is not specified```',allowed_mentions=allowed_mentions)
+            else:
+                return False
+        elif rerun == False:
+            pass
+
         
 
 
@@ -316,11 +342,15 @@ class inkDonationCommands(commands.Cog):
         await ctx.send(embed=emanlb_embed)
 
     @emanlb.error
-    async def emanlb_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def emanlb_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'number' command
@@ -345,11 +375,15 @@ class inkDonationCommands(commands.Cog):
         await ctx.send(embed=lb_embed)
 
     @emanlb_by_number.error
-    async def emanlb_by_number_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def emanlb_by_number_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'amount' command
@@ -374,11 +408,15 @@ class inkDonationCommands(commands.Cog):
         await ctx.send(embed=lb_embed)
     
     @emanlb_by_amount.error
-    async def emanlb_by_amount_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def emanlb_by_amount_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'gmanlb' group
@@ -395,11 +433,15 @@ class inkDonationCommands(commands.Cog):
         await ctx.send(embed=gmanlb_embed)
 
     @gmanlb.error
-    async def gmanlb_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def gmanlb_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'number' command
@@ -424,11 +466,15 @@ class inkDonationCommands(commands.Cog):
         await ctx.send(embed=lb_embed)
 
     @gmanlb_by_number.error
-    async def gmanlb_by_number_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def gmanlb_by_number_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'amount' command
@@ -453,11 +499,15 @@ class inkDonationCommands(commands.Cog):
         await ctx.send(embed=lb_embed)    
 
     @gmanlb_by_amount.error
-    async def gmanlb_by_amount_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def gmanlb_by_amount_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'clearemanlb' command:
@@ -487,11 +537,15 @@ class inkDonationCommands(commands.Cog):
                 await ctx.send('Cancelling....')
 
     @clear_eman_lb.error
-    async def clear_eman_lb_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def clear_eman_lb_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'cleargmanlb' command:
@@ -521,11 +575,15 @@ class inkDonationCommands(commands.Cog):
                 await ctx.send('Cancelling....')
 
     @clear_gman_lb.error
-    async def clear_gman_lb_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        else:
-            print(error)
+    async def clear_gman_lb_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     
 

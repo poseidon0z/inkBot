@@ -25,9 +25,15 @@ class commandErrorHandler(commands.Cog):
     '''
     @commands.Cog.listener('on_command_error')
     async def global_error_handler(self,ctx,error):
-        cog = ctx.cog
         error = getattr(error,'original' , error)
-        
+
+        if hasattr(ctx.command, 'on_error'):
+            run_the_error = await ctx.command.on_error(self,ctx,error,rerun=True)
+            if run_the_error == None:
+                return
+            elif run_the_error == False:
+                pass
+
         if isinstance(error,commands.CommandNotFound):
             print(f'{ctx.author.id} tried using a command: {ctx.command}')
         

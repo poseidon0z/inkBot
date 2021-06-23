@@ -63,10 +63,15 @@ class inkFunCommands(commands.Cog):
                 await ctx.reply(f'Don\'t try making me say stuff in channels where you don\'t have perms <:lolnub:842673428695744522>')
         
     @say.error
-    async def say_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink say [channel] <message>\n\nMake sure to supply a message!```',allowed_mentions = allowed_mentions)
-        
+    async def say_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink say [channel] <message>\n\nMake sure to supply a message!```',allowed_mentions = allowed_mentions)
+            else:
+                return False
+        elif rerun == False:
+            pass
+
     '''
     The'iq' command:
     Gives the iq of the target (or the invoker if no target is provided)
@@ -120,9 +125,15 @@ class inkFunCommands(commands.Cog):
         await ctx.send(f':crystal_ball:{eightball_output}, {ctx.author.name}',allowed_mentions=allowed_mentions)
 
     @eight_ball.error
-    async def eight_ball_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send('Oi! Gimme something to predict <a:PI_Angry:838736380674572328>')
+    async def eight_ball_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send('Oi! Gimme something to predict <a:PI_Angry:838736380674572328>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
 #running the setup for the cog
 def setup(bot):

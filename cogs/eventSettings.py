@@ -79,13 +79,17 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Channel for ban royale has been set as {channel.mention}')
     
     @br_channel.error
-    async def brchannel_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset br channel <channel>\n\nchannel is not specified```')
-        else:
-            print(error)
+    async def brchannel_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset br channel <channel>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     @ban_royale_settings.command(name='participant_role',aliases=['playrole'])
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
@@ -98,13 +102,17 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Participant role has been set as {role.mention}')
 
     @br_participant_role.error
-    async def br_participant_role_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset br participant_role <role>\n\nrole is not specified```')
-        else:
-            print(error)
+    async def br_participant_role_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset br participant_role <role>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
         
     @ban_royale_settings.command(name='staff_role',aliases=['staffrole'])
     @is_not_bot_banned()
@@ -117,13 +125,16 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Staff role has been set as {role.mention}')
 
     @br_staff_role.error
-    async def br_staff_role_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset br staff_role <role>\n\nrole is not specified```')
-        else:
-            print(error)
+    async def br_staff_role_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset br staff_role <role>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
     @ban_royale_settings.command(name='check')
     @commands.guild_only()
@@ -169,13 +180,17 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Message mania channel has been set as {channel.mention}')
     
     @mm_channel.error
-    async def mm_channel_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset mm channel <channel>\n\nchannel is not specified```')
-        else:
-            print(error)
+    async def mm_channel_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset mm channel <channel>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
         
     @message_mania_settings.command(name='participant_role',aliases=['playrole'])
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
@@ -188,13 +203,17 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Participant role has been set as {role.mention}')
     
     @mm_participant_role.error
-    async def mm_participant_role_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset mm playrole <role>\n\nrole is not specified```')
-        else:
-            print(error)
+    async def mm_participant_role_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset mm playrole <role>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
         
     @message_mania_settings.command(name='staff_role',aliases=['staffrole'])
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
@@ -207,13 +226,17 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Staff role has been set as {role.mention}')
     
     @mm_staff_role.error
-    async def mm_staff_role_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset mm staffrole <role>\n\nRole is not specified```')
-        else:
-            print(error)
+    async def mm_staff_role_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset mm staffrole <role>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     @message_mania_settings.command(name='mute_role',aliases=['muterole'])
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner(),is_manager())
@@ -226,13 +249,17 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Mute role has been set as {role.mention}')
     
     @mm_mute_role.error
-    async def mm_mute_role_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset mm muterole <role>\n\nRole is not specified```')
-        else:
-            print(error)
+    async def mm_mute_role_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset mm muterole <role>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     @message_mania_settings.command(name='check')
     @commands.guild_only()
@@ -264,13 +291,17 @@ class eventSettings(commands.Cog):
         await ctx.send(f'Manager role has been set as {role.mention}')
     
     @eset_manager.error
-    async def eset_manager_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink eset manager <role>\n\nRole is not specified```')
-        else:
-            print(error)
+    async def eset_manager_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink eset manager <role>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
 
 def setup(bot):

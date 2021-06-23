@@ -64,13 +64,17 @@ class inkSettingsCommands(commands.Cog):
         await ctx.send(f'Giveaway manager role has been set as {role.mention}',allowed_mentions=allowed_mentions)
 
     @giveawaymanager.error
-    async def giveawaymanager_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink settings giveawaymanager <role>\n\n{error.param} is not specified```')
-        else:
-            print(error)
+    async def giveawaymanager_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink settings giveawaymanager <role>\n\n{error.param} is not specified```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'eventmanager' command:
@@ -87,14 +91,16 @@ class inkSettingsCommands(commands.Cog):
         await ctx.send(f'Event manager role has been set as {role.mention}',allowed_mentions=allowed_mentions)
     
     @eventmanager.error
-    async def eventmanager_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink settings eventmanager <role>\n\n{error.param} is not specified```')
-        else:
-            print(error)
-
+    async def eventmanager_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink settings eventmanager <role>\n\n{error.param} is not specified```')
+            else:
+                return False
+        elif rerun == False:
+            pass
     '''
     The 'moderator' command:
     Sets a role as the mod role, which can run all cmds that mods can support managers with like "d event", "d gaw" or "d special" or "d check"
@@ -110,13 +116,16 @@ class inkSettingsCommands(commands.Cog):
         await ctx.send(f'Mod role has been set as {role.mention}',allowed_mentions=allowed_mentions)
     
     @moderator.error
-    async def moderator_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink settings moderator <role>\n\n{error.param} is not specified```')
-        else:
-            print(error)
+    async def moderator_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink settings moderator <role>\n\n{error.param} is not specified```')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
     '''
     The 'admin' command:
@@ -133,13 +142,16 @@ class inkSettingsCommands(commands.Cog):
         await ctx.send(f'Admin role has been set as {role.mention}',allowed_mentions=allowed_mentions)
     
     @administrator.error
-    async def administrator_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink settings administrator <role>\n\n{error.param} is not specified```')
-        else:
-            print(error)
+    async def administrator_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink settings administrator <role>\n\n{error.param} is not specified```')
+            else:
+                return False
+        elif rerun == False:
+            pass
     
 
     '''
@@ -157,13 +169,16 @@ class inkSettingsCommands(commands.Cog):
         await ctx.send(f'Alert channel has been set as {channel.mention}',allowed_mentions=allowed_mentions)
     
     @alertchannel.error
-    async def alertchannel_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink settings alertchannel <channel>\n\n{error.param} is not specified```')
-        else:
-            print(error)
+    async def alertchannel_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink settings alertchannel <channel>\n\n{error.param} is not specified```')
+            else:
+                return False
+        elif rerun == False:
+            pass
     
     '''
     The 'failchan' command:
@@ -180,13 +195,16 @@ class inkSettingsCommands(commands.Cog):
         await ctx.send(f'Fail channel has been set as {channel.mention}',allowed_mentions=allowed_mentions)
 
     @failchannel.error
-    async def failchannel_error(self,ctx,error):
-        if isinstance(error,CheckAnyFailure):
-            await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
-        elif isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink settings failchannel <channel>\n\n{error.param} is not specified```')
-        else:
-            print(error)
+    async def failchannel_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckAnyFailure):
+                await ctx.send('You dont have perms to run this command! <a:HAHA:840658400723206235>')
+            elif isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink settings failchannel <channel>\n\n{error.param} is not specified```')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
 def setup(bot):
     bot.add_cog(inkSettingsCommands(bot))

@@ -67,17 +67,20 @@ class banRoulette(commands.Cog):
             await ctx.reply(f'You can\'t ban staff BAHAHAHAHA')
 
     @brb.error
-    async def brb_error(self,ctx,error):
-        if isinstance(error, CheckFailure):
-            await ctx.reply('You don\'t have the roles required to run this command or are using it in the wrong channel')
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.reply('Make sure to use the correct format and provide all required args: ```ink brb <target>```')
-        else:
-            traceback.print_exc()
-    
+    async def brb_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error, CheckFailure):
+                await ctx.reply('You don\'t have the roles required to run this command or are using it in the wrong channel')
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.reply(f'Make sure to use the correct format and provide all required args: ```ink brb <target>\n\n{error}```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
     @commands.command(name='banlb')
-    @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
+    @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @is_not_bot_banned()
     async def banlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
@@ -95,16 +98,19 @@ class banRoulette(commands.Cog):
         await ctx.send(embed=lbEmbed)
     
     @banlb.error
-    async def banlb_error(self,ctx,error):
-        if isinstance(error, CheckAnyFailure):
-            await ctx.reply('You need administrator or manage guild perms to run this command (or manager role)')
-        else:
-            print(error)
+    async def banlb_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error, CheckAnyFailure):
+                await ctx.reply('You need administrator or manage guild perms to run this command (or manager role)')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
     @commands.command(name='clearbanlb')
-    @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.guild_only()
     @is_not_bot_banned()
+    @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     async def clearlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
         confirmation_message = await ctx.send(f'Are you sure you want to clear the ban lb for {ctx.guild.name}')
@@ -128,11 +134,15 @@ class banRoulette(commands.Cog):
                 await ctx.send('Cancelled!')
     
     @clearlb.error
-    async def clearlb_error(self,ctx,error):
-        if isinstance(error, CheckAnyFailure):
-            await ctx.reply('You need administrator or manage guild perms to run this command (or manager role)')
-        else:
-            print(error)
+    async def clearlb_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error, CheckAnyFailure):
+                await ctx.reply('You need administrator or manage guild perms to run this command (or manager role)')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
     
     @commands.command(name='adibr')
     @commands.is_owner()

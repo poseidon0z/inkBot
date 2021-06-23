@@ -44,14 +44,16 @@ class inkChannelManagementCommands(commands.Cog):
         await ctx.channel.send(f'{target.mention} has been added to {ctx.channel.mention}',allowed_mentions=allowed_mentions)
     
     @add_channel.error
-    async def add_channel_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink addchannel <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,BotMissingPermissions):
-            await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
-        else:
-            print(error)
-
+    async def add_channel_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink addchannel <member>\n\n{error}```')
+            elif isinstance(error,BotMissingPermissions):
+                await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
+            else:
+                return False
+        elif rerun == False:
+            pass
     '''
     The 'removechannel' command
     Removes a member from a channel by clearing their overrides for that channel
@@ -65,13 +67,16 @@ class inkChannelManagementCommands(commands.Cog):
         await ctx.channel.send(f'{target.mention} has been removed from {ctx.channel.mention}')
     
     @remove_channel.error
-    async def remove_channel_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink removechannel <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,BotMissingPermissions):
-            await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
-        else:
-            print(error)
+    async def remove_channel_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink removechannel <member>\n\n{error}```')
+            elif isinstance(error,BotMissingPermissions):
+                await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
 
     '''
@@ -87,13 +92,16 @@ class inkChannelManagementCommands(commands.Cog):
         await ctx.channel.send(f'{target.mention} has been made channel manager for {channel.mention}')
     
     @add_channel_manager.error
-    async def add_channel_manager_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink addchannelmanager <channel> <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,BotMissingPermissions):
-            await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
-        else:
-            print(error)
+    async def add_channel_manager_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink addchannelmanager <channel> <member>\n\n{error}```')
+            elif isinstance(error,BotMissingPermissions):
+                await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
     '''
     The 'removechannelmanager' command
@@ -108,13 +116,17 @@ class inkChannelManagementCommands(commands.Cog):
         await ctx.channel.send(f'{target.mention} has been removed as channel manager for {channel.mention}')
     
     @remove_channel_manager.error
-    async def remove_channel_manager_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink removechannelmanager <channel> <member>\n\n{error.param} is not specified```')
-        elif isinstance(error,BotMissingPermissions):
-            await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
-        else:
-            print(error)
+    async def remove_channel_manager_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink removechannelmanager <channel> <member>\n\n{error}```')
+            elif isinstance(error,BotMissingPermissions):
+                await ctx.send(f'I need the {error.missing_perms} perm to run this command, which i dont have!')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
 
 def setup(bot):

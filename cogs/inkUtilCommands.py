@@ -64,13 +64,17 @@ class inkUtilCommands(commands.Cog):
         await ctx.send(embed=whois_embed)
 
     @whois.error
-    async def whois_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink whois <user>\n\n{error.param} is a required argument that is missing!```')
-        if isinstance(error,UserNotFound):
-            await ctx.send(f'Couldn\'t find the user {error.argument} on discord! <a:nya_sadguitarmusic:845576181167554581> Make sure you provided the correct id',allowed_mentions=allowed_mentions)
-        else:
-            print(error)
+    async def whois_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink whois <user>\n\n{error.param} is a required argument that is missing!```')
+            if isinstance(error,UserNotFound):
+                await ctx.send(f'Couldn\'t find the user {error.argument} on discord! <a:nya_sadguitarmusic:845576181167554581> Make sure you provided the correct id',allowed_mentions=allowed_mentions)
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
 
     '''
@@ -101,11 +105,15 @@ class inkUtilCommands(commands.Cog):
         await ctx.send(embed=info_embed)
 
     @info.error
-    async def info_error(self,ctx,error):
-        if isinstance(error,MissingRequiredArgument):
-            await ctx.send(f'```ink info <user>\n\n{error.param} is a required argument that is missing!```')
-        else:
-            print(error)
+    async def info_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,MissingRequiredArgument):
+                await ctx.send(f'```ink info <user>\n\n{error.param} is a required argument that is missing!```')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
 
     '''
     The 'botinfo' command:
