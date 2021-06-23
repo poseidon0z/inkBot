@@ -80,29 +80,30 @@ class messageMania(commands.Cog):
     @commands.check_any(commands.has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.check(is_message_mania_channel)
     async def messagelb(self,ctx):
-        messages = await ctx.channel.history(limit=None).flatten()
-        messagedata = {}
-        message_lb_embed = discord.Embed(title=f'{ctx.guild.name} Leaderboard!',colour=0xabcdef)
-        for message in messages:
-            if message.author.bot == False:
-                author = message.author.id
-                if author not in messagedata:
-                    messagedata[author] = 1
-                else:
-                    number_of_messages = messagedata[author] + 1
-                    messagedata[author] = number_of_messages
-        sorted_tuples = sorted(messagedata.items(), key=lambda item: item[1])
-        await ctx.send(f'Gathered data for messages from {len(sorted_tuples)} members')
-        i = 1
-        number_of_peeps = len(sorted_tuples)
-        while i <= 10 and i <= number_of_peeps:
-            try:
-                person = ctx.guild.get_member(sorted_tuples[-i][0])
-            except:
-                person = self.bot.fetch_user(sorted_tuples[-i][0])
-            message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
-            i += 1
-        await ctx.send(embed=message_lb_embed)
+        async with ctx.channel.typing():
+            messages = await ctx.channel.history(limit=None).flatten()
+            messagedata = {}
+            message_lb_embed = discord.Embed(title=f'{ctx.guild.name} Leaderboard!',colour=0xabcdef)
+            for message in messages:
+                if message.author.bot == False:
+                    author = message.author.id
+                    if author not in messagedata:
+                        messagedata[author] = 1
+                    else:
+                        number_of_messages = messagedata[author] + 1
+                        messagedata[author] = number_of_messages
+            sorted_tuples = sorted(messagedata.items(), key=lambda item: item[1])
+            await ctx.send(f'Gathered data for messages from {len(sorted_tuples)} members')
+            i = 1
+            number_of_peeps = len(sorted_tuples)
+            while i <= 10 and i <= number_of_peeps:
+                try:
+                    person = ctx.guild.get_member(sorted_tuples[-i][0])
+                except:
+                    person = self.bot.fetch_user(sorted_tuples[-i][0])
+                message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
+                i += 1
+            await ctx.send(embed=message_lb_embed)
 
 
 def setup(bot):
