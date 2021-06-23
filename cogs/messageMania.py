@@ -95,14 +95,18 @@ class messageMania(commands.Cog):
             sorted_tuples = sorted(messagedata.items(), key=lambda item: item[1])
             await ctx.send(f'Gathered data for messages from {len(sorted_tuples)} members')
             i = 1
+            api_call_count = 0
             number_of_peeps = len(sorted_tuples)
             while i <= 10 and i <= number_of_peeps:
                 try:
                     person = ctx.guild.get_member(sorted_tuples[-i][0])
+                    message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                 except:
+                    api_call_count +1
                     person = self.bot.fetch_user(sorted_tuples[-i][0])
-                message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
+                    message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                 i += 1
+            print(api_call_count + f' API calls were made by {ctx.author.name} ({ctx.author.id})')
             await ctx.send(embed=message_lb_embed)
 
 
