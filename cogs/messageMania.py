@@ -14,7 +14,7 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from discord.ext.commands.core import is_owner
 from json import load
-from utils.commandShortenings import is_message_mania_participant_in_channel
+from utils.commandShortenings import is_message_mania_channel, is_message_mania_participant_in_channel
 from utils.botwideFunctions import has_role, is_manager
 import asyncio
 from pathlib import Path
@@ -78,6 +78,7 @@ class messageMania(commands.Cog):
     @commands.command(name='messagelb')
     @commands.guild_only()
     @commands.check_any(commands.has_guild_permissions(administrator=True),is_owner(),is_manager())
+    @commands.check(is_message_mania_channel)
     async def messagelb(self,ctx):
         messages = await ctx.channel.history(limit=None).flatten()
         messagedata = {}

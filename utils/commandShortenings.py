@@ -11,6 +11,7 @@ WHAT ARE THE FUNCTIONS HERE?
 6. is_ban_royale_participant
 7. is_ban_royale_channel
 8. is_message_mania_participant_in_channel
+9. is_message_mania_channel
 
 IMPORTS:
 1. discord to define vars as discord.something type
@@ -172,3 +173,15 @@ def is_message_mania_participant_in_channel(ctx):
     except:
         return False
     return has_role(participantRole,ctx.author) and mm_channel == ctx.channel.id
+
+def is_message_mania_channel(ctx):
+    '''
+    The 'is_message_mania_channel' function
+    Checks if the command is called in the message mania channel
+    '''
+    server_settings = cluster[str(ctx.guild.id)]['eventSettings']
+    try:
+        mm_channel = server_settings.find_one({'_id' : 'mmChannel'})['channel']
+        return mm_channel == ctx.channel.id
+    except:
+        return False
