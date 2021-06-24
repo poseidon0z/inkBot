@@ -103,7 +103,7 @@ class messageMania(commands.Cog):
                     message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                 except:
                     api_call_count +1
-                    person = self.bot.fetch_user(sorted_tuples[-i][0])
+                    person = await self.bot.fetch_user(sorted_tuples[-i][0])
                     message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                 i += 1
             print(f'{api_call_count} API calls were made by {ctx.author.name} ({ctx.author.id})')
