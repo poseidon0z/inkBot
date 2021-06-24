@@ -106,7 +106,7 @@ class messageMania(commands.Cog):
                     person = self.bot.fetch_user(sorted_tuples[-i][0])
                     message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                 i += 1
-            print(api_call_count + f' API calls were made by {ctx.author.name} ({ctx.author.id})')
+            print(f'{api_call_count} API calls were made by {ctx.author.name} ({ctx.author.id})')
             await ctx.send(embed=message_lb_embed)
 
 
