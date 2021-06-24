@@ -9,7 +9,7 @@ import discord
 import traceback
 import sys
 from discord.ext import commands
-from discord.ext.commands.errors import ChannelNotFound, CommandOnCooldown, NotOwner, RoleNotFound
+from discord.ext.commands.errors import BotMissingPermissions, ChannelNotFound, CommandOnCooldown, NotOwner, RoleNotFound
 
 '''
 VARIABLES:
@@ -63,6 +63,12 @@ class commandErrorHandler(commands.Cog):
         
         elif isinstance(error,NotOwner):
             print(f'{ctx.author.id} tried running a owner only command: {ctx.command}')
+            
+        elif isinstance(error,discord.errors.Forbidden):
+            try:
+                await ctx.reply(f'I don\'t have the permissions nessasary to run this')
+            except:
+                await ctx.send(f'I don\'t have the permissions nessasary to run this')
 
         else:
             print('Ignoring exception in command {}:'.format(ctx.command), file=sys.stderr)
