@@ -8,7 +8,6 @@ WHAT ARE THE COMMANDS HERE?
 3. clearlb
 '''
 import asyncio
-import traceback
 from discord.ext.commands.core import has_guild_permissions, is_owner
 from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MissingRequiredArgument
 from utils.botwideFunctions import has_role, is_manager, is_not_bot_banned
@@ -117,18 +116,39 @@ class banRoulette(commands.Cog):
         await confirmation_message.add_reaction('<a:check:845936436297728030>')
         await confirmation_message.add_reaction('<a:cross:855663028552990740>')
         def check(reaction, user):
-            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
+            return reaction.message == confirmation_message and user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
         except asyncio.TimeoutError:
             await ctx.send('Cancelling....')
         else:
             if str(reaction.emoji) == '<a:check:845936436297728030>':
+                confirmation_message_2 = await ctx.send('Push stats?')
+                await confirmation_message_2.add_reaction('<a:check:845936436297728030>')
+                await confirmation_message_2.add_reaction('<a:cross:855663028552990740>')
+                def check2(reaction, user):
+                    return reaction.message == confirmation_message_2 and user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
+
+                try:
+                    r2, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check2)
+                except asyncio.TimeoutError:
+                    await ctx.send('Cancelling....')
+                else:
+                    if str(r2.emoji) == '<a:check:845936436297728030>':
+                        await ctx.send('Pushing leaderboard')
+                        overall_bans = cluster[str(ctx.guild.id)]['banRoyaleLeaderboard']
+                        banlist = bancollection.find()
+                        for person in banlist:
+                            overall_bans.update_one({"_id" : person["_id"]},{"$inc" : {"bans" : person["numberOfBans"]}},upsert=True)
+                    elif str(r2.emoji) == '<a:cross:855663028552990740>':
+                        await ctx.send('Cancelling Push....')
+                        asyncio.sleep(1)
+                        await ctx.send('Cancelled!')
                 await ctx.send('Clearing stats...')
                 bancollection.drop()
                 print(f'{ctx.author} cleared the leaderboard!')
                 await ctx.send('Leaderboard has been cleared')
-            if str(reaction.emoji) == '<a:cross:855663028552990740>':
+            elif str(reaction.emoji) == '<a:cross:855663028552990740>':
                 await ctx.send('Cancelling....')
                 asyncio.sleep(1)
                 await ctx.send('Cancelled!')
@@ -142,6 +162,25 @@ class banRoulette(commands.Cog):
                 return False
         elif rerun == False:
             pass
+
+    @commands.command(name='brlb')
+    @commands.guild_only()
+    @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
+    @is_not_bot_banned()
+    async def brlb(self,ctx):
+        bancollection = cluster[str(ctx.guild.id)]['banRoyaleLeaderboard']
+        lbRaw = bancollection.find().limit(10).sort("bans", -1)
+        i = 1
+        lbEmbed = discord.Embed(title=f'{ctx.guild.name} Total Bans Leaderboard',colour=0xabcdef)
+        for personData in lbRaw:
+            if personData is not None:
+                personId = int(personData["_id"])
+                person = await self.bot.fetch_user(personId)
+                personName = person.name
+                personBans = personData["bans"]
+                lbEmbed.add_field(name=f'**#{i}**',value=f'> Member = {personName}\n> ID = {personId}\n> Number of bans = {personBans}',inline=False)
+                i += 1
+        await ctx.send(embed=lbEmbed)
 
     
     @commands.command(name='adibr')

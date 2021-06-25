@@ -521,7 +521,7 @@ class inkDonationCommands(commands.Cog):
         await confirmation_message.add_reaction('<a:check:845936436297728030>')
         await confirmation_message.add_reaction('<a:cross:855663028552990740>')
         def check(reaction, user):
-            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
+            return reaction.message == confirmation_message and user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
         except asyncio.TimeoutError:
@@ -559,7 +559,7 @@ class inkDonationCommands(commands.Cog):
         await confirmation_message.add_reaction('<a:check:845936436297728030>')
         await confirmation_message.add_reaction('<a:cross:855663028552990740>')
         def check(reaction, user):
-            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
+            return reaction.message == confirmation_message and user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
         except asyncio.TimeoutError:

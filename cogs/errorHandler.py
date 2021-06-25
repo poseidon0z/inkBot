@@ -35,7 +35,7 @@ class commandErrorHandler(commands.Cog):
                 pass
 
         if isinstance(error,commands.CommandNotFound):
-            print(f'{ctx.author.id} tried using a command: {ctx.command}')
+            print(f'{ctx.author.id} ({ctx.author.name})tried using a nonexistant command')
         
         elif isinstance(error,commands.MemberNotFound):
             try:
