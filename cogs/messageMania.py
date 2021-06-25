@@ -15,10 +15,11 @@ from discord.ext.commands.cooldowns import BucketType
 from discord.ext.commands.core import is_owner
 from json import load
 from utils.commandShortenings import is_message_mania_channel, is_message_mania_participant_in_channel
-from utils.botwideFunctions import has_role, is_manager
+from utils.botwideFunctions import has_role, is_manager, is_not_bot_banned
 import asyncio
 from pathlib import Path
 import pymongo
+
 
 with Path("utils/secrets.json").open() as f:
     config = load(f)
@@ -38,6 +39,7 @@ class messageMania(commands.Cog):
 
     @commands.command(name='mute')
     @commands.guild_only()
+    @is_not_bot_banned()
     @commands.cooldown(1,120,BucketType.user)
     @commands.check(is_message_mania_participant_in_channel)
     async def mute(self,ctx,target : discord.Member):
@@ -47,23 +49,25 @@ class messageMania(commands.Cog):
         if has_role(staff_role,target) is False:
             muterole = ctx.guild.get_role(mute_role)
             await target.add_roles(muterole)
-            await ctx.send(f'{target.name} has been muted by {ctx.author.name}',delete_after=3)
+            await ctx.send(f'{target.name} has been muted by {ctx.author.name}')
             await asyncio.sleep(15)
             await target.remove_roles(muterole)
         else:
-            await ctx.reply(f'{ctx.author.mention} this user cannot be muted by you <:hahahaha:844944845234634762>',delete_after=3)
+            await ctx.reply(f'{ctx.author.mention} this user cannot be muted by you <:hahahaha:844944845234634762>')
 
     @commands.command(name='purge')
     @commands.guild_only()
+    @is_not_bot_banned()
     @commands.cooldown(1,120,BucketType.user)
     @commands.check(is_message_mania_participant_in_channel)
     async def purge(self,ctx):
         data = cluster[str(ctx.guild.id)]['eventSettings']
         await ctx.channel.purge(limit=10)
-        await ctx.send(f'{ctx.author.name} has purged 10 messages!',delete_after=3)
+        await ctx.send(f'{ctx.author.name} has purged 10 messages!')
 
     @commands.command(name='kick')
     @commands.guild_only()
+    @is_not_bot_banned()
     @commands.cooldown(1,120,BucketType.user)
     @commands.check(is_message_mania_participant_in_channel)
     async def kick(self,ctx,target : discord.Member):
@@ -71,21 +75,24 @@ class messageMania(commands.Cog):
         bypassRole = data.find_one({"_id" : 'mmStaffRole'})["role"]
         if has_role(bypassRole,target) is False:
             await ctx.guild.kick(target)
-            await ctx.send(f'{ctx.author.name} kicked {target.name}!',delete_after=3)
+            await ctx.send(f'{ctx.author.name} kicked {target.name}!')
         else:
-            await ctx.send(f'{ctx.author.mention} this user cannot be kicked by you <:hahahaha:844944845234634762>',delete_after=3)
+            await ctx.send(f'{ctx.author.mention} this user cannot be kicked by you <:hahahaha:844944845234634762>')
 
     @commands.command(name='messagelb')
     @commands.guild_only()
+    @is_not_bot_banned()
     @commands.check_any(commands.has_guild_permissions(administrator=True),is_owner(),is_manager())
     @commands.check(is_message_mania_channel)
+    @commands.cooldown(1,600,BucketType.guild)
     async def messagelb(self,ctx):
+        staff_role = cluster[str(ctx.guild.id)]['eventSettings'].find_one({'_id' : 'mmStaffRole'})['role']
         async with ctx.channel.typing():
             messages = await ctx.channel.history(limit=None).flatten()
             messagedata = {}
             message_lb_embed = discord.Embed(title=f'{ctx.guild.name} Leaderboard!',colour=0xabcdef)
             for message in messages:
-                if message.author.bot == False:
+                if message.author.bot == False and has_role(staff_role,message.author) == False:
                     author = message.author.id
                     if author not in messagedata:
                         messagedata[author] = 1
@@ -107,7 +114,50 @@ class messageMania(commands.Cog):
                     message_lb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{sorted_tuples[-i][1]} messages`',inline=False)
                 i += 1
             print(f'{api_call_count} API calls were made by {ctx.author.name} ({ctx.author.id})')
-            await ctx.send(embed=message_lb_embed)
+        await ctx.send(embed=message_lb_embed)
+        confirmation_message = await ctx.send('Publish?')
+        await confirmation_message.add_reaction('<a:check:845936436297728030>')
+        await confirmation_message.add_reaction('<a:cross:855663028552990740>')
+        def check(reaction, user):
+            return user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
+        try:
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
+        except asyncio.TimeoutError:
+            await ctx.send('Cancelling....')
+        else:
+            if str(reaction.emoji) == '<a:check:845936436297728030>':
+                db_location = cluster[str(ctx.guild.id)]['messageManiaLeaderBoard']
+                for data in sorted_tuples:
+                    query = {"_id" : data[0]}
+                    db_location.update_one(query,{"$inc" : {"messages" : data[1]}},upsert=True)
+                await ctx.send('Published!')
+            else:
+                await ctx.send('Cancelling....')
+                asyncio.sleep(1)
+                await ctx.send('Cancelled!')
+    
+    @commands.command(name='mostmessages',aliases=['mmlb'])
+    @commands.guild_only()
+    @is_not_bot_banned()
+    @commands.check_any(commands.has_guild_permissions(administrator=True),is_owner(),is_manager())
+    async def global_message_lb(self,ctx):
+        totallb_embed = discord.Embed(title=f'Most messages in {ctx.guild.name}',colour=0xabcdef)
+        data = cluster[str(ctx.guild.id)]['messageManiaLeaderBoard']
+        raw_lb = data.find().sort('messages',-1).limit(10)
+        i = 1
+        for member_data in raw_lb:
+            if member_data is not None:
+                if i <= 10:
+                    member_id = int(member_data["_id"])
+                    try:
+                        person = ctx.guild.get_member(member_id)
+                    except:
+                        person = await self.bot.fetch_user(member_id)
+                    number_of_messages = '{:,.0f}'.format(member_data['messages'])
+                    totallb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{number_of_messages} messages`',inline=False)
+        await ctx.send(embed=totallb_embed)
+
+
 
 
 def setup(bot):

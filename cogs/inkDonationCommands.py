@@ -320,12 +320,12 @@ class inkDonationCommands(commands.Cog):
         i = 1
         for donor_data in raw_lb:
             if donor_data is not None:
-                donor_id = int(donor_data["_id"])
-                donor = await ctx.guild.fetch_member(donor_id)
-                amount_donated = '{:,.0f}'.format(donor_data['donoAmount'])
-                lb_embed.add_field(name=f'**#{i}**', value=f'> Donor name: {donor.name} `({donor.id})`\n> Amount donated: `{amount_donated}`',inline=False)
-
-
+                if i <= 10:
+                    donor_id = int(donor_data["_id"])
+                    donor = await ctx.guild.fetch_member(donor_id)
+                    amount_donated = '{:,.0f}'.format(donor_data['donoAmount'])
+                    lb_embed.add_field(name=f'**#{i}**', value=f'> Donor name: {donor.name} `({donor.id})`\n> Amount donated: `{amount_donated}`',inline=False)
+                    i += 1
 
     '''
     The 'emanlb' group
