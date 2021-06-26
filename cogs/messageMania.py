@@ -46,12 +46,14 @@ class messageMania(commands.Cog):
         data = cluster[str(ctx.guild.id)]['eventSettings']
         mute_role = data.find_one({'_id' : 'mmMuteRole'})['role']
         staff_role = data.find_one({'_id' : 'mmStaffRole'})['role']
+        play_role = data.find({'_id' : 'mmParticipantRole'})['role']
         if has_role(staff_role,target) is False:
-            muterole = ctx.guild.get_role(mute_role)
-            await target.add_roles(muterole)
-            await ctx.send(f'{target.name} has been muted by {ctx.author.name}')
-            await asyncio.sleep(15)
-            await target.remove_roles(muterole)
+            if has_role(play_role,target) is True:
+                muterole = ctx.guild.get_role(mute_role)
+                await target.add_roles(muterole)
+                await ctx.send(f'{target.name} has been muted by {ctx.author.name}')
+                await asyncio.sleep(15)
+                await target.remove_roles(muterole)
         else:
             await ctx.reply(f'{ctx.author.mention} this user cannot be muted by you <:hahahaha:844944845234634762>')
 
@@ -73,9 +75,11 @@ class messageMania(commands.Cog):
     async def kick(self,ctx,target : discord.Member):
         data = cluster[str(ctx.guild.id)]['eventSettings']
         bypassRole = data.find_one({"_id" : 'mmStaffRole'})["role"]
+        play_role = data.find({'_id' : 'mmParticipantRole'})['role']
         if has_role(bypassRole,target) is False:
-            await ctx.guild.kick(target)
-            await ctx.send(f'{ctx.author.name} kicked {target.name}!')
+            if has_role(play_role,target) is True:
+                await ctx.guild.kick(target)
+                await ctx.send(f'{ctx.author.name} kicked {target.name}!')
         else:
             await ctx.send(f'{ctx.author.mention} this user cannot be kicked by you <:hahahaha:844944845234634762>')
 
