@@ -137,7 +137,7 @@ class messageMania(commands.Cog):
                 await ctx.send('Published!')
             else:
                 await ctx.send('Cancelling....')
-                asyncio.sleep(1)
+                await asyncio.sleep(1)
                 await ctx.send('Cancelled!')
     
     @commands.command(name='mostmessages',aliases=['mmlb'])
