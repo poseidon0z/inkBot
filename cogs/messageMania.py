@@ -46,7 +46,7 @@ class messageMania(commands.Cog):
         data = cluster[str(ctx.guild.id)]['eventSettings']
         mute_role = data.find_one({'_id' : 'mmMuteRole'})['role']
         staff_role = data.find_one({'_id' : 'mmStaffRole'})['role']
-        play_role = data.find({'_id' : 'mmParticipantRole'})['role']
+        play_role = data.find_one({'_id' : 'mmParticipantRole'})['role']
         if has_role(staff_role,target) is False:
             if has_role(play_role,target) is True:
                 muterole = ctx.guild.get_role(mute_role)
