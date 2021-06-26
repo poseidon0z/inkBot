@@ -54,6 +54,8 @@ class messageMania(commands.Cog):
                 await ctx.send(f'{target.name} has been muted by {ctx.author.name}')
                 await asyncio.sleep(15)
                 await target.remove_roles(muterole)
+            else:
+                await ctx.reply('Why are you trying to mute someone who can\'t participate <:smh:858209320188379197>')
         else:
             await ctx.reply(f'{ctx.author.mention} this user cannot be muted by you <:hahahaha:844944845234634762>')
 
@@ -80,6 +82,8 @@ class messageMania(commands.Cog):
             if has_role(play_role,target) is True:
                 await ctx.guild.kick(target)
                 await ctx.send(f'{ctx.author.name} kicked {target.name}!')
+            else:
+                await ctx.reply('Why are you trying to kick someone who can\'t participate <:smh:858209320188379197>')
         else:
             await ctx.send(f'{ctx.author.mention} this user cannot be kicked by you <:hahahaha:844944845234634762>')
 
