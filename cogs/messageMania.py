@@ -14,6 +14,8 @@ from discord.ext import commands
 from discord.ext.commands.cooldowns import BucketType
 from discord.ext.commands.core import is_owner
 from json import load
+
+from discord.ext.commands.errors import CheckAnyFailure, CheckFailure
 from utils.commandShortenings import is_message_mania_channel, is_message_mania_participant_in_channel
 from utils.botwideFunctions import has_role, is_manager, is_not_bot_banned
 import asyncio
@@ -59,6 +61,16 @@ class messageMania(commands.Cog):
         else:
             await ctx.reply(f'{ctx.author.mention} this user cannot be muted by you <:hahahaha:844944845234634762>')
 
+    @mute.error
+    async def mute_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckFailure):
+                await ctx.reply('You need both participants role and have to be in the message mania channel to use this command <:smh:858209320188379197>')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
     @commands.command(name='purge')
     @commands.guild_only()
     @is_not_bot_banned()
@@ -68,6 +80,16 @@ class messageMania(commands.Cog):
         data = cluster[str(ctx.guild.id)]['eventSettings']
         await ctx.channel.purge(limit=10)
         await ctx.send(f'{ctx.author.name} has purged 10 messages!')
+
+    @purge.error
+    async def purge_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckFailure):
+                await ctx.reply('You need both participants role and have to be in the message mania channel to use this command <:smh:858209320188379197>')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
     @commands.command(name='kick')
     @commands.guild_only()
@@ -86,6 +108,16 @@ class messageMania(commands.Cog):
                 await ctx.reply('Why are you trying to kick someone who can\'t participate <:smh:858209320188379197>')
         else:
             await ctx.send(f'{ctx.author.mention} this user cannot be kicked by you <:hahahaha:844944845234634762>')
+
+    @kick.error
+    async def kick_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckFailure):
+                await ctx.reply('You need both participants role and have to be in the message mania channel to use this command <:smh:858209320188379197>')
+            else:
+                return False
+        elif rerun == False:
+            pass
 
     @commands.command(name='messagelb')
     @commands.guild_only()
@@ -144,6 +176,18 @@ class messageMania(commands.Cog):
                 await asyncio.sleep(1)
                 await ctx.send('Cancelled!')
     
+    @mute.error
+    async def mute_error(self,ctx,error,rerun=False):
+        if rerun == True:
+            if isinstance(error,CheckFailure):
+                await ctx.reply('You need to be in the message mania channel to use this command <:smh:858209320188379197>')
+            elif isinstance(error,CheckAnyFailure):
+                await ctx.reply('You need either admin perms or the manager role to use this command')
+            else:
+                return False
+        elif rerun == False:
+            pass
+
     @commands.command(name='mostmessages',aliases=['mmlb'])
     @commands.guild_only()
     @is_not_bot_banned()
