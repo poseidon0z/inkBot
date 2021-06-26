@@ -77,7 +77,7 @@ class messageMania(commands.Cog):
     async def kick(self,ctx,target : discord.Member):
         data = cluster[str(ctx.guild.id)]['eventSettings']
         bypassRole = data.find_one({"_id" : 'mmStaffRole'})["role"]
-        play_role = data.find({'_id' : 'mmParticipantRole'})['role']
+        play_role = data.find_one({'_id' : 'mmParticipantRole'})['role']
         if has_role(bypassRole,target) is False:
             if has_role(play_role,target) is True:
                 await ctx.guild.kick(target)
