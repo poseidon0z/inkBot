@@ -132,7 +132,7 @@ class messageMania(commands.Cog):
             messagedata = {}
             message_lb_embed = discord.Embed(title=f'{ctx.guild.name} Leaderboard!',colour=0xabcdef)
             for message in messages:
-                if message.author.bot == False and has_role(staff_role,message.author) == False:
+                if message.author.bot == False:
                     author = message.author.id
                     if author not in messagedata:
                         messagedata[author] = 1
@@ -214,3 +214,5 @@ class messageMania(commands.Cog):
 
 def setup(bot):
     bot.add_cog(messageMania(bot))
+    print("""Cog messageMania has loaded successfully
+--------------------""")
