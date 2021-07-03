@@ -47,7 +47,7 @@ class inkBotBan(commands.Cog):
         already_banned = banned_info.find_one(query)
         if already_banned is not None:
             banned_info.delete_one(query)
-            await ctx.send(f'User {target.mention}`({target.id})` has been successfully bot unbanned',allowed_mentions=allowed_mentions)
+            await ctx.send(f'User {target.mention}`({target.id})` has been successfully unbanned',allowed_mentions=allowed_mentions)
         else:
             await ctx.send(f'This user is not bot banned!')
         
@@ -58,7 +58,6 @@ class inkBotBan(commands.Cog):
         query = {"_id" : target.id}
         already_banned = banned_info.find_one(query)
         if already_banned is not None:
-            banned_info.delete_one(query)
             await ctx.send(f'User {target.mention}`({target.id})` is bot banned',allowed_mentions=allowed_mentions)
         else:
             await ctx.send(f'User {target.mention}`({target.id})` is not bot banned')
