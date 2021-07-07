@@ -280,7 +280,7 @@ class eventSettings(commands.Cog):
         await ctx.send(embed=mm_set_embed)
 
 
-    @event_settings.command(name='manager')
+    @event_settings.command(name='manager',aliases=['manager_role'])
     @commands.check_any(has_guild_permissions(administrator=True),has_guild_permissions(manage_guild=True),is_owner())
     @is_not_bot_banned()
     @commands.guild_only()
