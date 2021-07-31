@@ -40,7 +40,7 @@ class inkAutoResponses(commands.Cog):
                 #ceee's ar <3
                 elif ok_someones_ping.id == 696754560429064263:
                     await message.add_reaction('<:an_urcute:776896089760333844>')
-                #stick's ar <333
+                #stick's ar 
                 elif ok_someones_ping.id == 662114929754505217:
                     await message.add_reaction('<:angelsmile:846039595560992768>')
                 #orions's ar :-:
@@ -61,6 +61,10 @@ class inkAutoResponses(commands.Cog):
                 #Tom's ar ( ^ - ^ )
                 elif ok_someones_ping.id == 673861958398640140:
                     await message.add_reaction('<a:pandaclap:848937165035274260>')
+                #Vian's ar ( ^ - ^ )
+                elif ok_someones_ping.id == 690431027881050135:
+                    await message.add_reaction('<a:animedance:870871655486980107>')
+                    
 
     
     @commands.Cog.listener("on_message")
