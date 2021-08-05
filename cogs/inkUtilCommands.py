@@ -155,7 +155,6 @@ class inkUtilCommands(commands.Cog):
     async def invite(self,ctx):
         invite_embed = discord.Embed(title='Invite links for inkBot',description='Use these links to invite ink or join our support server!',colour=embed_colour)
         invite_embed.add_field(name='Bot Invites:',value='[Admin Perms](https://discord.com/api/oauth2/authorize?client_id=839052539395440710&permissions=8&scope=bot)\n[Minimum perms for all functions](https://discord.com/api/oauth2/authorize?client_id=839052539395440710&permissions=268823636&scope=bot)\n[Giveaway utils only](https://discord.com/api/oauth2/authorize?client_id=839052539395440710&permissions=388160&scope=bot)',inline=False)
-        invite_embed.add_field(name='Support Server:',value='[The inkPot](https://discord.gg/ujZ62Y9ANN)',inline=False)
         await ctx.send(embed=invite_embed)
 
         

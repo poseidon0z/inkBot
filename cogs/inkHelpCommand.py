@@ -137,7 +137,7 @@ class inkHelpCommand(commands.Cog):
     @is_not_bot_banned()
     @commands.guild_only()
     async def invite_help_cmd(self,ctx):
-        help_embed = discord.Embed(title='**Invite command**',description='Invite links to join the support server or add ink to your server',colour=emb_colour)
+        help_embed = discord.Embed(title='**Invite command**',description='Invite links to add ink to your server',colour=emb_colour)
         help_embed.add_field(name='**Syntax**:',value='`ink invite`',inline=False)
         await ctx.send(embed=help_embed)
     
