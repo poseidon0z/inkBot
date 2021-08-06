@@ -201,10 +201,7 @@ class messageMania(commands.Cog):
             if member_data is not None:
                 if i <= 10:
                     member_id = int(member_data["_id"])
-                    try:
-                        person = ctx.guild.get_member(member_id)
-                    except:
-                        person = await self.bot.fetch_user(member_id)
+                    person = await self.bot.fetch_user(member_id)
                     number_of_messages = '{:,.0f}'.format(member_data['messages'])
                     totallb_embed.add_field(name=f'#{i} {person.name}#{person.discriminator} ({person.id})',value=f'`{number_of_messages} messages`',inline=False)
         await ctx.send(embed=totallb_embed)

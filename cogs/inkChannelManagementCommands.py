@@ -58,7 +58,7 @@ class inkChannelManagementCommands(commands.Cog):
     The 'removechannel' command
     Removes a member from a channel by clearing their overrides for that channel
     '''
-    @commands.command(name='removechannel',aliases=['rc','remchan'])
+    @commands.command(name='removechannel',aliases=['rc','rchan'])
     @is_not_bot_banned()
     @commands.guild_only()
     @commands.has_permissions(manage_channels=True)
