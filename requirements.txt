@@ -5,3 +5,4 @@ dnspython==2.1.0
 jishaku==1.20.0.220
 spotipy==2.19.0
 discord-components==2.1.1
+youtube_dl==2021.6.6
