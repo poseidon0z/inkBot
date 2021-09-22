@@ -3,3 +3,4 @@ pymongo==3.11.4
 discord==1.0.1
 dnspython==2.1.0
 jishaku==1.20.0.220
+spotipy==2.19.0
