@@ -14,6 +14,12 @@ from youtube_dl import YoutubeDL
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import math
+from discord_components import (
+    Button,
+    ButtonStyle,
+    Select,
+    SelectOption,
+)
 
 
 #connect to my spotify dev account
@@ -407,9 +413,9 @@ class Music(commands.Cog):
             duration = "%dh %02dm %02ds" % (hour, minutes, seconds)
         else:
             duration = "%02dm %02ds" % (minutes, seconds)
-        max_pages = math.ceil(len(list(itertools.islice(player.queue._queue, 0, int(len(player.queue._queue))))) / 5)
         def make_embed(page):
             #makes the embed, with pagination
+            max_pages = math.ceil(len(list(itertools.islice(player.queue._queue, 0, int(len(player.queue._queue))))) / 5)
             items_per_page = 5
             start = (page - 1) * items_per_page
             end = start + items_per_page
@@ -418,10 +424,38 @@ class Music(commands.Cog):
             fmt = '\n'.join(f"`{(upcoming.index(_)) + 1}.` [{_['title']}]({_['webpage_url']}) | ` {duration} Requested by: {_['requester']}`\n" for _ in upcoming[start:end])
             fmt = f"\n__Now Playing__:\n[{vc.source.title}]({vc.source.web_url}) | ` {duration} Requested by: {vc.source.requester}`\n\n__Up Next:__\n" + fmt + f"\n**{len(upcoming)} songs in queue**"
             embed = discord.Embed(title=f'Queue for {ctx.guild.name}', description=fmt, color=discord.Color.green())
-            embed.set_footer(text=f"{ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+            embed.set_footer(text=f"Page {page}/{max_pages}")
+            embed.set_author(name=f"{ctx.author.display_name}", icon_url=ctx.author.avatar_url)
             return embed
         embed = make_embed(page)
-        message = await ctx.send(embed=embed)
+        message = await ctx.send(embed=embed,components = [
+                [
+                Button(style=ButtonStyle.blue,label = "Prev"),
+                Button(style=ButtonStyle.blue,label= "Next")
+                ]
+            ]
+        )
+        while True:
+            try:
+                res = await self.bot.wait_for("button_click",timeout=30)
+                if res.component.label == "Prev":
+                    max_pages = math.ceil(len(list(itertools.islice(player.queue._queue, 0, int(len(player.queue._queue))))) / 5)
+                    page = page - 1
+                    if page < 1:
+                        page = max_pages
+                    emb = make_embed(page)
+                    await res.respond(type=7,embed=emb)
+                
+                elif res.component.label == "Next":
+                    max_pages = math.ceil(len(list(itertools.islice(player.queue._queue, 0, int(len(player.queue._queue))))) / 5)
+                    page = page + 1
+                    if page > max_pages:
+                        page = 1
+                    emb = make_embed(page)
+                    await res.respond(type=7,embed=emb)
+            except asyncio.TimeoutError:
+                await message.edit(components=[])
+
         
 
 
@@ -484,7 +518,7 @@ class Music(commands.Cog):
         embed = discord.Embed(title="", description=f'**`{ctx.author}`** set the volume to **{vol}%**', color=discord.Color.green())
         await ctx.send(embed=embed)
 
-    @commands.command(name='leave', aliases=["stop", "dc", "disconnect", "bye"], description="stops music and disconnects from voice")
+    @commands.command(name='leave', aliases=["stop", "dc", "disconnect", "bye","fuckoff"], description="stops music and disconnects from voice")
     async def leave_(self, ctx):
         """Stop the currently playing song and destroy the player.
         !Warning!
