@@ -14,14 +14,7 @@ from youtube_dl import YoutubeDL
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import math
-from discord_components import (
-    DiscordComponents,
-    Button,
-    ButtonStyle,
-    Select,
-    SelectOption,
-    Interaction,
-)
+
 
 #connect to my spotify dev account
 auth_manager = SpotifyClientCredentials(client_id="8f18c16a3a984fb299098a834f364028",client_secret="7a86a43d6b1544088bb17ac89d4f2731")
