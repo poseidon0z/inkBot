@@ -23,7 +23,7 @@ from discord_components import (
 
 
 #connect to my spotify dev account
-auth_manager = SpotifyClientCredentials(client_id="8f18c16a3a984fb299098a834f364028",client_secret="7a86a43d6b1544088bb17ac89d4f2731")
+auth_manager = SpotifyClientCredentials(client_id="8f18c16a3a984fb299098a834f364028",client_secret="4b33d87e713c4c2e91e46541a2c94668")
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
 # Suppress noise about console usage from errors
