@@ -21,6 +21,8 @@ from json import load
 import os
 from pathlib import Path
 
+from discord_components.client import DiscordComponents
+
 allowed_mentions = discord.AllowedMentions(everyone=False,roles=False)
 
 intents = discord.Intents.default()
@@ -35,6 +37,7 @@ client.remove_command('help')
 @client.event
 async def on_ready():
     print('Bot is online!')
+    DiscordComponents(client)
 
 #removing need for underscores in using jsk
 os.environ['JISHAKU_NO_UNDERSCORE'] = 'true'

@@ -44,7 +44,7 @@ ytdlopts = {
 }
 
 ffmpegopts = {
-    'before_options': '-nostdin',
+    'before_options':  '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5 -nostdin',
     'options': '-vn'
 }
 
@@ -455,9 +455,6 @@ class Music(commands.Cog):
                     await res.respond(type=7,embed=emb)
             except asyncio.TimeoutError:
                 await message.edit(components=[])
-
-        
-
 
     @commands.command(name='np', aliases=['song', 'current', 'currentsong', 'playing'], description="shows the current playing song")
     async def now_playing_(self, ctx):
