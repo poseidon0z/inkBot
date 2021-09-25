@@ -81,7 +81,8 @@ class YTDLSource(discord.PCMVolumeTransformer):
     @classmethod
     async def create_source(cls, ctx, search: str, *, loop, download=False,spotify_playlist=False):
         loop = loop or asyncio.get_event_loop()
-
+        print(search)
+        print(loop)
         to_run = partial(ytdl.extract_info, url=search, download=download)
         data = await loop.run_in_executor(None, to_run)
 

@@ -203,3 +203,5 @@ class banRoulette(commands.Cog):
 
 def setup(bot):
     bot.add_cog(banRoulette(bot))
+    print("""Cog banRoulette has loaded successfully
+--------------------""")

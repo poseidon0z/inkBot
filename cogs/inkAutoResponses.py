@@ -35,6 +35,7 @@ class inkAutoResponses(commands.Cog):
         if len(message.mentions) > 0:
             for ok_someones_ping in message.mentions:
                 #adi's ar
+                #dumbfuck.
                 if ok_someones_ping.id == 652756616185380894:
                     await message.add_reaction('<a:kittychase:848579766743597076>')
                 #ceee's ar <3
