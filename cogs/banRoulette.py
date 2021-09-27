@@ -8,6 +8,7 @@ WHAT ARE THE COMMANDS HERE?
 3. clearlb
 '''
 import asyncio
+from discord.activity import CustomActivity
 from discord.ext.commands.core import has_guild_permissions, is_owner
 from discord.ext.commands.errors import CheckAnyFailure, CheckFailure, MissingRequiredArgument
 from utils.botwideFunctions import has_role, is_manager, is_not_bot_banned
@@ -18,6 +19,12 @@ from json import load
 import pymongo
 from pathlib import Path
 from timeit import default_timer as timer
+from discord_components import (
+    Button,
+    ButtonStyle,
+    Select,
+    SelectOption,
+)
 
 with Path("utils/secrets.json").open() as f:
     config = load(f)
@@ -112,47 +119,58 @@ class banRoulette(commands.Cog):
     @commands.check_any(has_guild_permissions(administrator=True),is_owner(),is_manager())
     async def clearlb(self,ctx):
         bancollection = cluster[str(ctx.guild.id)]['banCount']
-        confirmation_message = await ctx.send(f'Are you sure you want to clear the ban lb for {ctx.guild.name}')
-        await confirmation_message.add_reaction('<a:check:845936436297728030>')
-        await confirmation_message.add_reaction('<a:cross:855663028552990740>')
-        def check(reaction, user):
-            return reaction.message == confirmation_message and user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
-        try:
-            reaction, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check)
-        except asyncio.TimeoutError:
-            await ctx.send('Cancelling....')
-        else:
-            if str(reaction.emoji) == '<a:check:845936436297728030>':
-                confirmation_message_2 = await ctx.send('Push stats?')
-                await confirmation_message_2.add_reaction('<a:check:845936436297728030>')
-                await confirmation_message_2.add_reaction('<a:cross:855663028552990740>')
-                def check2(reaction, user):
-                    return reaction.message == confirmation_message_2 and user == ctx.author and str(reaction.emoji) in ['<a:check:845936436297728030>','<a:cross:855663028552990740>']
+        confirmation_message = await ctx.send(f'Are you sure you want to clear the ban lb for {ctx.guild.name}',components=[
+            [
+                Button(style=ButtonStyle.blue,emoji=self.bot.get_emoji(845936436297728030),custom_id="check"),
+                Button(style=ButtonStyle.blue,emoji=self.bot.get_emoji(855663028552990740),custom_id="cancel")
+            ]
+        ])
 
+        try:
+            res = await self.bot.wait_for('button_click', timeout=10.0)
+
+            if str(res.component.custom_id) == "check":
+                await res.respond(type=6,components=[])
+                confirmation_message_2 = await res.respond(type=6,content='Push stats?',components=[
+                    [
+                        Button(style=ButtonStyle.blue,emoji=self.bot.get_emoji(845936436297728030),custom_id="check"),
+                        Button(style=ButtonStyle.blue,emoji=self.bot.get_emoji(855663028552990740),custom_id="cancel")
+                    ]
+                ])
                 try:
-                    r2, user = await self.bot.wait_for('reaction_add', timeout=10.0, check=check2)
-                except asyncio.TimeoutError:
-                    await ctx.send('Cancelling....')
-                else:
-                    if str(r2.emoji) == '<a:check:845936436297728030>':
-                        await ctx.send('Pushing leaderboard')
+                    res2 = await self.bot.wait_for('button_click', timeout=10.0)
+                    if str(res2.component.custom_id) == "check":
+                        await res2.respond(type=6,content='Pushing leaderboard')
                         overall_bans = cluster[str(ctx.guild.id)]['banRoyaleLeaderboard']
                         banlist = bancollection.find()
                         for person in banlist:
                             overall_bans.update_one({"_id" : person["_id"]},{"$inc" : {"bans" : person["numberOfBans"]}},upsert=True)
-                    elif str(r2.emoji) == '<a:cross:855663028552990740>':
-                        await ctx.send('Cancelling Push....')
-                        asyncio.sleep(1)
+                    elif str(res2.component.custom_id) == "cancel":
+                        await res2.respond(type=6,content='Cancelling Push....')
+                        await asyncio.sleep(1)
                         await ctx.send('Cancelled!')
-                await ctx.send('Clearing stats...')
-                bancollection.drop()
-                print(f'{ctx.author} cleared the leaderboard!')
-                await ctx.send('Leaderboard has been cleared')
-            elif str(reaction.emoji) == '<a:cross:855663028552990740>':
+                    await ctx.send('Clearing stats...')
+                    bancollection.drop()
+                    print(f'{ctx.author} cleared the leaderboard!')
+                    await ctx.send('Leaderboard has been cleared')
+                    await confirmation_message.edit(components=[])
+                except asyncio.TimeoutError:
+                    await ctx.send('Cancelling....')
+                    await confirmation_message.edit(components=[])
+                    await asyncio.sleep(1)
+                    await ctx.send('Cancelled!')
+            elif str(res.component.custom_id) == "cancel":
                 await ctx.send('Cancelling....')
-                asyncio.sleep(1)
+                await confirmation_message.edit(components=[])
+                await asyncio.sleep(1)
                 await ctx.send('Cancelled!')
-    
+            
+        except asyncio.TimeoutError:
+            await ctx.send('Cancelling....')
+            await confirmation_message.edit(components=[])
+            await asyncio.sleep(1)
+            await ctx.send('Cancelled!')
+
     @clearlb.error
     async def clearlb_error(self,ctx,error,rerun=False):
         if rerun == True:
