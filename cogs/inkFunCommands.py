@@ -145,7 +145,7 @@ class inkFunCommands(commands.Cog):
     async def choose(self,ctx,*,args):
         choices = args.split(",")
         choice = random.choice(choices)
-        await ctx.send(choice,allowed_mentions=allowed_mentions)
+        await ctx.send(f"Out of {choices}, I choose:\n\n{choice}",allowed_mentions=allowed_mentions)
 
 
 #running the setup for the cog
