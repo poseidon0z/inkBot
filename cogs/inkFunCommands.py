@@ -142,7 +142,7 @@ class inkFunCommands(commands.Cog):
     @commands.command(name='choose')
     @is_not_bot_banned()
     @commands.guild_only()
-    async def besmooth(self,ctx,*,args):
+    async def choose(self,ctx,*,args):
         choices = args.split(",")
         choice = random.choice(choices)
         await ctx.send(choice,allowed_mentions=allowed_mentions)
