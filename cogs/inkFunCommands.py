@@ -143,8 +143,12 @@ class inkFunCommands(commands.Cog):
     @is_not_bot_banned()
     @commands.guild_only()
     async def choose(self,ctx,*,args):
+        if len(args) > 500:
+            await ctx.send("max 500 characters")
+            return
         choices = args.split(",")
         choice = random.choice(choices)
+        choices = " and ".join(choices)
         await ctx.send(f"Out of {choices}, I choose:\n\n{choice}",allowed_mentions=allowed_mentions)
 
 
