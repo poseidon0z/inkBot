@@ -8,6 +8,7 @@ The commands (in order of addition to the bot) are as follows:
 (b) iq
 (c) describe
 (d) besmooth
+(e) choose
 
 
 IMPORTS:
@@ -133,6 +134,18 @@ class inkFunCommands(commands.Cog):
                 return False
         elif rerun == False:
             pass
+
+    '''
+    The 'choose' command
+    Choose something
+    '''
+    @commands.command(name='choose')
+    @is_not_bot_banned()
+    @commands.guild_only()
+    async def besmooth(self,ctx,*,args):
+        choices = args.split(",")
+        choice = random.choice(choices)
+        await ctx.send(choice,allowed_mentions=allowed_mentions)
 
 
 #running the setup for the cog
